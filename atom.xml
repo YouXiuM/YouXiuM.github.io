@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>MaYouXiu</title>
   
   
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-04-23T10:24:26.262Z</updated>
+  <updated>2024-05-29T12:42:17.404Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,22 +17,28 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/2024/04/23/hello-world/"/>
-    <id>http://example.com/2024/04/23/hello-world/</id>
-    <published>2024-04-23T10:24:26.262Z</published>
-    <updated>2024-04-23T10:24:26.262Z</updated>
+    <title>数据通信基础</title>
+    <link href="http://example.com/2024/05/29/%E7%AC%94%E8%AE%B0/Network/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80/"/>
+    <id>http://example.com/2024/05/29/%E7%AC%94%E8%AE%B0/Network/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80/</id>
+    <published>2024-05-29T12:04:03.000Z</published>
+    <updated>2024-05-29T12:42:17.404Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="1-数据通信基础"><a href="#1-数据通信基础" class="headerlink" title="1.数据通信基础"></a>1.数据通信基础</h1><h2 id="信道特性"><a href="#信道特性" class="headerlink" title="信道特性"></a>信道特性</h2><p>通信目的：<strong>传递信息</strong></p><p>通信中产生和发送信息的一端叫信源，接收信息的一端叫信宿，信源和信宿之间的<strong>通信线路称为信道</strong>。</p><p><img src="/../../../../images/image-20240422144616602.png" alt="image-20240422144616602"></p><p><img src="/../../../../images/image-20240422144702544.png" alt="image-20240422144702544"></p><p>什么是模拟信号，什么是数据信号？</p><p>假设你要传输一段音乐。在模拟信号中，这段音乐将以连续的波形形式存在。当你录制音乐时，声音信号被转换成模拟电压信号，其数值随着时间的变化而连续变化，就像波形一样。这个模拟电压信号随着时间变化，可以通过一个模拟电路传输到扬声器，扬声器就会根据信号的变化而产生相应的声音，从而还原出原始的音乐。</p><p>而在数字信号中，这段音乐将被转换成离散的二进制数字。当音乐被数字化时，声音信号会被离散采样，即在固定的时间间隔内（比如每秒采样一定次数），将声音信号的振幅转换为一个数字。这些数字可以用来表示音乐的声音强度。然后，这些数字信号可以通过数字通信系统传输，比如通过互联网或者蓝牙。在接收端，这些数字信号再被解码，转换回模拟信号，然后扬声器再根据这些信号产生声音。</p><hr><h3 id="信道带宽W"><a href="#信道带宽W" class="headerlink" title="信道带宽W"></a>信道带宽W</h3><p>直接理解为，我们所说的带宽</p><p>模拟信道：**W &#x3D; f1 - f2 **(f2和f1表示：信道能通过的最高&#x2F;最低频率，单位赫兹HZ)</p><p>数字信道：数字信道是离散信道，带宽为信道能够达到的<strong>最大数据传输速率</strong>，单位是bit&#x2F;s。</p><h3 id="码元和码元速率"><a href="#码元和码元速率" class="headerlink" title="码元和码元速率"></a>码元和码元速率</h3><p>码元是什么？</p><p>码元是数字通信中的一个基本单位，它代表着一种离散的状态或符号。</p><p>通俗地说：</p><p>想象一下你在玩电话游戏，你要把一句话传给旁边的人，但你只能通过传递单个字给他。这些单词就像通信中的码元，它们是信息传递的基本单位。而传递单词时，有可能会有误解或错误，就像在通信中可能会有误差一样。</p><p>码元的作用就像是在电话游戏中传递单个字一样，它们帮助我们传递信息，并且有助于我们发现和纠正错误。</p><p>码元速率：单位时间内信道传送的码元个数。</p><p>如果码元宽度(冲脉周期)为T，则码元速率(波特率0)为</p><p><strong>B &#x3D; 1&#x2F;T，单位是波特Baud</strong></p><p>一个码元携带信息量n(位)与码元种类数(N)的关系 <strong>n&#x3D;log2^N</strong></p><p>好比这样记：</p><p>N&#x3D;4,n&#x3D;2, 00 01 10 11  </p><p>N&#x3D;8,n&#x3D;3, 000 001 010 011 ….. 111 </p><p>什么是码元宽度？</p><p>码元宽度是指在数字通信中，每个码元所持续的时间长度。</p><p>通俗地说：</p><p>码元宽度就像是你用闪光灯发送信息一样。如果你每秒闪一次，那么每个码元（每个闪光）的宽度就是一秒钟。但如果你闪得更快，比如每半秒一次，那么每个码元的宽度就是半秒钟。这个宽度决定了你发送信息的速度，就像闪光灯频率决定了你发送信息的快慢一样。</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+    <summary type="html">&lt;h1 id=&quot;1-数据通信基础&quot;&gt;&lt;a href=&quot;#1-数据通信基础&quot; class=&quot;headerlink&quot; title=&quot;1.数据通信基础&quot;&gt;&lt;/a&gt;1.数据通信基础&lt;/h1&gt;&lt;h2 id=&quot;信道特性&quot;&gt;&lt;a href=&quot;#信道特性&quot; class=&quot;headerlink&quot; </summary>
       
     
     
     
+    <category term="Network - 网工中级" scheme="http://example.com/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/"/>
+    
+    
+    <category term="Network" scheme="http://example.com/tags/Network/"/>
+    
+    <category term="网工中级" scheme="http://example.com/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/"/>
     
   </entry>
   
