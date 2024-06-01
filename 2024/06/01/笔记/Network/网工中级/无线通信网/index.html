@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>无线通信网 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>无线通信网</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #ff7d73">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00bcd4">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="无线通信网"><a href="#无线通信网" class="headerlink" title="无线通信网"></a>无线通信网</h1><h2 id="移动通信与5G"><a href="#移动通信与5G" class="headerlink" title="移动通信与5G"></a>移动通信与5G</h2><p>移动通信制式</p>
+<p><img src="/../../../../images/image-20240421141930909.png" alt="image-20240421141930909"></p>
+<p>5G应用场景与关键技术</p>
+<p>5G关键技术包括:<strong>超密集异构无线网络、大规模输入输出(MIMO)、毫米波通信、软件定义网络和网络功能虚拟化</strong>。</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240421142222911.png" alt="image-20240421142222911"></p>
+<p><img src="/../../../../images/image-20240421142232154.png" alt="image-20240421142232154"></p>
+<h2 id="WLAN通信技术"><a href="#WLAN通信技术" class="headerlink" title="WLAN通信技术"></a>WLAN通信技术</h2><p>无线网主要使用三种通信技术：<strong>红外线、扩展频谱(扩频)和窄带微波技术</strong>。</p>
+<p>扩展频谱通信： 将信号散步到更宽的带宽上以<strong>减少发送阻塞和干扰</strong>的机会。</p>
+<p>WLAN主要使用扩展频谱技术：**频率跳动扩频FHSS(蓝牙)和直接序列扩展频谱DSSS(Wi - Fi)**。</p>
+<p><img src="/../../../../images/image-20240421143515592.png" alt="image-20240421143515592"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240421143756917.png" alt="image-20240421143756917"></p>
+<p><img src="/../../../../images/image-20240421143957660.png" alt="image-20240421143957660"></p>
+<h2 id="WLAN频谱与信道"><a href="#WLAN频谱与信道" class="headerlink" title="WLAN频谱与信道"></a>WLAN频谱与信道</h2><p>WLAN网络可以分为三类:基础无线网络、Ad Hoc网络和分布式无线系统。</p>
+<p>基础无线网络(Infrastructure Networking):用户通过无线接入点AP接入</p>
+<p>特殊网络(Ad Hoc Networking):用于军用自组网或寝室局域网联机游戏。</p>
+<p>分布式无线系统:通过AC控制大量AP组成的无线网络。</p>
+<p><img src="/../../../../images/image-20240421144439952.png" alt="image-20240421144439952"></p>
+<p>ISM频段：主要开放给<strong>工业、科学、医学</strong></p>
+<p><img src="/../../../../images/image-20240421144551308.png" alt="image-20240421144551308"></p>
+<p><strong>不重叠信道</strong></p>
+<p>2.4G频段</p>
+<p><strong>13个信道，3个不重叠信道(1、6和11)</strong></p>
+<p>5G+5.8G频段</p>
+<p><strong>开放的不重叠信道有5个</strong></p>
+<p><img src="/../../../../images/image-20240421144812012.png" alt="image-20240421144812012"></p>
+<p>信道重用与AP部署</p>
+<p><img src="/../../../../images/image-20240421144948158.png" alt="image-20240421144948158"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240421145024947.png" alt="image-20240421145024947"></p>
+<h3 id="802-11技术标准对比（背）"><a href="#802-11技术标准对比（背）" class="headerlink" title="802.11技术标准对比（背）"></a>802.11技术标准对比（背）</h3><p><img src="/../../../../images/image-20240421145218018.png" alt="image-20240421145218018"></p>
+<p>1.W-Fi标准的工作频段。</p>
+<p><strong>2.4GHZ:802.11、802.116和802.11g5GHz:802.11a和802.11ac:2.4GHz+5GHz 802.11n和802.11ax.</strong></p>
+<p>2.非重叠信道数量。2.4GHz频段包含13个信道，有3个不重合信道，常用信道为<strong>1、6和11</strong>，不重合信道间隔5个信道。</p>
+<p>3.不同802.11标准的最大速率。比如，<strong>802.11n最大支持600Mbps</strong>，802.11ax速率可达9600Mbps。</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240421145555133.png" alt="image-20240421145555133"></p>
+<p><img src="/../../../../images/image-20240421145626208.png" alt="image-20240421145626208"></p>
+<h2 id="802-11MAC层"><a href="#802-11MAC层" class="headerlink" title="802.11MAC层"></a>802.11MAC层</h2><h3 id="802-11访问控制机制"><a href="#802-11访问控制机制" class="headerlink" title="802.11访问控制机制"></a>802.11访问控制机制</h3><p><img src="/../../../../images/image-20240421165850171.png" alt="image-20240421165850171"></p>
+<p>为什么AP不选择CSMA&#x2F;CD？</p>
+<p>因为隐藏节点和暴露节点</p>
+<p><img src="/../../../../images/image-20240421165929388.png" alt="image-20240421165929388"></p>
+<h3 id="802-11三种帧间间隔"><a href="#802-11三种帧间间隔" class="headerlink" title="802.11三种帧间间隔"></a>802.11三种帧间间隔</h3><p>IFS(分布式协调IFS):最长的IFS，<strong>优先级最低</strong>，用于<strong>异步竞争访问</strong>的时延<br>PIFS(点协调IFS):中等长度的IFS，<strong>优先级居中</strong>，在PCF操作中使用。<br>SIFS (短IFS):最短的IFS，<strong>优先级最高</strong>，用于需要立即响应的操作**(确认ACK)**。</p>
+<p>帧间间隔：指两个连续数据帧之间的时间间隔。这个间隔由发送器在发送一个数据帧后等待一段时间，以确保接收器有足够的时间准备接收下一个帧。</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240421173907327.png" alt="image-20240421173907327"></p>
+<h2 id="移动AD-Hoc网络"><a href="#移动AD-Hoc网络" class="headerlink" title="移动AD Hoc网络"></a>移动AD Hoc网络</h2><p>802.11定义AD Hoc网络是由无线移动节点组成的<strong>对等网</strong>，无需网络基础设施的支持，<strong>每个节点既是主机，又是路由器</strong>，是一种MANNET(Mobile Ad Hoc Network)网络。</p>
+<h3 id="MANET网络特点"><a href="#MANET网络特点" class="headerlink" title="MANET网络特点"></a>MANET网络特点</h3><p>网络拓扑结构动态变化的，<strong>不能使用传统路由协议</strong>。</p>
+<p>无线信道提供的带宽较小，<strong>信号衰落和噪声干扰的影响却很大</strong>。</p>
+<p>无线终端携带的电源能量有限。</p>
+<p>容易招致<strong>网络窃听、欺骗、拒绝服务</strong>等恶意攻击的威胁。</p>
+<p><img src="/../../../../images/image-20240421182530682.png" alt="image-20240421182530682"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240421182658901.png" alt="image-20240421182658901"></p>
+<img src="../../../../images/image-20240421182712756.png" alt="image-20240421182712756" style="zoom:200%;">
+
+
+
+<h2 id="WLAN安全"><a href="#WLAN安全" class="headerlink" title="WLAN安全"></a>WLAN安全</h2><h3 id="WLAN安全机制"><a href="#WLAN安全机制" class="headerlink" title="WLAN安全机制"></a>WLAN安全机制</h3><p>(1)SSID访问控制:隐藏SSID，让不知道的人搜索不到。</p>
+<p>(2)物理地址过滤:在无线路由器设置MAC地址黑白名单。</p>
+<p>(3)WEP认证和加密:<strong>PSK预共享密钥</strong>认证,RC4加密(只需密码认证)</p>
+<p>(4)<strong>WPA(802.11i草案)</strong><br>认证:802.1x。<br>加密:RC4(增强)+TKIP(临时密钥完整协议，动态改变密钥)支持<strong>完整性认证和防重放攻击</strong></p>
+<p>(5)<strong>WPA2(802.11i)</strong></p>
+<p>针对WPA优化，加密协议是由RC4变为<strong>基于AES的CCMP</strong></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240421205129939.png" alt="image-20240421205129939"></p>
+<p><img src="/../../../../images/image-20240421205140905.png" alt="image-20240421205140905"></p>
+<p><img src="/../../../../images/image-20240421205246347.png" alt="image-20240421205246347"></p>
+<p><img src="/../../../../images/image-20240421205255736.png" alt="image-20240421205255736"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

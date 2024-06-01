@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>网络互联设备_6-1 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>网络互联设备_6-1</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00bcd4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ffa2c4">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="网络互联设备-6-1"><a href="#网络互联设备-6-1" class="headerlink" title="网络互联设备_6-1"></a>网络互联设备_6-1</h1><h2 id="中继器和集线器"><a href="#中继器和集线器" class="headerlink" title="中继器和集线器"></a>中继器和集线器</h2><h3 id="网络演进历史"><a href="#网络演进历史" class="headerlink" title="网络演进历史"></a>网络演进历史</h3><p>历史进程：</p>
+<p>点对点(有距离限制)</p>
+<p><img src="/../../../../images/image-20240329110229019.png" alt="image-20240329110229019"></p>
+<p>出现距离限制，然后出现中继器，信号放大</p>
+<p><img src="/../../../../images/image-20240329110304243.png" alt="image-20240329110304243"></p>
+<p>但是中继器只有两个接口，但是设备越来越多。所以出现集线器</p>
+<p><img src="/../../../../images/image-20240329110446776.png" alt="image-20240329110446776"></p>
+<p>集线器和中继器的工作原理一样，只是集线器的接口比中继器多</p>
+<p>然后形成HUB和中继器结合，形成局域网架构</p>
+<p><img src="/../../../../images/image-20240329110600206.png" alt="image-20240329110600206"></p>
+<p>有人会问，为什么不直接两个HUB相连？</p>
+<p>因为产生环路，形成广播风暴。</p>
+<h3 id="集线器工作原理"><a href="#集线器工作原理" class="headerlink" title="集线器工作原理"></a>集线器工作原理</h3><p>从一个接口进入的数据，进行信号放大后，从其他所有接口进行<strong>泛洪</strong>，工作原理其实就是泛洪机制</p>
+<p><img src="/../../../../images/image-20240329111104540.png" alt="image-20240329111104540"></p>
+<p>两台集线器连接起来，会出现什么问题？</p>
+<p><img src="/../../../../images/image-20240329111133695.png" alt="image-20240329111133695"></p>
+<p>会出现两大问题：</p>
+<p>产生环路，形成广播风暴，影响通信效率。</p>
+<p>数据扩散，严重安全威胁。</p>
+<p>数据扩散是指，A机器发的数据给B，但是C也在这个集线器中，她也能够收到；例如A机器登录QQ，她的数据会从集线器出去，机器B可以利用抓包工具能够抓捕到A机器的账号和密码</p>
+<p><img src="/../../../../images/image-20240329111230122.png" alt="image-20240329111230122"></p>
+<h2 id="交换机工作原理"><a href="#交换机工作原理" class="headerlink" title="交换机工作原理"></a>交换机工作原理</h2><p><strong>交换机寻址</strong></p>
+<p>初始情况下，交换机MAC地址表是空的。</p>
+<p><img src="/../../../../images/image-20240329113943506.png" alt="image-20240329113943506"></p>
+<p>交换机在收到数据帧后，将数据帧的<strong>源MAC地址学习到MAC地址表</strong>中，并与接收该帧的接口GE0&#x2F;0&#x2F;1口关联。</p>
+<p><img src="/../../../../images/image-20240329114028229.png" alt="image-20240329114028229"></p>
+<p>交换机在MAC地址表中查询数据帧的目的MAC地址，发现没有匹配的表项，因此将数据帧从除了其入站接口之外的所有接口<strong>泛洪</strong>出去。</p>
+<p><img src="/../../../../images/image-20240329114111318.png" alt="image-20240329114111318"></p>
+<p>PC2及PC3收到数据帧后将其丢弃，因为这些数据帧并非发送给自已;PC4则收下数据帧，现在PC4要回复数据给PC1。</p>
+<p><img src="/../../../../images/image-20240329114134057.png" alt="image-20240329114134057"></p>
+<p>PC4封装回复包，发给PC1</p>
+<p><img src="/../../../../images/image-20240329114214764.png" alt="image-20240329114214764"></p>
+<p>交换机收到了PC4的数据帧，将帧头中的<strong>源MAC地址</strong>学习到MAC表中，并与接口GE0&#x2F;0&#x2F;4关联。</p>
+<p><img src="/../../../../images/image-20240329114236622.png" alt="image-20240329114236622"></p>
+<p>交换机在MAC表中查找数据帧的<strong>目的MAC地址</strong>，发现有一个匹配的表项，出接口是GE0&#x2F;0&#x2F;1，于是将数据帧转发到GE0&#x2F;0&#x2F;1口。</p>
+<p><img src="/../../../../images/image-20240329114255101.png" alt="image-20240329114255101"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240329114314096.png" alt="image-20240329114314096"></p>
+<h2 id="路由器和三层交换机"><a href="#路由器和三层交换机" class="headerlink" title="路由器和三层交换机"></a>路由器和三层交换机</h2><h3 id="路由器通信"><a href="#路由器通信" class="headerlink" title="路由器通信"></a>路由器通信</h3><p><img src="/../../../../images/image-20240330213604230.png" alt="image-20240330213604230"></p>
+<h3 id="三层交换机"><a href="#三层交换机" class="headerlink" title="三层交换机"></a>三层交换机</h3><p><img src="/../../../../images/image-20240330213627530.png" alt="image-20240330213627530"></p>
+<h3 id="路由器和三层交换机的区别？"><a href="#路由器和三层交换机的区别？" class="headerlink" title="路由器和三层交换机的区别？"></a>路由器和三层交换机的区别？</h3><p>典型园区拓扑结构</p>
+<p><img src="/../../../../images/image-20240330213842523.png" alt="image-20240330213842523"></p>
+<p><img src="/../../../../images/image-20240330213907812.png" alt="image-20240330213907812"></p>
+<p>对比图</p>
+<p><img src="/../../../../images/image-20240330213924205.png" alt="image-20240330213924205"></p>
+<p>三层交换机使用的asic硬件芯片完成转发</p>
+<p>路由器利用的是CPU完成转发</p>
+<p>路由器和三层交换机区别，就好像一个博士和十万个小学生</p>
+<p>路由器能够完成高端复杂的功能，但交换机只能完成一些简单的计算，但能够处理数量够大的，而路由器却完成不了太多数据。</p>
+<h2 id="多层交换机-网关设备"><a href="#多层交换机-网关设备" class="headerlink" title="多层交换机&#x2F;网关设备"></a>多层交换机&#x2F;网关设备</h2><h3 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h3><p>网关是互连网络中操作在OSI传输层之上的设施。网关的主要功能:<br>·     (1)连接网络层之上执行<strong>不同协议的子网</strong>，组成异构型的互联网。<br>·     (2)网关能对互不兼容的<strong>高层协议进行转换</strong>。<br>·     (3)为了实现异构型设备之间的通信，网关要对不同传输层、会      话层、表示层、应用层协议进行<strong>翻译和转换</strong>。</p>
+<p><img src="/../../../../images/image-20240330214635813.png" alt="image-20240330214635813"></p>
+<p>什么叫不同协议的子网？</p>
+<p>例如：路由器上有很多接口，可以接不同类型的接口，比如以太网、ATM、SDH等，组成异构型的互联网</p>
+<p>什么叫做能够兼容高层协议进行转换？</p>
+<p>例如：例如一个部门使用TCP&#x2F;IP协议，另一个IPX&#x2F;SPX协议。它们使用的协议是互不兼容的，<strong>这时候就需要一个网关来进行协议转换成互相能够兼容的协议</strong></p>
+<p>IPV6和IPV4为什么能够互相通信，因为有网关转换</p>
+<h3 id="多层交换-多业务交换机"><a href="#多层交换-多业务交换机" class="headerlink" title="多层交换&#x2F;多业务交换机"></a>多层交换&#x2F;多业务交换机</h3><p>什么叫多业务交换机？</p>
+<p>插入一个板卡就能够增加多一个功能或接口</p>
+<p>什么是线卡？</p>
+<p>线卡插入交换机就能够增加48个接口，插入更多的交换机等</p>
+<p><img src="/../../../../images/image-20240330215806885.png" alt="image-20240330215806885"></p>
+<p>华三硬件板卡最丰富，控标项;华为和锐捷板卡数量少,华为具有随板功能，如随板AC,软件授权。<br>实际项目配置多业务卡并不多(功能和性能原因，术业有专攻)。<br>了解一下迪普，也是多业务交换机的主推厂商。</p>
+<h3 id="SDN可编程交换机"><a href="#SDN可编程交换机" class="headerlink" title="SDN可编程交换机"></a>SDN可编程交换机</h3><p><img src="/../../../../images/image-20240330220236687.png" alt="image-20240330220236687"></p>
+<h3 id="网络演变"><a href="#网络演变" class="headerlink" title="网络演变"></a>网络演变</h3><p><img src="/../../../../images/image-20240330220302183.png" alt="image-20240330220302183"></p>
+<p>1、交换机前身：中继器、集线器</p>
+<p>2、二层交换机： 基于MAC转发</p>
+<p>3、三层交换机： 集成路由功能</p>
+<p>4、多业务交换机：FW&#x2F;AC&#x2F;LB&#x2F;WS等功能</p>
+<p>5、可编程交换机： SDN 部分设备支持(H3C 125&#x2F;锐捷N18K等)</p>
+<p>每个网络的演变都是有其缺点问题</p>
+<p>中继器因为距离限制</p>
+<p>集线器因为泛洪，广播风暴</p>
+<p>二层交换机，有隔离，产生vlan，但跨vlan通信出现问题</p>
+<p>三层交换机，能够解决跨vlan通信问题，nat提供等功能</p>
+<p>多业务交换机：设备数量越多，网络越复杂</p>
+<p>可编程交换机：优化设备 </p>
+<hr>
+<h1 id="网络层协议IP和ICMP"><a href="#网络层协议IP和ICMP" class="headerlink" title="网络层协议IP和ICMP"></a>网络层协议IP和ICMP</h1><h2 id="网络层协议"><a href="#网络层协议" class="headerlink" title="网络层协议"></a>网络层协议</h2><h3 id="IP报文格式"><a href="#IP报文格式" class="headerlink" title="IP报文格式"></a>IP报文格式</h3><p><img src="/../../../../images/image-20240331000304087.png" alt="image-20240331000304087"></p>
+<p><strong>版本</strong>： 确定是IPV4还是IPV6</p>
+<p>**头部长度(IHL)**：告诉接收方IPv4头部的实际长度是多少个32位字（4字节），从而帮助接收方正确地解析IPv4报文，定位到IP数据的开始位置，并且可以灵活地适应IPv4头部的可变长度情况。</p>
+<p><strong>为什么最小值为5，最大值为15？</strong></p>
+<p>因为IP头部最小是20字节，而IHL单位是4字节，所以20&#x2F;4&#x3D;5</p>
+<p>同理，IP头部最大是60字节，而IHL单位是4字节，60&#x2F;4&#x3D;15</p>
+<p><strong>TOS</strong>：为区分服务字段，用区分服务类型，即QoS字段。</p>
+<p><strong>总长度字段</strong>：IPv4数据报的总长度(首部+数据)</p>
+<p><strong>标识(MF)、标志、分片偏移</strong>：是用于数据分片和重组的重要字段</p>
+<p>**生存期(TTL)**：于设置一个数据包可经过的路由器数量的上限，每经过一台路由器减1。</p>
+<p><strong>协议字段</strong>：包含一个数字，标识数据报有效载荷部分的数据类型。最常用的值为1(ICMP)17(UDP)和6(TCP)</p>
+<p><strong>头部校验和</strong>：仅计算IPV4头部，不检查数据有效载荷部分的正确性。当TTL减一时，头部校验和必须重新计算。</p>
+<h3 id="IP分片定义"><a href="#IP分片定义" class="headerlink" title="IP分片定义"></a>IP分片定义</h3><p>IP报文最大65535字节，而以太网MTU为1500字节。</p>
+<p>相当于货轮能载重65535，而火车载重1500，那么必须把货轮上的货物分装给多个火车运输。</p>
+<p><img src="/../../../../images/image-20240331110555030.png" alt="image-20240331110555030"></p>
+<p>例题：</p>
+<p>以太网主机发送一个IP分组，长度3000字节，头长度为标准长度，发送该IP分组时应分为几个分片? 写出各分片的信息(长度、偏移、MF)。</p>
+<p><img src="/../../../../images/image-20240331110838920.png" alt="image-20240331110838920"></p>
+<p>特殊例题：</p>
+<p><img src="/../../../../images/image-20240331110905788.png" alt="image-20240331110905788"></p>
+<h3 id="IPv4地址分类"><a href="#IPv4地址分类" class="headerlink" title="IPv4地址分类"></a>IPv4地址分类</h3><pre><code>  二进制    十进制                  
+       1	1
+      10	2
+     100	4
+    1000	8
+   10000	16
+  100000	32
+ 1000000	64
+10000000	128
+
+10000000	128
+11000000	192
+11100000	224
+11110000	240
+11111000	248
+11111100	252
+11111110	254
+11111111	255
+</code></pre>
+<p><img src="/../../../../images/image-20240331130435577.png" alt="image-20240331130435577"></p>
+<p><img src="/../../../../images/image-20240331132819339.png" alt="image-20240331132819339"></p>
+<p>常用IP地址</p>
+<p><img src="/../../../../images/image-20240331130625505.png" alt="image-20240331130625505"></p>
+<h3 id="特殊IPv4地址"><a href="#特殊IPv4地址" class="headerlink" title="特殊IPv4地址"></a>特殊IPv4地址</h3><p>**0.0.0.0 **</p>
+<p>主机端： DHCP分配过程中，用0.0.0.0表示本机</p>
+<p>路由：0.0.0.0表示默认路由</p>
+<p><strong>255.255.255.255</strong></p>
+<p>三层广播的目标地址，在同一个广播范围内所有主机都会接收这个包。</p>
+<p><strong>169.254.0.0&#x2F;16</strong></p>
+<p>使用DHCP自动获取IP地址，当DHCP服务器发送故障，或响应时间超时，系统会为你分配这样的一个地址，不能正常上网。</p>
+<p><strong>127.0.0.0&#x2F;8</strong></p>
+<p>本地环回地址，用于测试或网络管理</p>
+<p><strong>RFC1918私有IP地址</strong></p>
+<p>IPv4地址空间中有一部分特殊的地址，成为私有IP地址，私有IP地址不能直接访问公网(Internet)的IP，只能在本地使用。</p>
+<p>A类:10.0.0.0&#x2F;8(10.0.0.1-10.255.255.255)1个A类网络</p>
+<p>B类:172.16.0.0&#x2F;12(172.16.0.1-172.31.255.255)16个B类网络</p>
+<p>C类:192.168.0.0&#x2F;16(192.168.0.1-192.168.255.255)256个C</p>
+<p><strong>常见组播</strong></p>
+<p>224.0.0.1 所有主机<br>224.0.0.2 所有路由器<br><strong>224.0.0.5 所有运行OSPF的路由器</strong><br><strong>224.0.0.6 DR和BDR的组播接收地址</strong><br><strong>224.0.0.9 RIPv2组播更新地址</strong><br>224.0.0.18 VRRP组播地址</p>
+<h3 id="ARP与RARP协议"><a href="#ARP与RARP协议" class="headerlink" title="ARP与RARP协议"></a>ARP与RARP协议</h3><p>为什么需要ARP？</p>
+<p>因为他能够使得设备可以动态地获取目标设备的MAC地址，从而正确地发送和接收数据包。</p>
+<p>ARP也简化了网络的配置和管理，提高网络的灵活性和自动化程度。</p>
+<hr>
+<p>ARP工作过程</p>
+<p><img src="/../../../../images/image-20240331202545699.png" alt="image-20240331202545699"></p>
+<p>主机A发送数据包给主机C之前，首先通过<strong>ARP协议根据IP地址获取主机MAC地址</strong></p>
+<p>ARP请求：</p>
+<p><img src="/../../../../images/image-20240331202648242.png" alt="image-20240331202648242"></p>
+<hr>
+<p><strong>为什么ARP字段中的目的主机MAC地址字段为:00:00:00:00:00:00而不是 FF:FF:FF:FF:FF:FF？</strong></p>
+<p>目的主机 MAC 地址字段为 00:00:00:00:00:00 在 ARP 请求中起到了一种“填充”或“占位”的作用。它表示了一个请求，希望有网络中的设备能够回应，告诉发送设备自己的 MAC 地址。</p>
+<p>一旦网络中的设备收到这个 ARP 请求并且发现自己的 IP 地址匹配到了请求中的目标 IP 地址，它们会响应这个 ARP 请求，并在 ARP 响应包中将自己的 MAC 地址放入目标主机 MAC 地址字段中。这样发送 ARP 请求的设备就能获得目标主机的 MAC 地址，以便进行通信</p>
+<p>因此，在 ARP 请求中，目的主机 MAC 地址字段为 00:00:00:00:00:00 是一种用于发出“请求”信号的方式。它是一个暗示，告诉网络中的其他设备：这是一个 ARP 请求，目标主机的 MAC 地址尚未知晓，希望有设备能够回应并提供它的 MAC 地址。</p>
+<hr>
+<p>更新ARP缓存</p>
+<p><img src="/../../../../images/image-20240331202712329.png" alt="image-20240331202712329"></p>
+<p>ARP响应</p>
+<p><img src="/../../../../images/image-20240331202741160.png" alt="image-20240331202741160"></p>
+<p>更新ARP缓存</p>
+<p><img src="/../../../../images/image-20240331202803384.png" alt="image-20240331202803384"></p>
+<h4 id="ARP协议工作过程"><a href="#ARP协议工作过程" class="headerlink" title="ARP协议工作过程:"></a><strong>ARP协议工作过程</strong>:</h4><ol>
+<li><p><strong>主机A查询自己的ARP缓存，发现没有主机B对应的MAC地址</strong>;</p>
+</li>
+<li><p><strong>主机A发送ARP Request报文(广播);</strong></p>
+</li>
+<li><p><strong>主机B把主机A的IP、MAC对应信息填入自己的ARP缓存中</strong>;</p>
+</li>
+<li><p><strong>主机B向主机A回送包含主机B的MAC地址的ARPReply报文(单播);</strong></p>
+</li>
+<li><p><strong>主机A收到主机B的ARP Replay报文，将主机B的IP和MAC对应关系填入自己的ARP缓存中</strong>。</p>
+</li>
+</ol>
+<p><img src="/../../../../images/image-20240331203638960.png" alt="image-20240331203638960"></p>
+<pre><code>ARP欺骗应用：p2p终结者(需要ARP欺骗一起使用，不然直接arp到路由进行转发)、网络执法官
+</code></pre>
+<h4 id="免费ARP"><a href="#免费ARP" class="headerlink" title="免费ARP"></a>免费ARP</h4><p>免费ARP是用来探测IP地址是否冲突</p>
+<p><img src="/../../../../images/image-20240331211956041.png" alt="image-20240331211956041"></p>
+<h4 id="代理ARP"><a href="#代理ARP" class="headerlink" title="代理ARP"></a>代理ARP</h4><p><img src="/../../../../images/image-20240331213315767.png" alt="image-20240331213315767"></p>
+<h3 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h3><p>ICMP(Internet Control Message Protocol,Internet控制报文协议)，<strong>协议号为1</strong>,封装在IP报文中，用来<strong>传递差错、控制、查询****等信息，典型应用</strong>ping&#x2F;tracert**依赖ICMP报文。</p>
+<p>ICMP报文类型和代码</p>
+<p><img src="/../../../../images/image-20240331232139466.png" alt="image-20240331232139466"></p>
+<p><strong>ping</strong></p>
+<p><img src="/../../../../images/image-20240331232242089.png" alt="image-20240331232242089"></p>
+<p><strong>tracert</strong></p>
+<p>用于快速地跟踪数据包在网络上的路径，提供逐跳的延迟信息</p>
+<p><img src="/../../../../images/image-20240331232345009.png" alt="image-20240331232345009"></p>
+<p><strong>pathping</strong></p>
+<p>提供更全面的路径信息，包括每个跃点的丢包率和平均往返时间</p>
+<p><img src="/../../../../images/image-20240331232423241.png" alt="image-20240331232423241"></p>
+<h1 id="传输层封装协议TCP和UDP"><a href="#传输层封装协议TCP和UDP" class="headerlink" title="传输层封装协议TCP和UDP"></a>传输层封装协议TCP和UDP</h1><h2 id="TCP和UDP报文格式"><a href="#TCP和UDP报文格式" class="headerlink" title="TCP和UDP报文格式"></a>TCP和UDP报文格式</h2><p>TCP和UDP特点：</p>
+<p><strong>传输控制协议(TCP)</strong><br>面向连接</p>
+<p>可靠传输流控及窗口</p>
+<p>机制TCP应用: WEB浏览器，电子邮件</p>
+<p>文件传输程序</p>
+<p><strong>用户数据报协议(UDP)</strong><br>面向无连接</p>
+<p>不可靠传输</p>
+<p>尽力而为的传输</p>
+<p>UDP应用:域名系统(DNS)，视频应用、IP语音(VoIP)</p>
+<hr>
+<p>IP就像快递送到小区，UDP就像送到家门口</p>
+<p><img src="/../../../../images/image-20240401163635316.png" alt="image-20240401163635316"></p>
+<p>复用：不同的应用进程使用同一个传输层协议来工作</p>
+<p>分用：同一个运输层将应用报文交给不同的应用进程来使用</p>
+<hr>
+<p><strong>TCP报文格式</strong></p>
+<p><img src="/../../../../images/image-20240401210709829.png" alt="image-20240401210709829"></p>
+<p>偏移值：只是TCP头部的长度，用于确定数据的起始位置</p>
+<p>保留：保留供未来使用</p>
+<p>URG：紧急指针标志。当设置为1时，表示紧急指针字段有效，用于指示紧急数据的结束位置。这通常用于指示接收方应该优先处理这部分数据。</p>
+<p>ACK：确认号标志。当设置为1时，表示确认号字段有效，指示这个TCP报文中的确认号是有效的。通常用来确认已经成功接收到数据。</p>
+<p>PSH：推送标志。当设置为1时，表示接收方应该尽快将收到的数据交给应用程序，而不是等到接收缓冲区满了再交给应用程序。这个标志通常用于实时或交互式的应用程序，需要尽快处理数据。</p>
+<p>PST：重置连接标志。当设置为1时，表示要求对方重新建立连接。通常在连接发生错误或者异常情况下使用，用来终止连接或者重置连接状态。</p>
+<p>SYN：同步序号标志。当设置为1时，表示这是一个连接请求或者连接接受报文。用于在建立连接时，同步双方的序号和窗口大小。</p>
+<p>FIN：结束连接标志。当设置为1时，表示发送方已经发送完毕数据，并要求关闭连接。通常用于结束通信会话，告知对方不再有数据发送。</p>
+<p>窗口：用来指示在没有收到确认前还可以发送的数据量，用于流量控制</p>
+<p><strong>TCP伪首部</strong></p>
+<p>TCP伪首部本质是<strong>IP头的一部分，包含源目IP地址，协议号、TCP报头和用户数据</strong>，主要用于TCP<strong>校验和计算。</strong></p>
+<p>TCP伪首部：确保校验和计算的准确性和可靠性</p>
+<p><img src="/../../../../images/image-20240401211726766.png" alt="image-20240401211726766"></p>
+<p><strong>UDP报文格式</strong></p>
+<p><img src="/../../../../images/image-20240401211805826.png" alt="image-20240401211805826"></p>
+<h2 id="TCP的握手和挥手"><a href="#TCP的握手和挥手" class="headerlink" title="TCP的握手和挥手"></a>TCP的握手和挥手</h2><h3 id="TCP三次握手建立连接"><a href="#TCP三次握手建立连接" class="headerlink" title="TCP三次握手建立连接"></a>TCP三次握手建立连接</h3><p><img src="/../../../../images/image-20240401215656133.png" alt="image-20240401215656133"></p>
+<p><img src="/../../../../images/image-20240401215741562.png" alt="image-20240401215741562"></p>
+<h3 id="TCP四次挥手断开连接"><a href="#TCP四次挥手断开连接" class="headerlink" title="TCP四次挥手断开连接"></a>TCP四次挥手断开连接</h3><p><img src="/../../../../images/image-20240401215810526.png" alt="image-20240401215810526"></p>
+<h2 id="流量控制和拥塞控制"><a href="#流量控制和拥塞控制" class="headerlink" title="流量控制和拥塞控制"></a>流量控制和拥塞控制</h2><h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><p>流量控制:为了<strong>防止发送方发送速度过快</strong>，导致接收方处理不过来，造成丢包重传，浪费网络资源。</p>
+<p>TCP流量控制机制: <strong>可变大小的滑动窗口</strong>。</p>
+<p>TCP滑动窗口机制</p>
+<p><img src="/../../../../images/image-20240401232257048.png" alt="image-20240401232257048"></p>
+<h3 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h3><p>有了流量控制，可以调节发送端和接收端的节奏，为什么还要有拥塞控制?<br>    <strong>流量控制</strong>:在AB两个端点进行。<br>    <strong>拥塞控制</strong>:在AB和所有网络节点中进行。</p>
+<p>例如：A端最多能发1000M，B端最多能发800M，但中间链路带宽只能发500M，所以最多能发500M</p>
+<p><img src="/../../../../images/image-20240401232536856.png" alt="image-20240401232536856"></p>
+<p>TCP拥塞控制</p>
+<p><img src="/../../../../images/image-20240401232856079.png" alt="image-20240401232856079"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240401233048107.png" alt="image-20240401233048107"></p>
+<p><img src="/../../../../images/image-20240401233419163.png" alt="image-20240401233419163"></p>
+<h2 id="重要协议端口号总结"><a href="#重要协议端口号总结" class="headerlink" title="重要协议端口号总结"></a>重要协议端口号总结</h2><p>TCP&#x2F;UDP端口号</p>
+<p><img src="/../../../../images/image-20240401233639543.png" alt="image-20240401233639543"></p>
+<p><img src="/../../../../images/image-20240401233818309.png" alt="image-20240401233818309"></p>
+<h1 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h1><h2 id="IP路由基础"><a href="#IP路由基础" class="headerlink" title="IP路由基础"></a>IP路由基础</h2><p>什么是路由？</p>
+<p>根据路由表进行数据的转发，通俗讲，选择哪条比较近的路到达目的地</p>
+<p><img src="/../../../../images/image-20240401235759297.png" alt="image-20240401235759297"></p>
+<p>路由表工作原理</p>
+<p>建立并维护路由表RIB。<br>直连路由:路由器<strong>本地接口</strong>所在网段。<br>静态路由:<strong>手工配置</strong>的路由条目。<br>动态路由:路由器之间通过<strong>动态路由协议</strong>学习到的路由。<br>根据路由表进行<strong>数据转发</strong>。</p>
+<p>查看路由表</p>
+<p><img src="/../../../../images/image-20240402000123337.png" alt="image-20240402000123337"></p>
+<p>R是relay的首字母，说明是迭代路由，会根据路由下一跳的IP地址获取出接口。配置静态路由时如果你只指定下一跳IP地址，而不指定出接口，那么就是迭代路由，需要根据下一跳IP地址的路由获取出接口<br>D是download的首字母,表示该路由下发到FIB表。</p>
+<h2 id="静态路由和默认路由"><a href="#静态路由和默认路由" class="headerlink" title="静态路由和默认路由"></a>静态路由和默认路由</h2><h3 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h3><p>什么是静态路由？</p>
+<p>R1想要访问R3，R2直连路由外，则需要添加路由条目，手工配置方式比较简单的方式，为路由器创建静态路由表项。</p>
+<p><img src="/../../../../images/image-20240402114905225.png" alt="image-20240402114905225"></p>
+<p>静态路由配置</p>
+<p><img src="/../../../../images/image-20240402114823190.png" alt="image-20240402114823190"></p>
+<h3 id="默认路由"><a href="#默认路由" class="headerlink" title="默认路由"></a>默认路由</h3><p>配置多条静态路由，但是发现下一跳都说同一个接口，这时候需要默认路由，来节省时间。</p>
+<p><img src="/../../../../images/image-20240402122942814.png" alt="image-20240402122942814"></p>
+<p>配置方式</p>
+<p><img src="/../../../../images/image-20240402123000703.png" alt="image-20240402123000703"></p>
+<p><strong>静态路由和默认路由特点</strong></p>
+<p><strong>静态路由</strong><br>配置简单<br>手工配置，可控性高<br>节省网络带宽<br><strong>网络大，工作量大，比如配置1000条静态路由<br>网络故障，无法响应拓扑动态变化</strong></p>
+<p><strong>默认路由</strong><br>默认路由是一种特殊的静态路由，走投无路的选择<br>配置简单，简化管理<br>降低路由 CPU、内存资源<br><strong>用处:网络出口路由器&#x2F;防火墙&#x2F;核心交换机</strong></p>
+<p>PS: 静态路由和默认路由都不会响应拓扑动态变化</p>
+<h2 id="动态路由协议"><a href="#动态路由协议" class="headerlink" title="动态路由协议"></a>动态路由协议</h2><p>什么是距离矢量路由协议，什么是链路状态路由协议？</p>
+<p>距离矢量链路协议：</p>
+<p>使用距离矢量路由协议的路由器并<strong>不了解网络的拓扑</strong>。该路由器只知道<br>自身与目的网络之间的距离。<br>应该往哪个方向或哪个接口转发数据包。</p>
+<p>通俗地说：</p>
+<p>距离矢量路由协议：就像，别人说往东走10步，再往西走6步，不知道拓扑结构。</p>
+<p>链路状态路由协议：就像，高德地图，知道拓扑结构</p>
+<p><strong>分类</strong>：</p>
+<p><img src="/../../../../images/image-20240408100327992.png" alt="image-20240408100327992"></p>
+<h3 id="RIP协议"><a href="#RIP协议" class="headerlink" title="RIP协议"></a>RIP协议</h3><p>RIP(Routing Information Protocol,路由信息协议 )</p>
+<p><strong>内部网关协议，距离矢量路由协议</strong>。</p>
+<p>华为设备上路由优先级为100。</p>
+<p>计算跳数:<strong>最大15跳，16跳不可达</strong>，一般用于小型网络</p>
+<p>几个时钟:<strong>30s周期性更新路由表、180s无更新表示不存在、300s删除路由表</strong></p>
+<p>支持等价负载均衡和链路冗余，使用<strong>UDP 520</strong>端口。</p>
+<p><img src="/../../../../images/image-20240408100705667-17125420350251.png" alt="image-20240408100705667"></p>
+<p>RIP1 和 RIPv2 对比 </p>
+<p><img src="/../../../../images/image-20240408100754654.png" alt="image-20240408100754654"></p>
+<p>VLSM：可变长度子网掩码</p>
+<p>CIDR：无类别域间路由，一种地址分配和路由选择的技术，使得IP地址的分配更加灵活，减少了地址空间的浪费，提高了路由表的效率</p>
+<p>举例来说，考虑一个CIDR表示法的IPv4地址块：<code>192.168.1.0/24</code>。在这里，<code>192.168.1.0</code>是网络的基本地址，而<code>/24</code>表示前缀长度为24位。这意味着前24位用于网络标识，剩余的8位用于主机标识。通过这个CIDR表示法，我们可以轻松理解这个地址块包含了从<code>192.168.1.0</code>到<code>192.168.1.255</code>的所有主机。</p>
+<p>RIP路由的度量值：</p>
+<p>查看RIP路由的度量值： display ip routing-table</p>
+<p>RIP以<strong>跳数</strong>作为度量值，但事实上不科学。</p>
+<p><img src="/../../../../images/image-20240408102048668.png" alt="image-20240408102048668"></p>
+<p>路由优先级(华为)，越小越优先</p>
+<p><img src="/../../../../images/image-20240408194521090.png" alt="image-20240408194521090"></p>
+<p>RIP防环机制</p>
+<p>①最大跳数:当一个路由条目发送出去会自加1跳，跳数最大为16跳，意味着不可达。<br>②水平分割:一条路由信息不会发送给信息的来源。<br>③反向毒化的水平分割:把从邻居学习到的路由信息设为16跳，再发送给那个邻居<br>④抑制定时器和触发更新也可以防止环路。</p>
+<h3 id="OSPF"><a href="#OSPF" class="headerlink" title="OSPF"></a>OSPF</h3><p>Open Shortest Path First，开放式最短路径优先协议</p>
+<p>内部网关协议，OSPF是一种<strong>链路状态路由协议</strong>。</p>
+<p>Open意味着公有，任何厂商都能支撑OSPF，目前业内使用最广泛的IGP.</p>
+<p>华为设备上，OSPF协议优先级Internal10，External150。</p>
+<p>路由器之间<strong>交互的是链路状态信息</strong>，而不是直接交互路由。</p>
+<p>路由器知晓网络拓扑结构，采用**SPF算法(迪杰斯特拉 Dijkstra)**计算达到目的地的最短路径。</p>
+<p>支持VLSM，支持手工路由汇总。</p>
+<p>OSPF基本特点：</p>
+<p><strong>适应范围广</strong>:支持各种规模的网络。</p>
+<p><strong>快速收敛</strong>:在网络的拓扑结构发生变化后立即发送更新报文，使这一变化在自治系统中同步。</p>
+<p><strong>无自环</strong>:使用SPF最短路径树算法进行路由计算，<strong>不会产生环路</strong>。</p>
+<p><strong>区域划分</strong>:允许网络被划分成区域来管理，链路状态数据库仅需和区域内其他路由器保持一致。 <strong>减小对路由器内存和CPU的消耗</strong>。同时区域间传送的路由信息减小，<strong>降低网络带宽占用</strong>。</p>
+<p>OSPF Cost</p>
+<p>OSPF使用Cost“开销”作为路由度量值。<br>OSPF接口cost&#x3D;100M&#x2F;接口带宽，其中100M为OSPF参考带宽(reference-bandwidth)，可修改.<br>每一个激活OSPF的接口都有一个cost值。<br>条OSPF路由的cost由该路由从起源一路到达本地的所有<strong>入接口cost值的总和</strong>。</p>
+<p><img src="/../../../../images/image-20240408195339907.png" alt="image-20240408195339907"></p>
+<p>OSPF区域</p>
+<p>所有非骨干区域必须与骨干区域直连。</p>
+<p><img src="/../../../../images/image-20240408195506537.png" alt="image-20240408195506537"></p>
+<p>OSPF路由器角色</p>
+<p><img src="/../../../../images/image-20240408195812787.png" alt="image-20240408195812787"></p>
+<p>OSPF总结</p>
+<p><img src="/../../../../images/image-20240408195853665.png" alt="image-20240408195853665"></p>
+<h3 id="BGP"><a href="#BGP" class="headerlink" title="BGP"></a>BGP</h3><p>BGP(Border Gateway Protocol,边界网关协议)<strong>外部网关协议</strong>，用于不同自治系统AS之间，寻找最佳路由。<br>通过<strong>TCP 179</strong>端口建立连接。支持VLSM和CIDR，是一种路径矢量协议。目前最新版本是BGP4，而BGP4+支持IPV6。</p>
+<p>BGP四个报文</p>
+<p><img src="/../../../../images/image-20240408200034700.png" alt="image-20240408200034700"></p>
+<p>BGP选路规则</p>
+<p><img src="/../../../../images/image-20240408200058986.png" alt="image-20240408200058986"></p>
+<h3 id="ISIS"><a href="#ISIS" class="headerlink" title="ISIS"></a>ISIS</h3><p>IS-IS(Intermediate system to intermediate system，中间系统到中间系统)是<strong>内部网关协议</strong>，是电信运营商普遍采用的内部网关协议之一，也是一个<strong>分级的链路状态路由协议</strong>。</p>
+<p>与OSPF相似，它也使用Hello协议寻找毗邻节点。</p>
+<p>与大多数路由协议不同，IS-IS 直接运行于链路层之上。</p>
+<p>IS-IS具有层次性，分为两层Level-1和Level-2。</p>
+<p>​	Level-1(L1)是普通区域(Area)，Level-2(L2)是骨干区(Backbone)。</p>
+<p>​	<strong>骨干区Backbone是连续的Leve1-2路由器的集合，由所有的L2(含L1&#x2F;L2)路由器组成</strong>，L1和L2运行相同的SPF算法，一个路由器可能同时参与L1和L2。</p>
+<p>IS-IS区域结构图</p>
+<p><img src="/../../../../images/image-20240408200510050.png" alt="image-20240408200510050"></p>
+<p>ISIS和OSPF区域架构</p>
+<p><img src="/../../../../images/image-20240408200530848.png" alt="image-20240408200530848"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

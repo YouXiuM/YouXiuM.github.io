@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>局域网和城域网 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>局域网和城域网</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #03a9f4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00bcd4">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="局域网和城域网"><a href="#局域网和城域网" class="headerlink" title="局域网和城域网"></a>局域网和城域网</h1><h2 id="局域网基础"><a href="#局域网基础" class="headerlink" title="局域网基础"></a>局域网基础</h2><h3 id="局域网和城域网体系架构IEEE-标准"><a href="#局域网和城域网体系架构IEEE-标准" class="headerlink" title="局域网和城域网体系架构IEEE(标准)"></a>局域网和城域网体系架构IEEE(标准)</h3><p>比较重要的有两种：</p>
+<p>802.3和802.11应用最为广泛。</p>
+<p>802.3 其实是以太网标准(有线)</p>
+<p>802.11 无线WIFI标准</p>
+<h3 id="局域网拓扑结构"><a href="#局域网拓扑结构" class="headerlink" title="局域网拓扑结构"></a>局域网拓扑结构</h3><p>局域网的拓扑结构主要有:</p>
+<p><img src="/../../../../images/image-20240601152621565.png" alt="image-20240601152621565"></p>
+<h2 id="CSMA-CD"><a href="#CSMA-CD" class="headerlink" title="CSMA&#x2F;CD"></a>CSMA&#x2F;CD</h2><h3 id="CSMA-CD是什么？"><a href="#CSMA-CD是什么？" class="headerlink" title="CSMA&#x2F;CD是什么？"></a>CSMA&#x2F;CD是什么？</h3><p>是一种常用于局域网（LAN）中的冲突检测技术。</p>
+<p>也是对总线型、星型和树型拓扑访问控制协议。</p>
+<p>载波侦听多路访问&#x2F;冲突检测。</p>
+<h3 id="CSMA基本原理"><a href="#CSMA基本原理" class="headerlink" title="CSMA基本原理"></a>CSMA基本原理</h3><p>在发送数据之前，先监听信道上是否有人在发送。</p>
+<p>若有，说明信道正忙，否则说明信道是空闲的。</p>
+<p>然后根据<strong>预定的策略</strong>决定：</p>
+<p>(1) 若信道空闲，是否立即发送。</p>
+<p>(2) 若信道忙，是否继续监听。</p>
+<p>如果连续发送<strong>16次</strong>碰撞后，认为<strong>网络繁忙或故障</strong>，不再尝试发送。</p>
+<h3 id="CSMA-CD三种监听算法"><a href="#CSMA-CD三种监听算法" class="headerlink" title="CSMA&#x2F;CD三种监听算法"></a>CSMA&#x2F;CD三种监听算法</h3><p>(1)非坚持型监听算法:后退随机时间</p>
+<p>由于随机时延后退，从而<strong>减少了冲突的概率</strong>。问题是因为后退而使信道闲置一段时间，这使<strong>信道的利用率降低</strong>，而且<strong>增加了发送时延</strong></p>
+<p>(2)1-坚持型监听算法:继续监听，不等待</p>
+<p>有利于抢占信道，减少信道空闲时间。但是，多个站同时都在监听信道时必然会发生冲突。</p>
+<p><strong>冲突概率和利用率都高(双高)</strong></p>
+<p>(3)P-坚持型监听算法</p>
+<p>若信道空闲，以概率P发送，以**概率(1-P)**延迟一个时间单位，P大小可调整</p>
+<h3 id="冲突检测原理"><a href="#冲突检测原理" class="headerlink" title="冲突检测原理"></a>冲突检测原理</h3><p>载波监听<strong>只能减小冲突的概率，不能完全避免冲突</strong>。当两个帧发生冲突后，若继续发送，将会浪费网络带宽。为了改进带宽利用率，发送站应采取边发边听的冲突检测方法，即:</p>
+<p>(1)发送期间同时接收，并把接收的数据与站中存储的数据进行比较。</p>
+<p>(2)若比较结果一致，说明没有冲突，重复(1)。</p>
+<p>(3)若比较结果不一致，说明<strong>发生了冲突,立即停止发送****，并发送一个简短的</strong>干扰信号(Jamming)****,使所有站都停止发送。</p>
+<p>(4)发送Jamming信号后，<strong>等待一段随机长的时间</strong>，重新监听，再试着发送。</p>
+<h2 id="二进制指数退避算法"><a href="#二进制指数退避算法" class="headerlink" title="二进制指数退避算法"></a>二进制指数退避算法</h2><p>工作原理：</p>
+<p>(1)检测到冲突后，马上停止发送数据，并等待随机时间再发送数据。<br>(2)等待的随机时间&#x3D;τ<em>Random[0,1,..2k-1],其中Random表示随机函数。其中τ是基本退避时间，可以看作固定值。k&#x3D;min[重传次数，10]，如果重传16次后，还不能正常发送数据，认为网络拥塞或信道故障，不再尝试重传。根据公式，如果重传12次后，k&#x3D;min[12，10]&#x3D;10，那么可能等待的时间是τ</em>Random[0，1023],一共有1024种可能。每次站点等待的时间都是随机数，故<strong>后一次退避时间不一定比前一次长</strong>。重传次数越多，退避窗口(即Random取值)越大，从而<strong>降低冲突概率</strong>。<br>如果连续发生<strong>16次</strong>碰撞后，认为网络繁忙或故障，不再尝试发送。</p>
+<p>例题1：</p>
+<p>采用CSMA&#x2F;CD进行介质访问，两个站点连续冲突3次后再次冲突的概率(63)。<br>A.1&#x2F;2 B.1&#x2F;4 C.1&#x2F;8 D.1&#x2F;16<br>【参考答案】C<br>【summer解析】本题考查二进制指数退避算法，原理如下:<br>(1)检测到冲突后，马上停止发送数据，并等待随机时间再发送数据。<br>(2)等待的随机时间&#x3D;τ<em>Random[0,1,…2k-1],其中Random表示随机函数。</em></p>
+<p>注:T是基本退避时间，可以看作固定值，k&#x3D;min[重传次数，10],如果重传16次后，还不能正常发送数据，认为网络拥塞，不再尝试。</p>
+<p>冲突1次后，k&#x3D;min[1,10]&#x3D;1,那么等待时间τ<em>Random[0,1],有2个可选数字。<br>冲突2次后，k&#x3D;min[2,10]&#x3D;2,那么等待时间τ</em>Random[0,1,2,3],有4个可选数字。<br>冲突3次后，k&#x3D;min[3,10]&#x3D;3,那么等待时间τ*Random[0,1,2,3,4,5,6,7],有8个可选数字<br>即两个站点连续冲突3次后再次冲突的概率是1&#x2F;8。<br>也可以得出简化公式:冲突概率为1&#x2F;2n( n表示已经发生冲突的次数，n≤10)</p>
+<p>例题2</p>
+<p>以太网采用的CSMA&#x2F;CD协议，当冲突发生时要通过二进制指数后退算法计算后退时延，关于这个算法，以下论述中错误的是(62)。 A<br>A.冲突次数越多，后退的时间越短<br>C.后退时延的平均值与负载大小有关<br>B.平均后退次数的多少与负载大小有关<br>D.重发次数达到一定极限后放弃发送</p>
+<p>原因：后退的时间是τ*Random[0，1023],随机时间</p>
+<p>负载大小就是网络的繁忙程度。</p>
+<p>例题3</p>
+<p>以下关于二进制指数退避算法的描述中，正确的是(64)。C</p>
+<p>A.每次站点等待的时间是固定的，即上次的2倍<br>B.后一次退避时间一定比前一次长<br>C.发生冲突不一定是站点发生了资源抢占<br>D.通过扩大退避窗口杜绝了再次冲突</p>
+<p>退避窗口—-即Random取值</p>
+<h2 id="最小帧长计算"><a href="#最小帧长计算" class="headerlink" title="最小帧长计算"></a>最小帧长计算</h2><p>最小帧长公式： Lmin &#x3D; 2R * d&#x2F;v</p>
+<p>R：网络数据速率</p>
+<p>d：最大距离</p>
+<p>v：传播速度(光纤是30km&#x2F;s，电缆是20km&#x2F;s)</p>
+<p>L：最小数据帧的长度</p>
+<p>推导</p>
+<p><img src="/../../../../images/image-20240327164422570-17116151954542.png" alt="image-20240327164422570"></p>
+<p>不冲突条件：</p>
+<p>发送时间 &gt;&#x3D; 传送时间 + 确认时间</p>
+<p>L&#x2F;R  &gt;&#x3D;  2d&#x2F;v  + 0</p>
+<p>2d&#x2F;v：因为两地发送过程时间是一样的。</p>
+<p>0：因为确认帧是小帧(64),太小，忽略不计</p>
+<p>例题：</p>
+<p>采用CSMA&#x2F;CD协议的基带总线，段长为1000M，数据速率为10Mb&#x2F;s，信号传播速度为200m&#x2F;us则该网络上的最小帧长应为(57)比特。 B<br>A.50<br>B.100<br>C.150<br>D.200</p>
+<p>解释：</p>
+<p>L&#x2F;R &#x3D; 2 * d&#x2F;v</p>
+<p>L&#x2F;10M&#x2F;b &#x3D; 2 * 1000M&#x2F;200m&#x2F;us</p>
+<p>转换单位</p>
+<p>L &#x3D;  2R * d&#x2F;v</p>
+<p>L &#x3D; 2 * (10* 10^6bit&#x2F;s) * 1000M&#x2F;(200 * 10^6m&#x2F;s)</p>
+<h2 id="以太网帧帧与物理层规范"><a href="#以太网帧帧与物理层规范" class="headerlink" title="以太网帧帧与物理层规范"></a>以太网帧帧与物理层规范</h2><h3 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h3><p><img src="/../../../../images/image-20240327173105749-17116152080235.png" alt="image-20240327173105749"></p>
+<p>注意: 长度是指类型字段</p>
+<p>前面7+1字节用于时钟同步，不算入帧长。<br>数据(mtu)46-1500字节，不够至少填充到46字节。<br>校验位4字节，CRC循环冗余校验 32位。<br>最小帧长<strong>64字节</strong>:  6+6+2+46+4&#x3D;64。<br>最大帧长<strong>1518字节</strong>:  6+6+2+1500+4&#x3D;1518.</p>
+<p>以太网最小利用率： 48&#x2F;64</p>
+<p>以太网最大利用率： 1500&#x2F;1518</p>
+<h3 id="以太网报文封装"><a href="#以太网报文封装" class="headerlink" title="以太网报文封装"></a>以太网报文封装</h3><p><img src="/../../../../images/image-20240327174627166-17116152189748.png" alt="image-20240327174627166"></p>
+<p>例题1：</p>
+<p>以太网可以传送最大的TCP段为(21)字节。</p>
+<p>A.1480</p>
+<p>B.1500<br>C.1518<br>D.2000<br>【参考答案】A<br>以太网帧数据部分长度最大为1500B，上层IP头部至少为20B，因此传输层最大为1480B。</p>
+<p><img src="/../../../../images/image-20240327175057743-171161523184911.png" alt="image-20240327175057743"></p>
+<h3 id="802-3以太网-10M"><a href="#802-3以太网-10M" class="headerlink" title="802.3以太网(10M)"></a>802.3以太网(10M)</h3><p>物理介质命名规范</p>
+<p>&lt;传输速率Mbps&gt;&lt;信号方式&gt;&lt;最大传输距离(百米)或介质类型&gt;</p>
+<p>100BASET  </p>
+<p>100Mbps   BASE表示基带传输(数字信号) </p>
+<p>T表示双线，F表示光纤，如果有数字，例如5表示500米</p>
+<h3 id="快速以太网802-3u-100M"><a href="#快速以太网802-3u-100M" class="headerlink" title="快速以太网802.3u(100M)"></a>快速以太网802.3u(100M)</h3><p>UTP ：非屏蔽双绞线  STP：屏蔽双绞线</p>
+<p><img src="/../../../../images/image-20240328173651049.png" alt="image-20240328173651049"></p>
+<h3 id="千兆以太网-1000M"><a href="#千兆以太网-1000M" class="headerlink" title="千兆以太网(1000M)"></a>千兆以太网(1000M)</h3><p>千兆以太网两个标准<strong>802.3z和802.3ab</strong>(100BASE-T)；</p>
+<p><strong>千兆需要4对双绞线</strong>，达到100米传输</p>
+<p>100BASE-LX标准可以使用<strong>单模和多模</strong>光纤传输</p>
+<p>千兆以太网编码方法： 4B&#x2F;5B或8B&#x2F;9B</p>
+<p><img src="/../../../../images/image-20240328174018423.png" alt="image-20240328174018423"></p>
+<h3 id="万兆以太网802-3ae-10G"><a href="#万兆以太网802-3ae-10G" class="headerlink" title="万兆以太网802.3ae(10G)"></a>万兆以太网802.3ae(10G)</h3><p>万兆以太网标准：IEEE802.3ae，支持10G速率，可以用光纤或双绞线传输。</p>
+<p>万兆以太网基本应用于点到点线路，<strong>不再共享带宽，没有冲突检测</strong></p>
+<p><img src="/../../../../images/image-20240328174518700.png" alt="image-20240328174518700"></p>
+<h2 id="虚拟局域网VLAN-上午-下午"><a href="#虚拟局域网VLAN-上午-下午" class="headerlink" title="虚拟局域网VLAN(上午+下午)"></a>虚拟局域网VLAN(上午+下午)</h2><h3 id="VLAN是什么？"><a href="#VLAN是什么？" class="headerlink" title="VLAN是什么？"></a>VLAN是什么？</h3><p>全称：Virtual Local Area Network，VLAN</p>
+<p>根据管理功能，组织机构等对交换局域网进行分段而形成逻辑网络。</p>
+<p>不同VLAN通信必须经过三层设备: 路由器,三层交换机,防火墙等。</p>
+<p>虚拟局域网工作站可以不属于同一物理网段，任何交换端口都可以分配给某个VLAN，属于同一VLAN的所有端口构成一个广播域。</p>
+<p>冲突域和广播域，<strong>一个中继器和集线器是一个冲突域,一个VLAN为一个广播域，交换机的一个接口为一个冲突域</strong>。</p>
+<hr>
+<p>为什么交换机的一个接口为一个冲突域，而一个中继器和集线器是一个冲突域？</p>
+<p>中继器和集线器：</p>
+<p>当一个设备向集线器发送数据时，集线器会将这个数据复制并发送到所有其他连接的设备上。</p>
+<p>如果两个设备同时尝试发送数据，它们的数据帧就会在集线器上碰撞，这个碰撞会影响到所有连接到集线器的设备，因此集线器是一个冲突域</p>
+<p>交换机：</p>
+<p>每个交换机端口都是一个独立的冲突域。</p>
+<p>如果一个设备通过交换机发送数据，只有目标设备所在的端口会受到影响。其他端口上的数据传输不会受到这个碰撞的影响</p>
+<hr>
+<h3 id="冲突域"><a href="#冲突域" class="headerlink" title="冲突域"></a>冲突域</h3><p>冲突域是指连接在同一共享介质上的所有节点的集合，<strong>冲突域内所有节点竞争同一带宽</strong>，一个节点发出的报文(无论是单播、组播、广播)，其余节点都可以收到。</p>
+<p><img src="/../../../../images/image-20240328175932211.png" alt="image-20240328175932211"></p>
+<h3 id="广播域"><a href="#广播域" class="headerlink" title="广播域"></a>广播域</h3><p>广播报文所能到达的整个访问范围称为二层广播域，简称广播域，<strong>同一广播域内的主机都能收到广播报文</strong></p>
+<p><img src="/../../../../images/image-20240328180335886.png" alt="image-20240328180335886"></p>
+<p><img src="/../../../../images/image-20240328180826716.png" alt="image-20240328180826716"></p>
+<h3 id="交换机VLAN划分"><a href="#交换机VLAN划分" class="headerlink" title="交换机VLAN划分"></a>交换机VLAN划分</h3><p>静态划分VLAN：<strong>基于交换机端口</strong></p>
+<p>动态划分VLAN：<strong>基于MAC地址、基于策略、基于网络层协议，基于网络层地址</strong></p>
+<p><img src="/../../../../images/image-20240328181027509.png" alt="image-20240328181027509"></p>
+<h3 id="VLAN划分配置"><a href="#VLAN划分配置" class="headerlink" title="VLAN划分配置"></a>VLAN划分配置</h3><h4 id="静态划分VLAN"><a href="#静态划分VLAN" class="headerlink" title="静态划分VLAN"></a>静态划分VLAN</h4><p><img src="/../../../../images/image-20240328181247451.png" alt="image-20240328181247451"></p>
+<h4 id="动态划分VLAN"><a href="#动态划分VLAN" class="headerlink" title="动态划分VLAN"></a>动态划分VLAN</h4><p><img src="/../../../../images/image-20240328181300986.png" alt="image-20240328181300986"></p>
+<h4 id="基于策略划分VLAN"><a href="#基于策略划分VLAN" class="headerlink" title="基于策略划分VLAN"></a>基于策略划分VLAN</h4><p><img src="/../../../../images/image-20240328181310895.png" alt="image-20240328181310895"></p>
+<h3 id="VLAN作用"><a href="#VLAN作用" class="headerlink" title="VLAN作用"></a>VLAN作用</h3><p>(1)控制网络流量。一个VLAN 内部的通信(包括广播通信)不会转发到其他VLAN 中去，从而有助于控制广播风暴，<strong>减小冲突域，提高网络带宽的利用率</strong>。</p>
+<p>(2)提高网络的安全性。可以通过配置VLAN 之间的路由来提供广播过滤、安全和流量控制等功能.不同VLAN 之间的通信受到限制，<strong>提高了企业网络的安全性</strong>。</p>
+<p>(3)灵活的网络管理。VLAN 机制使得工作组可以<strong>突破地理位置的限制而根据管理功能来划分</strong>。如果根据MAC地址划分VLAN，用户可以在任何地方接入交换网络，实现移动办公。</p>
+<h3 id="802-1Q标签"><a href="#802-1Q标签" class="headerlink" title="802.1Q标签"></a>802.1Q标签</h3><p>是什么？</p>
+<p>是一种网络标准，802.1Q是IEEE802.1标准系统中的一个子标准，定义了在以太网帧中添加VLAN标识符的方法。</p>
+<p><img src="/../../../../images/image-20240328230523487.png" alt="image-20240328230523487"></p>
+<p>以太网帧+802.1Q标签 &#x3D;&#x3D; 802.1Q帧</p>
+<p>PRI(3位)：Priority表示优先级，提供0~7共8个优先级，当有多个帧等待发送时，按优先级顺序发送数据包。</p>
+<p>VID(12 位):即VLAN 标识符，最多可以表示212&#x3D;4096个VLAN,其中VID0用于识别优先级，VID 4095 保留未用，所以<strong>最多可配置4094 个VLAN。默认管理VLAN是1，不能删除</strong>。</p>
+<p>什么叫做识别优先级？</p>
+<p>其实是对网络中的数据流或数据包进行分类，标记或标识，以便网络设备可以根据其重要性或服务质量需求进行适当的处理和传输。这种分类通常涉及到给数据流或数据包分配一个优先级等级，使得网络设备能够根据这些等级进行流量控制、调度和传输。</p>
+<p>就比如，打电话，看你就会标记其数据包为高优先级，确保低延迟和最小的丢包率。</p>
+<p>文件下载，网络可以将其数据包标记为低优先级，以便在网络拥挤时让出带宽给更重要的流量。</p>
+<p><strong>交换机添加和删除VLAN标签的过程由专用硬件自动实现，处理速度很快，不会引入太大的延迟</strong>。</p>
+<p>从用户角度看，数据源产生标准的以太帧，目标接收的也是标准的以太帧，<strong>VLAN标记对用户是透明的</strong>。</p>
+<h3 id="交换机端口类型"><a href="#交换机端口类型" class="headerlink" title="交换机端口类型"></a>交换机端口类型</h3><p>Access接口:只能传送单个VLAN数据，一般用于连接PC&#x2F;摄像头等终端。<br>Trunk接口:能传送多个VLAN数据，一般用于交换机之间互联。<br>Hybrid接口:混合接口，包含access和trunk属性。<br>QinQ:双层标签，一般用于运营商城域网。</p>
+<p>Trunk接口和Hybrid接口区别:</p>
+<p>Trunk 接口通常用于连接交换机之间，可用于发送和接收多个 VLAN 的数据，所有数据帧都会被标记。</p>
+<p>Hybrid接口能够发送和接收多个VLAN的数据，可用于交换机链路和终端设备</p>
+<p>与trunk接口的区别是，发送数据时trunk接口只会摘掉PVID标签，而Hybrid接口能够不携带VLAN标签发送多个VLAN数据。</p>
+<h2 id="STP生成树-上午-下午"><a href="#STP生成树-上午-下午" class="headerlink" title="STP生成树(上午+下午)"></a>STP生成树(上午+下午)</h2><h3 id="STP技术背景"><a href="#STP技术背景" class="headerlink" title="STP技术背景"></a>STP技术背景</h3><p>1、交换机单链路上，存在<strong>单点故障</strong>，线路和设备不具备冗余性。</p>
+<p>任何一条链路或设备故障，网络将面临断网。</p>
+<p><img src="/../../../../images/image-20240329091908658.png" alt="image-20240329091908658"></p>
+<p>2、冗余拓扑能够解决单点故障问题</p>
+<p>但是冗余拓扑带来了二层环路问题</p>
+<p>实际网络环境中，经常产生二层环路从而引发网络故障。</p>
+<p><img src="/../../../../images/image-20240329091944048.png" alt="image-20240329091944048"></p>
+<h3 id="二层环路带来的问题"><a href="#二层环路带来的问题" class="headerlink" title="二层环路带来的问题"></a>二层环路带来的问题</h3><p><strong>广播风暴</strong></p>
+<p>网络中若存在二层环路，一旦出现广播数据帧，这些数据帧将被交换机不断泛洪，造成广播风暴。<br>广播风暴对网络危害非常大，将严重消耗设备CPU资源及网络带宽，需要格外注意。<br>广播风暴现象:<strong>网络慢、所有指示灯高速闪烁、CPU使用率高、CLI卡顿</strong>。</p>
+<p><img src="/../../../../images/image-20240329092121499.png" alt="image-20240329092121499"></p>
+<p>MAC表震荡</p>
+<p>PC发送数据帧给Server</p>
+<p>SW3没有目的MAC表项，于是将数据帧进行<strong>泛洪</strong></p>
+<p>SW1和SW2都收到这个帧并学习源MAC，同时将数据帧进一步泛洪</p>
+<p><strong>SW3将从GE0&#x2F;0&#x2F;1 和GE0&#x2F;0&#x2F;2都收到这个帧并学习源MAC</strong>，更新MAC地址表</p>
+<p><img src="/../../../../images/image-20240329092313059.png" alt="image-20240329092313059"></p>
+<h3 id="STP基本概念"><a href="#STP基本概念" class="headerlink" title="STP基本概念"></a>STP基本概念</h3><p>采用生成树(Spanning-tree)技术，能够在网络中存在二层环路时，通过<strong>逻辑阻塞</strong>(Block)特定端口，从而<strong>打破环路</strong>，并且在网络出现拓扑变更时及时收敛，<strong>保障网络冗余性</strong>。</p>
+<p><img src="/../../../../images/image-20240329092606785.png" alt="image-20240329092606785"></p>
+<p>当网络出现拓扑变更时及时收敛，<strong>保障网络冗余性</strong></p>
+<p>例如下图的SW1故障，STP会重新计算，打开原来的阻塞的端口</p>
+<p><img src="/../../../../images/image-20240329092723349.png" alt="image-20240329092723349"></p>
+<h3 id="网桥ID-Bridge-ID"><a href="#网桥ID-Bridge-ID" class="headerlink" title="网桥ID(Bridge ID)"></a>网桥ID(Bridge ID)</h3><ul>
+<li><p>桥ID一共8个字节，由2个字节优先级和6个字节的MAC地址构成</p>
+</li>
+<li><p>桥优先级默认为 <strong>32768</strong>，可以手工修改。</p>
+</li>
+<li><p>AC地址为交换机背板MAC。</p>
+</li>
+</ul>
+<p><img src="/../../../../images/image-20240329093108655.png" alt="image-20240329093108655"></p>
+<h3 id="路径开销-Path-Cost"><a href="#路径开销-Path-Cost" class="headerlink" title="路径开销(Path Cost)"></a>路径开销(Path Cost)</h3><p>路径开销是一个端口量，是STP&#x2F;RSTP协议用于选择链路的参考值。<br>端口路径开销的默认值及取值范围由选定的路径开销算法决定，<strong>路径开销与端口带宽成反比</strong>。<br>华为设备路径开销标准有:802.1d-1998、802.1t及私有的legacy，默认为802.1t标准。</p>
+<p><img src="/../../../../images/image-20240329093246807.png" alt="image-20240329093246807"></p>
+<h3 id="STP选举操作"><a href="#STP选举操作" class="headerlink" title="STP选举操作"></a>STP选举操作</h3><p>1.确定一个根桥(Root Bridge)【选优先级和MAC地址最小的网桥)</p>
+<p>2.确定其他网桥的根端口(Root Port)【非根桥的端口到根桥最近的端口】</p>
+<p>3.每个段选择一个指定端口(Designated Port)【先选指定桥，指定桥上为指定端口】</p>
+<p>4.选出非指定端口(NonDesignated Port)</p>
+<p><img src="/../../../../images/image-20240329093426272.png" alt="image-20240329093426272"></p>
+<p>所有选举都是选择离根桥距离最近的。</p>
+<p>根桥上的所有接口都是指定端口</p>
+<p>指定桥上的接口就是指定端口</p>
+<h3 id="常见几种生成树协议"><a href="#常见几种生成树协议" class="headerlink" title="常见几种生成树协议"></a>常见几种生成树协议</h3><ul>
+<li>生成树协议:802.1d STP(<strong>慢，拓扑收敛需要30-50s</strong>)</li>
+<li>快速生成树协议 802.1W RSTP(<strong>快，6s内完成收敛</strong>)</li>
+<li>多生成树协议 802.1SMSTP(<strong>实现多个VLAN负载均衡</strong>)</li>
+</ul>
+<p><img src="/../../../../images/image-20240329094230603.png" alt="image-20240329094230603"></p>
+<p>解题：</p>
+<p>1、确定SWA为根桥，所以只能阻断SWB的其中一个接口</p>
+<p>2、根据接口的数字大小决定谁先优先，SWA的g0&#x2F;0&#x2F;1优先，会先发数据给0&#x2F;0&#x2F;2.所以SWB的g0&#x2F;0&#x2F;1阻塞</p>
+<h3 id="城域网"><a href="#城域网" class="headerlink" title="城域网"></a>城域网</h3><p>(1)E-LAN技术是802.1Q的VLAN帧标记，双层标记，打了<strong>两层VLAN标签</strong>，这种技术被定义为<strong>IEEE802.1ad</strong>，也称为<strong>QinQ技术</strong>。</p>
+<ul>
+<li>QinQ实际是把<strong>用户VLAN</strong>嵌套在<strong>运营商城域以太网VLAN</strong>中传送。</li>
+</ul>
+<p>(2)IEEE802.1ah，也称为PBB，也叫<strong>MAC-IN-MAC技术</strong></p>
+<p><img src="/../../../../images/image-20240329100407328.png" alt="image-20240329100407328"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

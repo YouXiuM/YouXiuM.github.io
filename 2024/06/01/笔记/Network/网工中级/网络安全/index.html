@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>网络安全 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>网络安全</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #03a9f4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00a596">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><h2 id="网络安全基础"><a href="#网络安全基础" class="headerlink" title="网络安全基础"></a>网络安全基础</h2><p>网络安全威胁类型：</p>
+<p>(1)<strong>窃听</strong>:例如搭线窃听、安装通信监视器和读取网上的信息等。</p>
+<p>(2)<strong>假冒</strong>:当一个实体假扮成另一个实体进行网络活动时就发生了假冒。</p>
+<p>(3)<strong>重放</strong>:重复发送一份报文或报文的一部分，以便产生一个被授权效果。**(随机数、时间戳 )**</p>
+<p>(4)<strong>流量分析</strong>:对网上信息流观察和分析推断出网上传输的有用信息。</p>
+<p>(5)<strong>数据完整性破坏</strong>:有意或无意地修改或破坏信息系统，或者在非授权和不能监测的方式下对数据进行修改。</p>
+<p>(6)<strong>拒绝服务DoS</strong>:当一个授权实体不能获得应有的对网络资源的访问。SYN-Flooding、MAC-Flooding等</p>
+<p>(7)<strong>资源的非授权使用</strong>:即与所定义的安全策略不一致的使用。</p>
+<p>(8)<strong>陷门和特洛伊木马</strong>:通过替换系统合法程序，或者在合法程序里插入恶意代码。</p>
+<p>(9)<strong>病毒</strong>:随着人们对计算机系统和网络依赖程度的增加，计算机病毒已经构成了对计算机系统和网络的严重威胁。</p>
+<p>(10)<strong>诽谤</strong>:利用计算机信息系统的广泛互连性和匿名性散布错误的消息，以达到毁某个对象的形象和知名度的目的。</p>
+<p>什么是拒绝服务DoS和DDoS？</p>
+<p>就是一直访问你的资源，使得其他人访问不了。</p>
+<p>DoS,就比如你去餐厅占了一个座位。但什么都不点，一直不走，其他人也使用不了你的位置</p>
+<p>DDoS,不但你占了一个位置，你叫其他人一起跟你一样，占着位置，让其他人使用不了，分布式。</p>
+<p>网络攻击分类：</p>
+<p><strong>被动攻击</strong>:典型代表<strong>嗅探、监听和流量分析和会话拦截</strong>，最难被检测，重点是预防，主要手段是<strong>加密</strong></p>
+<p><strong>主动攻击假冒、重放、欺骗、消息篡改和拒绝服务</strong>等，重点是<strong>检测而不是预防</strong>，手段有防火墙、IDS等技术</p>
+<p>物理临近攻击:防止外人乱进机房。</p>
+<p>内部人员攻击:内鬼渗透，内部瓦解。</p>
+<p>分发攻击:软件开发出来未安装之前，被篡改。疫苗运输恒温不合格</p>
+<h2 id="现代加密技术"><a href="#现代加密技术" class="headerlink" title="现代加密技术"></a>现代加密技术</h2><p>密码分为：</p>
+<p><strong>私钥、公钥</strong>，介于私钥和公钥之间的密码称为<strong>混合密码</strong></p>
+<h3 id="私钥密码"><a href="#私钥密码" class="headerlink" title="私钥密码"></a>私钥密码</h3><p>又称：<strong>对称密码</strong></p>
+<p>比如，你电脑文件加密，加密密码是123，对方接收到解密也是123，只不过通过短信、微信等方式告诉它。。</p>
+<p>特点： </p>
+<p><strong>加密和解密使用相同的密钥</strong></p>
+<p>消息的收发双方必须事先通过<strong>安全渠道交换密钥</strong>。</p>
+<p>优点：<strong>加解密速度快，密文紧凑，使用密钥时的难破解</strong></p>
+<p>缺点：<strong>密钥分配问题，密钥管理问题，无法认证源。</strong></p>
+<p>什么是密文紧凑？</p>
+<p>比如你10T数据加密后，仍然是10T</p>
+<p><img src="/../../../../images/image-20240409214326335.png" alt="image-20240409214326335"></p>
+<p><strong>对称加密算法总结</strong>(背)</p>
+<p><img src="/../../../../images/image-20240409214614741.png" alt="image-20240409214614741"></p>
+<p>分组加密算法和流加密算法是什么？</p>
+<p>分组加密算法，比如，数据过大，拆分数据来加密</p>
+<p>流加密算法，数据即使很大，也不拆分，进行加密</p>
+<h3 id="公钥密码"><a href="#公钥密码" class="headerlink" title="公钥密码"></a>公钥密码</h3><p>又称：非对称密码</p>
+<p>就是对数据加密和解密的密钥是不同的</p>
+<p>优点：</p>
+<p><strong>密钥分发方便、密钥保管量少，支持数字签名</strong></p>
+<p>缺点：</p>
+<p><strong>加密速度慢(计算量大，不适合加密大数据)，数据膨胀率高</strong></p>
+<p>每个实体有两个密钥:<strong>公钥公开，私钥自己保存</strong><br><strong>公钥加密，私钥解密，可实现保密通信<br>私钥加密，公钥解密，可实现数字签名</strong></p>
+<p>公钥是公开的，自己还是对方都是知道的，公钥密码是指对方的公钥，然后对方用自己的私钥解密。</p>
+<p><img src="/../../../../images/image-20240409215028851.png" alt="image-20240409215028851"></p>
+<p>常见的非对称加密算法如下<br>·RSA:512位(或1024位)密钥，计算量极大，难破解。</p>
+<p>·Elgamal、ECC(椭圆曲线算法)、背包算法、Rabin、DH等</p>
+<h3 id="混合密码"><a href="#混合密码" class="headerlink" title="混合密码"></a>混合密码</h3><p>混合密码: 发送方<strong>用对称密钥加密需要发送的消息，再用接收方的公钥加密对称密钥</strong>，然后一起发送给接收方;接收方先用自己的私钥解密得到对称密钥，然后用对称密钥解密得到明文。</p>
+<p>通俗地说，</p>
+<p>加密</p>
+<p>1、数据先对称加密，得到加密数据(A)</p>
+<p>2、然后对加密数据(A)进行非对称加密，得到加(密数据(A))(B)</p>
+<p>3、发送给对方</p>
+<p>解密</p>
+<p>4、收到后，进行非对称解密，用自己的私钥解密，得到加密数据(A)</p>
+<p>5、然后，再用对称解密，得到明文数据</p>
+<p><img src="/../../../../images/image-20240409215832908-17126711136731.png" alt="image-20240409215832908"></p>
+<h3 id="国产加密算法-SM系列"><a href="#国产加密算法-SM系列" class="headerlink" title="国产加密算法 - SM系列"></a>国产加密算法 - SM系列</h3><p>《中华人民共和国密码法》密码分为<strong>核心密码、普通密码和商用密码</strong>，实行分类管理。<br><strong>核心密码、普通密码用于保护国家秘密信息</strong>，属于国家秘密，由密码管理部门依法实行严格统一管理。<br>商用密码用于保护不属于国家秘密的信息，公民、法人可用。</p>
+<p><img src="/../../../../images/image-20240409220924839.png" alt="image-20240409220924839"></p>
+<h2 id="哈希算法-Hash"><a href="#哈希算法-Hash" class="headerlink" title="哈希算法 Hash"></a>哈希算法 Hash</h2><p>HASH函数，又称：<strong>杂凑函数，散列函数</strong>。</p>
+<p><strong>能够任意长度的信息转换成固定长度的哈希值(数字摘要)。</strong></p>
+<p>比如，1T的数据，进行哈希(MD5),大小为128位</p>
+<p>特点：</p>
+<p>**不可逆性(单向)**：哈希后不能推测出原来数据，比如128位信息摘要，不可能推出1T的数据内容</p>
+<p><strong>无碰撞性</strong>：不同的数据进行hash，hash后的值不会是一样的</p>
+<p><strong>雪崩效应</strong>：数据变化，导致hash值的结果显著不一样</p>
+<p>常见的Hash算法有:<br>(1)MD5算法:以512位数据块为单位来处理输入，产生<strong>128位</strong>的信息摘要。常用于文件校验</p>
+<p>(2)SHA算法:以512位数据块为单位来处理输入，产生<strong>160位</strong>的哈希值，具有比MD5更强的安全性。</p>
+<p>(3)SM3国产算法:消息分组长度为512比特，输出<strong>256位</strong>摘要。</p>
+<h3 id="HASH应用"><a href="#HASH应用" class="headerlink" title="HASH应用"></a>HASH应用</h3><p><strong>文件完整性校验</strong></p>
+<p><img src="/../../../../images/image-20240409232009743.png" alt="image-20240409232009743"></p>
+<p>比如，我们在官网上下载文件，官网上的文件是有hash值</p>
+<p>然后我们下载后的文件，不确定文件是否被修改，下载文件后去</p>
+<p>hash计算，跟官网上的hash进行比较</p>
+<p><strong>账号密码存储</strong></p>
+<p><img src="/../../../../images/image-20240409232526656.png" alt="image-20240409232526656"></p>
+<p><strong>用户身份认证</strong></p>
+<p>增加一个随机数R做哈希MAC&#x3D;Hash(密码+R)</p>
+<p>需要双方预先知道这个R</p>
+<p>MAC:消除中间人攻击，源认证+完整性校验</p>
+<p><img src="/../../../../images/image-20240409232628875.png" alt="image-20240409232628875"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240409232753927.png" alt="image-20240409232753927"></p>
+<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p><strong>签名方用自己的私钥进行签名，对方收到后，用签名方自己的公钥进行验证</strong></p>
+<p>数字签名算法(公钥加密算法):<strong>RSA</strong>、Rabin、ELGamal签名体制和DSS标准</p>
+<p>数据签名是用于<strong>确认发送者身份和消息完整性</strong>的一个加密消息摘要，具有如下特点：<br>(1)数字签名是可信的。<br>(2)数字签名不可伪造<br>(3)数字签名不能重新使用。<br>(4)签名文件是不能改变的。<br>(5)数字签名不能抵赖。<br>(6)接收者能够核实发送者身份。</p>
+<p><img src="/../../../../images/image-20240410001934033.png" alt="image-20240410001934033"></p>
+<p><img src="/../../../../images/image-20240410002003593.png" alt="image-20240410002003593"></p>
+<h2 id="数字证书与CA"><a href="#数字证书与CA" class="headerlink" title="数字证书与CA"></a>数字证书与CA</h2><p>数字证书的作用：是确定接收方的公钥是正确的，并不是黑客的公钥。</p>
+<p>例如：Alice发数据给Bob，需要进行非对称加密，需要获取Bob的公钥，那问题来了，发过来的公钥，一定是Bob的公钥嘛，也有可能是黑客截取信息，黑客把自己的公钥发给他，然后黑客来解密。</p>
+<p>数字证书就是来解决这个问题的。颁发机构是CA，现实相当于公安机关，是非常安全的</p>
+<p><img src="/../../../../images/image-20240410002113697.png" alt="image-20240410002113697"></p>
+<p>数字证书类比：</p>
+<p><img src="/../../../../images/image-20240410002628047.png" alt="image-20240410002628047"></p>
+<p>数字证书里面主要包括：接收方的公钥+CA的私钥</p>
+<p>PKI体系结构</p>
+<p><img src="/../../../../images/image-20240410002928059.png" alt="image-20240410002928059"></p>
+<p>1、<strong>用户&#x2F;终端实体</strong>:指将要向认证中心申请数字证书的客户，可以是个人，也可以是集团或团体、某政府机构等。</p>
+<p>2、<strong>注册机构RA</strong>:<strong>负责受理用户申请证书，对申请人的合法性进行认证</strong>，并决定是批准或拒绝证书申请。注册机构并不给用户签发证书而只是对用户进行资格审查。<strong>较小的机构，可以由CA兼任RA的工作</strong></p>
+<p>3、证书颁发机构CA:<strong>负责给用户颁发、管理和撤销证书</strong>。</p>
+<p>4、证书发布系统:负责证书发放，如可以通过用户自已或是通过目录服务。</p>
+<p>CRL库:证书吊销列表，存放过期或者无效证书。</p>
+<p>例题</p>
+<p><img src="/../../../../images/image-20240410003105583.png" alt="image-20240410003105583"></p>
+<p>证书链</p>
+<p>如果用户数量很多，通常由多个CA，每个CA为一部分用户发行和签证书。如果有两个CA，X1和X2，假设用户A从CA机构X1获得了证书，用户B从X2获得证书，如果两个证书发放机构<strong>X1和X2彼此间安全交换了公钥</strong>，彼此信任，那么他们的证书可以形成证书链。</p>
+<p>A通过一个证书链来获取B的公钥，证书链表示为:X1《X2》x2《B》</p>
+<p>B也能通过相反的证书链来获取A的公开密钥:X2《X1》X1《A》</p>
+<p>怎么理解记忆？</p>
+<p>A通过一个证书链来获取B的公钥，证书链表示为:X1《X2》x2《B》</p>
+<p>首先，想要获得B的公钥，必须获得B的证书，B的证书又是X2发布，所以表示X2《B》</p>
+<p>然后，B的证书，肯定要经过”上级的沟通”,A的领导跟B的领导沟通，即X1《X2》</p>
+<p>最后，领导同意，然后再跟B拿证书，X1《X2》x2《B》</p>
+<h2 id="IPSec原理"><a href="#IPSec原理" class="headerlink" title="IPSec原理"></a>IPSec原理</h2><h3 id="虚拟专用网-Virtual-Private-Network"><a href="#虚拟专用网-Virtual-Private-Network" class="headerlink" title="虚拟专用网(Virtual Private Network)"></a>虚拟专用网(Virtual Private Network)</h3><p>一种建立在公网上的，由某一组织或某一群用户专用的通信网络</p>
+<p>二层:L2TP和PPTP(基于PPP)<br>三层:<strong>IPSec</strong>和GRE<br>四层:<strong>SSL</strong>&#x2F;TLS</p>
+<p>实现虚拟专用网关键技术</p>
+<p>隧道技术(Tuneling )</p>
+<p>加解密技术(Encryption&amp;Decryption )</p>
+<p>密钥管理技术(Key Management)</p>
+<p>身份认证技术(Authentication)</p>
+<p>这个VPN是来干什么的？</p>
+<p>比如你的公司在上海，而你在广州出差，你需要去公司内部服务器拉取文件。这时候你不可能去公司拉取文件吧，所以需要远程进入公司内部，给你拉一条虚拟的网线，能够使你的电脑通信公司内部网络。</p>
+<p><img src="/../../../../images/image-20240410222056021.png" alt="image-20240410222056021"></p>
+<h3 id="二层隧道协议"><a href="#二层隧道协议" class="headerlink" title="二层隧道协议"></a>二层隧道协议</h3><p>二层隧道协议有<strong>PPTP和L2TP</strong>，都基于PPP协议，但<strong>PPTP只支持TCP&#x2F;IP体系</strong>，网络层必须是IP协议而L2TP可以运行在IP协议上，也可以在X.25、帧中继或ATM网络上使用。</p>
+<p>PPP协议包含<strong>链路控制协议LCP和网络控制协议NCP</strong>。</p>
+<p>PPP协议可以在点对点链路上<strong>传输多种上层协议</strong>的数据包，有校验位。</p>
+<p><img src="/../../../../images/image-20240410223104621.png" alt="image-20240410223104621"></p>
+<h3 id="PPP认证方式：PAP和CHAP"><a href="#PPP认证方式：PAP和CHAP" class="headerlink" title="PPP认证方式：PAP和CHAP"></a>PPP认证方式：PAP和CHAP</h3><p>PAP:<strong>两次握手</strong>验证协议，口令以明文传送，被验证方首先发起请求。<br>CHAP:<strong>三次握手</strong>，认证过程不传送认证口令，传送HMAC散列值。</p>
+<p><img src="/../../../../images/image-20240410223002991.png" alt="image-20240410223002991"></p>
+<h3 id="IPSec原理-1"><a href="#IPSec原理-1" class="headerlink" title="IPSec原理"></a>IPSec原理</h3><p>全称：IP Security</p>
+<p>作用：增强IP网络的安全性</p>
+<p>提供的安全服务：</p>
+<p>​	数据完整性(Data Integrity)</p>
+<p>​	认证(Autentication )</p>
+<p>​	保密性(Confidentiality )</p>
+<p>​	应用透明安全性(Application-transparent Security)</p>
+<p><strong>IPSec功能分类：</strong></p>
+<p><img src="/../../../../images/image-20240410223753859.png" alt="image-20240410223753859"></p>
+<p><strong>IPSec两种封装模式：</strong></p>
+<p><img src="/../../../../images/image-20240410223819504.png" alt="image-20240410223819504"></p>
+<h2 id="SSL与HTTPS"><a href="#SSL与HTTPS" class="headerlink" title="SSL与HTTPS"></a>SSL与HTTPS</h2><h3 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h3><p>SSL全称：Secure Socket Layer 安全套接层</p>
+<p>位于传输层和应用层之间，属于<strong>传输层安全协议</strong></p>
+<p>SSL和TLS有什么区别嘛？</p>
+<p>作用是一样的，但只是不同厂商而已</p>
+<p><strong>HTTPS &#x3D; HTTP + SSL&#x2F;TLS</strong></p>
+<p>SSL包含：<strong>记录协议、警告协议和握手协议</strong></p>
+<p><img src="/../../../../images/image-20240410232156879.png" alt="image-20240410232156879"></p>
+<h3 id="HTTPS和S-HTTP"><a href="#HTTPS和S-HTTP" class="headerlink" title="HTTPS和S-HTTP"></a>HTTPS和S-HTTP</h3><p>HTTPS &#x3D; HTTP + SSL&#x2F;&#x2F;TLS，端口<strong>TCP 443</strong></p>
+<p>S-HTTP 安全的超文本传输协议(Security HTTP)，端口<strong>TCP 80</strong>。</p>
+<p>S-HTTP语法与HTTP一样，而<strong>报文头有所区别，进行了加密</strong></p>
+<p><img src="/../../../../images/image-20240410232354347.png" alt="image-20240410232354347"></p>
+<h3 id="PGP"><a href="#PGP" class="headerlink" title="PGP"></a>PGP</h3><p>PGP(Pretty Good Privacy)是一个完整的<strong>电子邮件安全软件包</strong>，PGP提供数据加密和数字签名两种服务。采用<strong>RSA公钥证书进行身份验证，使用IDEA进行数据加密，使用MD5进行数据完整性验证</strong></p>
+<p><img src="/../../../../images/image-20240410232509187.png" alt="image-20240410232509187"></p>
+<h3 id="Kerberos和PKI"><a href="#Kerberos和PKI" class="headerlink" title="Kerberos和PKI"></a>Kerberos和PKI</h3><p>Kerberos是用于进行<strong>身份认证的安全协议</strong>，支持AAA:<strong>认证、授权和审计</strong></p>
+<p><img src="/../../../../images/image-20240410232619992.png" alt="image-20240410232619992"></p>
+<p><img src="/../../../../images/image-20240410232651560.png" alt="image-20240410232651560"></p>
+<h3 id="其他应用层安全协议"><a href="#其他应用层安全协议" class="headerlink" title="其他应用层安全协议"></a>其他应用层安全协议</h3><p>S&#x2F;MIME(Security&#x2F;Multipurpose Internet Mail Extensions)提供<strong>电子邮件安全服务</strong>。</p>
+<p>SET(Secure Electronic Transation)安全的电子交易，用于保障<strong>电子商务安全</strong>。</p>
+<h2 id="防火墙和入侵检测"><a href="#防火墙和入侵检测" class="headerlink" title="防火墙和入侵检测"></a>防火墙和入侵检测</h2><p>防火墙就像门口保安</p>
+<p>入侵检测就像园区内部的巡逻人员</p>
+<p>因为有些黑客会挠开防火墙进入网络，所以需要入侵检测</p>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>防火墙可以实现<strong>内部网络信任网络</strong>与<strong>外部不可信任网络</strong>(Internet)之间或是内部网络不同区域隔离与访问控制。</p>
+<p>防火墙技术与分类:<strong>包过滤、状态化防火墙、应用层网关、应用层检测DPI</strong>。</p>
+<p><img src="/../../../../images/image-20240411001626285.png" alt="image-20240411001626285"></p>
+<p>防火墙区域划分</p>
+<p><img src="/../../../../images/image-20240411001715510.png" alt="image-20240411001715510"></p>
+<p>例题</p>
+<p><img src="/../../../../images/image-20240411001737519.png" alt="image-20240411001737519"></p>
+<p><img src="/../../../../images/image-20240411001804196.png" alt="image-20240411001804196"></p>
+<h3 id="入侵检测"><a href="#入侵检测" class="headerlink" title="入侵检测"></a>入侵检测</h3><p>入侵检测IDS是防火墙之后的第二道安全屏障。</p>
+<p><img src="/../../../../images/image-20240411001842470.png" alt="image-20240411001842470"></p>
+<p>入侵检测系统的数据源</p>
+<p>操作系统审计记录&#x2F;操作系统日志。</p>
+<p>网络数据:核心交换机端口镜像，服务器接入<strong>交换机端口镜像</strong></p>
+<p><img src="/../../../../images/image-20240411001936638.png" alt="image-20240411001936638"></p>
+<p>华为交换机端口镜像配置</p>
+<p><img src="/../../../../images/image-20240411002000017.png" alt="image-20240411002000017"></p>
+<p>入侵检测分类</p>
+<p>按信息来源分:HIDS、NIDS、DIDS(主机&#x2F;网络&#x2F;分布式)</p>
+<p>按响应方式分:实时检测和非实时检测。</p>
+<p>按数据分析技术和处理方式分:<strong>异常检测、误用检测</strong>和混合检测。</p>
+<p><strong>异常检测</strong>:</p>
+<p>​	建立并不断更新和维护系统正常行为的轮廓，定义报警	阈值，超过阈值则报警</p>
+<p>​	能够检测从未出现的攻击，但误报率高。</p>
+<p><strong>误用检测</strong>:</p>
+<p>​	对已知的入侵行为特征进行提取，形成入侵模式库，匹	配则进行报警</p>
+<p>​	已知入侵检测准确率高，对于未知入侵检测准确率低，	<strong>高度依赖特征库</strong>。</p>
+<p>​	检测技术:专家系统和模式匹配。</p>
+<p>解释HIDS、NIDS、DIDS</p>
+<p>HIDS，相当于杀毒软件</p>
+<p>NIDS，在每个网段都能够检测</p>
+<p>DIDS，多个网段的入侵检测收集的流量，再汇聚给上一层入侵检测系统</p>
+<h3 id="入侵防御系统IPS"><a href="#入侵防御系统IPS" class="headerlink" title="入侵防御系统IPS"></a>入侵防御系统IPS</h3><p>定义:入侵防御系统是一种抢先的网络安全检测和防御系统，能<strong>检测出攻击并积极响应</strong></p>
+<p>IPS不仅具有入侵检测系统检测攻击行为的能力，而且具有<strong>拦截攻击并阻断攻击</strong>的功能</p>
+<p>IPS不是IDS和防火墙功能的简单组合，IPS在攻击响应上采取的是<strong>主动的全面深层次的防御</strong></p>
+<p><strong>入侵防御系统IPS vS 入侵检测系统IDS</strong>（背，下午）</p>
+<p>部署位置不同:IPS一般<strong>串行部署</strong>，IDS一般<strong>旁路部署</strong></p>
+<p>入侵响应能力不同:IPS能<strong>检测入侵，并能主动防御，</strong>IDS只能检测记录日志，发出警报</p>
+<p><img src="/../../../../images/image-20240411002746242.png" alt="image-20240411002746242"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240411002807363.png" alt="image-20240411002807363"></p>
+<p><img src="/../../../../images/image-20240411002814555.png" alt="image-20240411002814555"></p>
+<p><img src="/../../../../images/image-20240411002845390.png" alt="image-20240411002845390"></p>
+<h2 id="计算机病毒基础"><a href="#计算机病毒基础" class="headerlink" title="计算机病毒基础"></a>计算机病毒基础</h2><p>病毒四个阶段：</p>
+<p>潜伏阶段</p>
+<p>繁殖阶段</p>
+<p>触发阶段</p>
+<p>执行阶段</p>
+<p>病毒命名规则</p>
+<p>病毒名称一般格式<br><strong>&lt;病毒前缀&gt;.&lt;病毒名&gt;.&lt;病毒后缀&gt;</strong></p>
+<p><img src="/../../../../images/image-20240411173249247.png" alt="image-20240411173249247"></p>
+<p><img src="/../../../../images/image-20240411173318254.png" alt="image-20240411173318254"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
