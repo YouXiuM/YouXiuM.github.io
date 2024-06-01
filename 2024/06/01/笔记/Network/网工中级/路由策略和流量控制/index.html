@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>路由策略和流量控制 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>路由策略和流量控制</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #ffa2c4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00bcd4">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="路由策略和流量控制"><a href="#路由策略和流量控制" class="headerlink" title="路由策略和流量控制"></a>路由策略和流量控制</h1><h2 id="路由控制"><a href="#路由控制" class="headerlink" title="路由控制"></a>路由控制</h2><p>可以通过路由策略(Route-Policy)实现。以下常用方式：</p>
+<p>控制路由的发布:通过路由策略对发布的路由进行过滤，只发布满足条件的路由。</p>
+<p>控制路由的接收:通过路由策略对接收的路由进行过滤，只接收满足条件的路由。</p>
+<p>控制路由的引入:通过路由策略控制从其他路由协议引入的路由条目，只有满足条件的路由才会被引入。</p>
+<h3 id="匹配工具1：访问控制列表"><a href="#匹配工具1：访问控制列表" class="headerlink" title="匹配工具1：访问控制列表"></a>匹配工具1：访问控制列表</h3><p>访问控制列表(Access Control List,ACL)是一个匹配工具，能够对报文及路由进行匹配和区分。</p>
+<p><img src="/../../../../images/image-20240518084412880.png" alt="image-20240518084412880"></p>
+<p><img src="/../../../../images/image-20240518084459974.png" alt="image-20240518084459974"></p>
+<p>“ACL只能匹配路由的前缀，无法匹配路由的网络掩码。”是什么意思？</p>
+<p>比如：</p>
+<p>1.1.1.0&#x2F;24，1.1.2.0&#x2F;24，1.1.3.0&#x2F;24</p>
+<p>acl 2000 permit source 1.1.2.0 0.0.0.255</p>
+<p>能够匹配1.1.2.0&#x2F;24 ，匹配前缀以1.1.2开头的路由</p>
+<p>1.1.2.8&#x2F;29，1.1.2.0&#x2F;30都能够匹配成功</p>
+<h3 id="匹配工具2：IP前缀列表"><a href="#匹配工具2：IP前缀列表" class="headerlink" title="匹配工具2：IP前缀列表"></a>匹配工具2：IP前缀列表</h3><p>IP前缀列表(IP-Prefix List)是将路由条目的网络地址、掩码长度作为匹配条件的过滤器，可在各路由协议发布和接收路由时使用。<br><strong>不同于ACL，IP-Prefix List能够同时匹配IP地址前缀长度以及掩码长度，增强了匹配的精确度。</strong></p>
+<p><img src="/../../../../images/image-20240518085138688.png" alt="image-20240518085138688"></p>
+<p>1、ip-prefix-name:地址前缀列表名称</p>
+<p>2、序号:本匹配项在地址前缀列表中的序号，匹配时根据序号从小到大进行顺序匹配</p>
+<p>3、动作:permit&#x2F;deny，地址前缀列表的匹配模式为允许&#x2F;拒绝，表示匹配&#x2F;不匹配</p>
+<p>4、IP网段与掩码:匹配路由的网络地址，以及限定网络地址的前多少位需严格匹配</p>
+<p>5、掩码范围:匹配路由前缀长度，掩码长度的匹配范围 mask-length&lt;&#x3D;greater-equal-value&lt;&#x3D;less-equal-value&lt;&#x3D;32</p>
+<p><strong>IP-Prefix的配置举例</strong></p>
+<p><img src="/../../../../images/image-20240518085548219.png" alt="image-20240518085548219"></p>
+<p><img src="/../../../../images/image-20240518085600222.png" alt="image-20240518085600222"></p>
+<p><img src="/../../../../images/image-20240518085620385.png" alt="image-20240518085620385"></p>
+<p><img src="/../../../../images/image-20240518085629918.png" alt="image-20240518085629918"></p>
+<p><img src="/../../../../images/image-20240518085649289.png" alt="image-20240518085649289"></p>
+<p><img src="/../../../../images/image-20240518085655946.png" alt="image-20240518085655946"></p>
+<p>IP-Prefix一些特殊用法</p>
+<p><img src="/../../../../images/image-20240518085731192.png" alt="image-20240518085731192"></p>
+<h3 id="IP-Prefix和ACL的区别"><a href="#IP-Prefix和ACL的区别" class="headerlink" title="IP-Prefix和ACL的区别"></a>IP-Prefix和ACL的区别</h3><p><strong>(1)产生背景</strong><br>    ACL的产生最初目的是为了过滤数据包而诞生的。</p>
+<p>​	IP-Prefix的产生是用于精确匹配路由条目</p>
+<p><strong>(2)实现功能</strong><br>    ACL既可以用来匹配路由，又可以用来过滤数据包。</p>
+<p>​	IP-Prefix只能用来匹配路由，不能用于过滤数据包</p>
+<p><strong>(3)匹配路由精确度</strong><br>    ACL不能进行精确匹配路由，匹配路由时只能匹配路由的网络号但无法匹配掩码。</p>
+<p>​	地址前缀列表比ACL更灵活，可以精确匹配路由，对于前缀相同而掩码不同的路由可以精确匹配</p>
+<h3 id="策略工具：Route-Policy"><a href="#策略工具：Route-Policy" class="headerlink" title="策略工具：Route-Policy"></a>策略工具：Route-Policy</h3><p>Route-Policy是一个策略工具，用于过滤路由信息，以及为过滤后的路由信息设置路由属性。</p>
+<p>-个Route-Policy由一个或多个节点(Node)构成，每个节点都可以是一系列条件语句(匹配条件)以及执行语句(执行动作)的集合，这些集合按照编号从小到大的顺序排列。</p>
+<p><img src="/../../../../images/image-20240518090624518.png" alt="image-20240518090624518"></p>
+<h4 id="Route-Policy的组成"><a href="#Route-Policy的组成" class="headerlink" title="Route-Policy的组成"></a><strong>Route-Policy的组成</strong></h4><p>-个Route-Policy由一个或多个节点构成，每个节点包括多个if-match和apply子句。</p>
+<p><img src="/../../../../images/image-20240518090731895.png" alt="image-20240518090731895"></p>
+<p>路由策略使用不同的匹配条件和匹配模式选择路由和改变路由属性</p>
+<p><img src="/../../../../images/image-20240518090823316.png" alt="image-20240518090823316"></p>
+<h4 id="Route-Policy的基础命令"><a href="#Route-Policy的基础命令" class="headerlink" title="Route-Policy的基础命令"></a>Route-Policy的基础命令</h4><p><img src="/../../../../images/image-20240518091246301.png" alt="image-20240518091246301"></p>
+<p><img src="/../../../../images/image-20240518091253264.png" alt="image-20240518091253264"></p>
+<p><img src="/../../../../images/image-20240518091310301.png" alt="image-20240518091310301"></p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="案例1：修改路由属性"><a href="#案例1：修改路由属性" class="headerlink" title="案例1：修改路由属性"></a>案例1：修改路由属性</h4><p><img src="/../../../../images/image-20240518091349398.png" alt="image-20240518091349398"></p>
+<p>[R1] ip ip-prefix external index 10 permit 192.168.1.0 24</p>
+<p>[R1]route-policy RP permit node 10<br>[R1-route-policy] if match ip prefix external<br>[R1-route-policy] apply cost-type type-1<br>[R1-route-policy] quit</p>
+<p>[R1] ospf<br>[R1-ospf-1] import-route direct route-policy RP</p>
+<ul>
+<li><p><code>[R1]route-policy RP permit node 10</code>: 这条命令创建了一个名为“RP”的路由策略，节点标识为 10，该策略允许匹配此策略的路由。</p>
+</li>
+<li><p><code>[R1-route-policy] if match ip prefix external</code>: 在路由策略中，这行指定该策略将根据前面创建的名为“external”的 IP 前缀列表来匹配路由。</p>
+</li>
+<li><p><code>[R1-route-policy] apply cost-type type-1</code>: 这条命令为匹配策略的路由应用特定的 OSPF 成本类型（type-1）。</p>
+</li>
+<li><p><code>LK1] ospf</code>: 这条命令可能是进入设备的 OSPF 配置模式。</p>
+</li>
+<li><p><code>[R1-ospf-1]import-route direct route-policy RP</code>: 这条命令使用名为“RP”的路由策略将直连路由导入 OSPF 进程。这意味着只有匹配“RP”策略的路由才会被导入 OSPF。</p>
+</li>
+</ul>
+<p><strong>回顾</strong></p>
+<p>在 OSPF（开放最短路径优先）协议中，类型 1 和类型 2 的区别主要与外部路由（External Routes）的度量值（Metric Type）有关，这些度量值决定了路由的优先级和计算路径成本的方式。</p>
+<ol>
+<li><strong>类型 1 路由（Type 1 External Routes）：</strong><ul>
+<li><strong>度量值累加（Metric Additive）：</strong> 类型 1 路由的总成本是外部路由的成本加上从当前路由器到达外部路由的内部 OSPF 路径成本。换句话说，OSPF 会把外部路径的成本和内部 OSPF 网络到达该路径的成本累加起来。</li>
+<li><strong>应用场景：</strong> 适用于需要准确反映整个路径成本的场景，特别是在路径中不同链路的成本差异较大时。</li>
+<li><strong>计算公式：</strong> 总成本 &#x3D; 内部路径成本 + 外部路径成本。</li>
+</ul>
+</li>
+<li><strong>类型 2 路由（Type 2 External Routes）：</strong><ul>
+<li><strong>度量值不累加（Metric Non-Additive）：</strong> 类型 2 路由的总成本仅为外部路由的成本，不包括从当前路由器到达外部路由的内部 OSPF 路径成本。OSPF 认为外部路径的成本已经足够高，因此不再增加内部 OSPF 路径的成本。</li>
+<li><strong>应用场景：</strong> 适用于外部路径成本已经很高，并且可以忽略内部 OSPF 网络成本的场景，比如当外部路径的带宽或延迟远高于内部路径时。</li>
+<li><strong>计算公式：</strong> 总成本 &#x3D; 外部路径成本。</li>
+</ul>
+</li>
+</ol>
+<p><strong>如何选择使用类型 1 或类型 2 路由</strong></p>
+<p>选择使用类型 1 还是类型 2 取决于网络的设计和管理需求：</p>
+<ul>
+<li><strong>类型 1</strong>：适合需要精细控制路由选择的场景，特别是当你希望 OSPF 考虑到所有链路的成本（包括内部和外部）时。</li>
+<li><strong>类型 2</strong>：适合简单和快速的路由选择场景，尤其是当外部路由的成本已经很高，内部网络的成本相对可以忽略不计时。</li>
+</ul>
+<h4 id="案例2：解决次优路径问题"><a href="#案例2：解决次优路径问题" class="headerlink" title="案例2：解决次优路径问题"></a>案例2：解决次优路径问题</h4><p><img src="/../../../../images/image-20240518092405179.png" alt="image-20240518092405179"></p>
+<p>当10.1.1.0&#x2F;24引入OSPF里面，R2学到，R3,R4又学到；</p>
+<p>1.10.1.0&#x2F;24是外部引入的，OSPF的AES是优先级是150，而IS-IS的优先级为15，当流量进来时，R3会选择R3-R4-R2-R1这条路由，而不是选择R4-R1，这样路由不是最优的。</p>
+<p>解决方案:R3通过ACL匹配10,1.1.0&#x2F;24路由，在Route-Policy中调用该条ACL，将匹配这条ACL的路由的优先级设置为14(优于IS-IS)。在OSPF视图下使用preference ase命令调用Route-Policy修改外部路由的优先级。</p>
+<p>在R3上执行以下操作:<br>[R3]acl 2000</p>
+<p>[R3-acl-basic-2000] rule permit source 10.1.1.0 0</p>
+<p>[R3-acl-basic-2000]quit</p>
+<p>[R3]route-policy hcip permit node 10</p>
+<p>[R3-route-policy]if-match acl 2000</p>
+<p>[R3-route-policy] apply preference 14</p>
+<p>[R3-route-policy] quit</p>
+<p>[R3] ospf 1</p>
+<p>[R3]ospf 1R3-ospf-1] preference ase route-policy hcip</p>
+<h2 id="策略路由"><a href="#策略路由" class="headerlink" title="策略路由"></a>策略路由</h2><h3 id="PBR"><a href="#PBR" class="headerlink" title="PBR"></a>PBR</h3><p>现在有流量要去192.168.1.0&#x2F;24，根据路由表是走RTB这条链路，但是我又有特殊业务要求，先需要一部分流量走RTC这条链路，这时候需要PBR来做策略路由，使得一部分流量走RTC这条链路</p>
+<p><img src="/../../../../images/image-20240518094819322.png" alt="image-20240518094819322"></p>
+<p>PBR(Policy-Based Routing，策略路由):PBR使得网络设备不仅能够基于报文的目的IP地址进行数据转发，更能基于其他元素进行数据转发，例如源IP地址、源MAC地址、目的MAC地址、源端口号、目的端口号、VLAN-ID等等。</p>
+<p>用户还可以使用ACL匹配特定的报文，然后针对该ACL进行PBR部署。<br>若设备部署了PBR，则被匹配的报文优先根据PBR的策略进行转发，即PBR策略的优先级高于传统路由表。</p>
+<h4 id="命令语法"><a href="#命令语法" class="headerlink" title="命令语法"></a>命令语法</h4><p><img src="/../../../../images/image-20240518095208976.png" alt="image-20240518095208976"></p>
+<h4 id="PBR的分类"><a href="#PBR的分类" class="headerlink" title="PBR的分类"></a>PBR的分类</h4><p>接口路由</p>
+<p><img src="/../../../../images/image-20240518095349074.png" alt="image-20240518095349074"></p>
+<p>本地PBR</p>
+<p><img src="/../../../../images/image-20240518095405790.png" alt="image-20240518095405790"></p>
+<h3 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h3><p><img src="/../../../../images/image-20240518095645329.png" alt="image-20240518095645329"></p>
+<p><img src="/../../../../images/image-20240518095652136.png" alt="image-20240518095652136"></p>
+<p><strong>1. 创建 ACL 以匹配流量</strong></p>
+<p><strong>ACL 3000：匹配网段 10.1.1.0&#x2F;24</strong></p>
+<pre><code>plaintext复制代码[RTA] acl number 3000
+[RTA-acl-adv-3000] rule 10 permit ip source 10.1.1.0 0.0.0.255
+[RTA-acl-adv-3000] quit
+</code></pre>
+<p><strong>ACL 3001：匹配网段 10.1.2.0&#x2F;24</strong></p>
+<pre><code>plaintext复制代码[RTA] acl number 3001
+[RTA-acl-adv-3001] rule 10 permit ip source 10.1.2.0 0.0.0.255
+[RTA-acl-adv-3001] quit
+</code></pre>
+<p><strong>2. 创建 PBR 策略</strong></p>
+<p><strong>为网段1配置 PBR（ISP1：202.1.2.3）</strong></p>
+<pre><code>plaintext复制代码[RTA] policy-based-route hcip permit node 10
+[RTA-policy-based-route-hcip-10] if-match acl 3000
+[RTA-policy-based-route-hcip-10] apply ip address next-hop 202.1.2.3
+[RTA-policy-based-route-hcip-10] quit
+</code></pre>
+<p><strong>为网段2配置 PBR（ISP2：154.1.2.3）</strong></p>
+<pre><code>plaintext复制代码[RTA] policy-based-route hcip permit node 20
+[RTA-policy-based-route-hcip-20] if-match acl 3001
+[RTA-policy-based-route-hcip-20] apply ip address next-hop 154.1.2.3
+[RTA-policy-based-route-hcip-20] quit
+</code></pre>
+<p><strong>3. 在接口 GE0&#x2F;1&#x2F;0 上应用 PBR</strong></p>
+<pre><code>plaintext复制代码[RTA] interface GigabitEthernet 0/1/0
+[RTA-GigabitEthernet0/1/0] ip policy-based-route hcip
+[RTA-GigabitEthernet0/1/0] quit
+</code></pre>
+<h3 id="MQC"><a href="#MQC" class="headerlink" title="MQC"></a>MQC</h3><p>MQC(Modular QoS Command-Line Interface，模块化QoS命令行)是指通过将具有某类共同特征的数据流划分为一类，并为同一类数据流提供相同的服务，也可以对不同类的数据流提供不同的服务。</p>
+<p>MQC包含三个要素:流分类(traffic classifier)、流行为(traffic behavior)和流策略(traffic policy)。</p>
+<p>MQC的流行为支持重定向报文，因此可以使用MQC实现IP单播策略路由。</p>
+<p><img src="/../../../../images/image-20240518101329608.png" alt="image-20240518101329608"></p>
+<p><strong>流策略</strong></p>
+<p>流策略:将流分类和流行为绑定，对分类后的报文执行对应流行为中定义的动作。<br>一个流策略可以绑定多个流分类和流行为。</p>
+<p><img src="/../../../../images/image-20240518101425009.png" alt="image-20240518101425009"></p>
+<p><strong>流分类</strong></p>
+<p>流分类:定义一组流量匹配规则，以对报文进行分类。流分类支持的匹配项如下所示。</p>
+<p><img src="/../../../../images/image-20240518101530560.png" alt="image-20240518101530560"></p>
+<p><strong>流策略</strong></p>
+<p>流策略:流策略支持在接口上调用。</p>
+<p>流策略存在方向(inbound、outbound)的概念，策略中的流行为匹配入、出方向的报文对匹配中的报文执行相应的流动作。</p>
+<p><img src="/../../../../images/image-20240518101950375.png" alt="image-20240518101950375"></p>
+<h3 id="配置命令"><a href="#配置命令" class="headerlink" title="配置命令"></a>配置命令</h3><p>1、创建流分类<br>[Huawei] traffic classifier classifer-name [ operator { and | or } ]<br>缺省情况下，流分类中各规则之间的关系为“或”(or)。流分类中的匹配规则配置可查阅产品手册</p>
+<p>2、创建流行为<br>[Huawei] traffic behavior behavior-name<br>根据实际情况定义流行为中的动作，只要各动作不冲突，都可以在同一流行为中配置。流行为具体配置可查阅产品手册。</p>
+<p>3、创建流策略，并绑定流分类与流行为3.<br>[Huawei] traffic policy policy-name </p>
+<p>[Huawei-trafficpolicy-policyname] classifier classifier-name behavior behavior-name</p>
+<h3 id="案例-2"><a href="#案例-2" class="headerlink" title="案例"></a>案例</h3><h4 id="案例1：MQC实现策略路由"><a href="#案例1：MQC实现策略路由" class="headerlink" title="案例1：MQC实现策略路由"></a>案例1：MQC实现策略路由</h4><p><img src="/../../../../images/image-20240518102630070.png" alt="image-20240518102630070"></p>
+<p><img src="/../../../../images/image-20240518102635280.png" alt="image-20240518102635280"></p>
+<p><img src="/../../../../images/image-20240518102651643.png" alt="image-20240518102651643"></p>
+<p><img src="/../../../../images/image-20240518102705707.png" alt="image-20240518102705707"></p>
+<h4 id="案例2：MQC过滤流量"><a href="#案例2：MQC过滤流量" class="headerlink" title="案例2：MQC过滤流量"></a>案例2：MQC过滤流量</h4><p><img src="/../../../../images/image-20240518103010306.png" alt="image-20240518103010306"></p>
+<p><img src="/../../../../images/image-20240518103024548.png" alt="image-20240518103024548"></p>
+<p><img src="/../../../../images/image-20240518103037066.png" alt="image-20240518103037066"></p>
+<p>为充分利用两个运营商的带宽，请提供至少4种多出口链路负载策略。</p>
+<p><img src="/../../../../images/image-20240518103204465.png" alt="image-20240518103204465"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

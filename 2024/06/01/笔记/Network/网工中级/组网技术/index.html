@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>组网技术 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>组网技术</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00bcd4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00a596">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="组网技术"><a href="#组网技术" class="headerlink" title="组网技术"></a>组网技术</h1><h2 id="交换机基础"><a href="#交换机基础" class="headerlink" title="交换机基础"></a>交换机基础</h2><h3 id="交换机分类"><a href="#交换机分类" class="headerlink" title="交换机分类"></a>交换机分类</h3><p>1、根据交换机方式分：</p>
+<p><strong>存储转发式交换：</strong>完整接收数据帧，缓存、验证、碎片过滤，转发</p>
+<p><strong>优点： 可以提供差错校验和非对称交换。</strong></p>
+<p><strong>缺点：延迟大。</strong></p>
+<p><strong>直通式交换：</strong>输入端口扫描到目标地址后立即开始转发</p>
+<p><strong>优点：延迟小、交换速度快。</strong></p>
+<p><strong>缺点： 没有检错能力，不能实现非对称交换。</strong></p>
+<p><strong>碎片过滤式交换：</strong>开始转发前先检查数据包的长度是否够6<strong>4个字节</strong>，如果小于64个字节，说明是冲突碎片，则丢弃；如果大于等于64个字节，则转发该包。</p>
+<p>其他分类方式：</p>
+<p>2.根据交换的协议层划分:二层交换机、三层交换机、多层交换机。</p>
+<p>3.根据交换机结构划分:固定端口交换机、模块化交换机。</p>
+<p>4.根据配置方式划分:<strong>堆叠交换机、非堆叠交换机</strong>。</p>
+<p>5.根据管理类型划分:网管交换机、非网管交换机、智能交换机。</p>
+<p>6.层次结构划分:<strong>核心交换机、汇聚交换机、接入交换机</strong>。</p>
+<p><img src="/../../../../images/image-20240419103409036.png" alt="image-20240419103409036"></p>
+<h3 id="级联和堆叠"><a href="#级联和堆叠" class="headerlink" title="级联和堆叠"></a>级联和堆叠</h3><p><img src="/../../../../images/image-20240419104134010.png" alt="image-20240419104134010"></p>
+<p>级联：一级一级的连接，核心层-汇聚层-接入层，一般不超过三层</p>
+<p>堆叠：好比虚拟化，在接入层，有三台交换机(24接口)，合并成一台交换机(72接口)。</p>
+<p><strong>堆叠优劣势：</strong>(背)</p>
+<p>优势：</p>
+<p>(1)逻辑上把多台设备虚拟成一台设备，简化运维，方便管理。<br>(2)一台物理设备故障，其他设备可以接管转发、控制平台，避免了单点故障。<br>(3)跨设备的链路聚合，物理上的无环网络，无需再部署STP.<br>(4)链路聚合中的链路全部有效使用，链路利用率100%。</p>
+<p>劣势：</p>
+<p>(1)堆叠都是私有协议，不支持跨厂商设备堆叠。<br>(2)需要单独购买堆叠线缆。(现在最新的用光纤也能实现堆叠)<br>(3)存在一定资源浪费，特别高端设备，如果2台核心都配置双引擎，堆叠后只有1个引擎工作。<br>(4)如果堆叠系统升级或重启，一般会有20~60s的业务中断。<br>(5)可靠性风险:控制层面统一后，相当于把鸡蛋放在一个篮子里，如果整个逻辑设备的控制平面出现问题(比如说路由表被人攻击破坏)，就有可能导致整机瘫痪，影响的范围大。</p>
+<p><strong>答题版：<br>堆叠技术优点:<br>①逻辑上变为一台设备，简化网络管理;<br>②提升系统可靠性,避免单点故障;<br>③配合链路聚合等技术，防止接口被生成树阻塞，提升链路利用率。<br>堆叠技术缺点:<br>①堆叠是私有协议，不支持跨厂商设备堆叠;<br>②系统升级会造成业务中断;<br>③多台设备堆叠，只有一个主控处于工作状态，存在资源浪费。</strong></p>
+<h3 id="交换机性能参数"><a href="#交换机性能参数" class="headerlink" title="交换机性能参数"></a>交换机性能参数</h3><p>端口类型:RJ45电口、光口(SC&#x2F;GBIC&#x2F;<strong>SFP&#x2F;SFP+</strong>&#x2F;SFP28)</p>
+<p>STP：支持千兆。SFP+：支持万兆</p>
+<p>传输模式:半双工、全双工。</p>
+<p>交换容量:<strong>端口数<em>端口速率</em>2.</strong></p>
+<p>包转发率:单位时间内发送64字节数据包的个数</p>
+<p>1000Mbps&#x2F;8&#x2F;(64+8+12)&#x3D;1.488Mpps</p>
+<p>MAC地址数:交换机MAC地址表中可以存储最大的MAC地址数量。</p>
+<p>VLAN表项:交换机最大支持VLAN数量，现在都是<strong>4094</strong>个。</p>
+<h2 id="路由器基础"><a href="#路由器基础" class="headerlink" title="路由器基础"></a>路由器基础</h2><h3 id="路由器接口"><a href="#路由器接口" class="headerlink" title="路由器接口"></a>路由器接口</h3><p>广域网WAN端口和局域网LAN端口</p>
+<p>RJ45端口:常规以太网电口。</p>
+<p>以太网光口:SC&#x2F;GBIC&#x2F;SFP&#x2F;SFP+&#x2F;SFP28.</p>
+<p>AUI端口:用于令牌环或总线型以太网接口。</p>
+<p>Serial串口:用于连接DDN、帧中继、X.25、PSTN等网络</p>
+<p>ISDN BRI&#x2F;PRI端口:ISDN线路互联</p>
+<p>SDH POS接口:155M&#x2F;622M&#x2F;2.5G&#x2F;10G.</p>
+<p>RJ45端口就是就是双绞线的接口</p>
+<p><img src="/../../../../images/image-20240419115044999.png" alt="image-20240419115044999"><img src="/../../../../images/image-20240419114945553.png" alt="image-20240419114945553"></p>
+<p>Serial串口</p>
+<p><img src="/../../../../images/image-20240419115250050.png" alt="image-20240419115250050"></p>
+<p>以太网口</p>
+<p><img src="/../../../../images/image-20240419115817696.png" alt="image-20240419115817696"></p>
+<h3 id="交换机路由器管理方式"><a href="#交换机路由器管理方式" class="headerlink" title="交换机路由器管理方式"></a>交换机路由器管理方式</h3><p>Console接口(最基础最常用)<br>AUX端口连接Modem (现在几乎没什么人用)<br>Telnet&#x2F;SSH<br>浏览器<br>网管软件</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240419115547288.png" alt="image-20240419115547288"></p>
+<p><img src="/../../../../images/image-20240419115751807.png" alt="image-20240419115751807"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

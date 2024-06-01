@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>网络规划设计 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>网络规划设计</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00a596">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ffa2c4">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="网络规划设计"><a href="#网络规划设计" class="headerlink" title="网络规划设计"></a>网络规划设计</h1><h2 id="综合布线"><a href="#综合布线" class="headerlink" title="综合布线"></a>综合布线</h2><p>网络规划和设计是一个<strong>迭代和优化</strong>的过程。</p>
+<p>为什么需要结构化综合布线呢？</p>
+<p>我们日常生活中，需要打电话，需要传输文件，又需要看视频；她们需要的用的传输介质都是不一样的；而结构化综合布线系统就是<strong>消除了原有通信线路在传输介质上的差别</strong>。</p>
+<p><strong>综合布线六大子系统</strong></p>
+<p>结构化布线系统包含6个子系统：</p>
+<p><img src="/../../../../images/image-20240420095633003.png" alt="image-20240420095633003"></p>
+<p><img src="/../../../../images/image-20240420095643153.png" alt="image-20240420095643153"></p>
+<p><strong>工作区子系统</strong>：PC到插座&#x2F;网口之间的的布线，一般不超过10米</p>
+<p><strong>水平子系统</strong>：信息插座到楼层的配线间之间的布线，一般不超过90米</p>
+<p><strong>干线&#x2F;垂直子系统</strong>：各个楼层配线间的布线，现不同楼层之间的数据传输和通信</p>
+<p><strong>设备间子系统</strong>：”机房”，核心交换机等等</p>
+<p><strong>管理子系统</strong>：用于监控、管理和维护整个布线系统的软件或硬件，包含配线架的管理，也就是整理线缆</p>
+<p><strong>建筑群子系统</strong>：实现不同建筑物的传输和通信</p>
+<p>注意：并不是每一个楼层都有管理子系统</p>
+<p><img src="/../../../../images/image-20240420101017462.png" alt="image-20240420101017462"></p>
+<h2 id="网络分析与设计"><a href="#网络分析与设计" class="headerlink" title="网络分析与设计"></a>网络分析与设计</h2><p><strong>网络规划设计模型</strong></p>
+<p><img src="/../../../../images/image-20240420111008805.png" alt="image-20240420111008805"></p>
+<p><img src="/../../../../images/image-20240420111015284.png" alt="image-20240420111015284"></p>
+<p><strong>五阶段网络开发过程(瀑布)</strong></p>
+<p><img src="/../../../../images/image-20240420112225635.png" alt="image-20240420112225635"></p>
+<p><img src="/../../../../images/image-20240420112855374.png" alt="image-20240420112855374"></p>
+<p>网络安全技术措施表</p>
+<p><img src="/../../../../images/image-20240420112928006.png" alt="image-20240420112928006"></p>
+<p>技术评价</p>
+<p>在进行网络技术选择时，考虑：</p>
+<p><strong>通信带宽、技术成熟性、连接服务类型、可扩展性、高投资产比</strong>出等因素</p>
+<p>对于大型网络工程来说，<strong>项目本身不能成为新技术的试验田</strong>。尽量使用较成熟、拥有较多案例的技术。</p>
+<h2 id="网络结构与功能"><a href="#网络结构与功能" class="headerlink" title="网络结构与功能"></a>网络结构与功能</h2><p>局域网结构类型</p>
+<p><img src="/../../../../images/image-20240420114712131.png" alt="image-20240420114712131"></p>
+<p>三层架构(各层次功能)</p>
+<p><img src="/../../../../images/image-20240420114751828.png" alt="image-20240420114751828"></p>
+<p><img src="/../../../../images/image-20240420114800235.png" alt="image-20240420114800235"></p>
+<p>接入层不设置网关，因为一般都说同个网段&#x2F;vlan</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240420114854901.png" alt="image-20240420114854901"></p>
+<p><img src="/../../../../images/image-20240420114906637.png" alt="image-20240420114906637"></p>
+<p><img src="/../../../../images/image-20240420114924958.png" alt="image-20240420114924958"></p>
+<h2 id="广域网接入技术"><a href="#广域网接入技术" class="headerlink" title="广域网接入技术"></a>广域网接入技术</h2><p>1.PSTN公用电话网络 56kb&#x2F;s。<br>2.ISDN:BRI&#x3D;2B+D&#x3D;144K PRI&#x3D;30B+D&#x3D;2.048M.<br>3.线缆调制解调器接入 HFC 主干光纤，<strong>光纤到小区，铜缆接入</strong>。<br>4.数字用户线路远程接入 xDSL。<br>5.PON无源光网络，<strong>上行是TDMA，下行是广播</strong>。</p>
+<p><img src="/../../../../images/image-20240420143128638.png" alt="image-20240420143128638"></p>
+<p><img src="/../../../../images/image-20240420143141223.png" alt="image-20240420143141223"></p>
+<p>HFC光纤：前端：Cable Modem(线缆解调的猫)，后端：CMTS</p>
+<p>PON网络：前端：ONU(光猫,客户)，后端：OLT(运营商)</p>
+<p>xDSL：前端：ADSL Modem，后端：DSLAM</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240420143211092.png" alt="image-20240420143211092"></p>
+<p><img src="/../../../../images/image-20240420143255660.png" alt="image-20240420143255660"></p>
+<p><img src="/../../../../images/image-20240420143314375.png" alt="image-20240420143314375"></p>
+<p>PON网络：前端：ONU(光猫,客户)，后端：OLT(运营商)</p>
+<p>上行是TDMA，下行是广播</p>
+<p>ONU —–上行(TDMA)—&gt; OLT</p>
+<p>ONU&lt;——下行(广播)——OLT</p>
+<h2 id="网络故障排查命令"><a href="#网络故障排查命令" class="headerlink" title="网络故障排查命令"></a>网络故障排查命令</h2><p>问题解决模型</p>
+<p><img src="/../../../../images/image-20240420143755539.png" alt="image-20240420143755539"></p>
+<p>网络故障排查命令</p>
+<p><img src="/../../../../images/image-20240420143837457.png" alt="image-20240420143837457"></p>
+<p>专用故障排查工具</p>
+<p><img src="/../../../../images/image-20240420143918048.png" alt="image-20240420143918048"></p>
+<p><img src="/../../../../images/image-20240420144330336.png" alt="image-20240420144330336"></p>
+<p><img src="/../../../../images/image-20240420144415531.png" alt="image-20240420144415531"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

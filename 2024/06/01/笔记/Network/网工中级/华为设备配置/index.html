@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>华为设备登录配置 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>华为设备登录配置</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00bcd4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ffa2c4">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="华为设备配置"><a href="#华为设备配置" class="headerlink" title="华为设备配置"></a>华为设备配置</h2><p><strong>system-view</strong> &#x2F;&#x2F;进入系统模式<br><strong>sysname</strong> xxx &#x2F;&#x2F;设备重命名<br>telnet server enable **&#x2F;&#x2F;开启设备telnet功能<br>user-interface vty 0 4 &#x2F;&#x2F;开启登录端口0-4<br>protocol inbound telnet  &#x2F;&#x2F;通过telnet协议登录<br>authentication-mode <strong>aaa</strong>  &#x2F;&#x2F;认证方式aaa</p>
+<p>aaa  &#x2F;&#x2F;启动aaa</p>
+<p>local-user admin123 password admin123  &#x2F;&#x2F;配置用户名密码</p>
+<p>local-user admin123 service-type <strong>telnet</strong> &#x2F;&#x2F;用户用于telnet</p>
+<p>local-user admin123 privilege level 15 &#x2F;&#x2F;用户等级为15</p>
+<p><strong>quit</strong>  </p>
+<h2 id="VLAN与VLANIF地址配置"><a href="#VLAN与VLANIF地址配置" class="headerlink" title="VLAN与VLANIF地址配置"></a>VLAN与VLANIF地址配置</h2><p>VLAN 和 VLANIF 有什么区别？</p>
+<p>VLAN 是在二层交换机配置的，在交换机中的端口划分为逻辑上的多个虚拟网络</p>
+<p>VLANIF 是在三层交换机或路由器配置的，VLANIF是用于不同VLAN之间的通信，一般在VLANIF配置IP，作为VLAN的网关地址</p>
+<p><img src="/../../../../images/image-20240427104856251.png" alt="image-20240427104856251"></p>
+<pre><code>完整命令：
+LSW1
+system-view
+vlan batch 10 20
+int g0/0/2
+port link-type access //把交换机接口模式设置为access
+port default vlan 10 //把接口划入vlan10
+int g0/0/3
+port link-type access
+port default vlan 20
+int g0/0/1
+port link-type trunk
+port trunk allow-pass vlan 10 20
+LSW2
+vlan batch 10 20
+int vlanif 10    //进入三层vlanif接口
+ip address 172.25.250.1 24  //要与PC机的网关一致
+int vlanif 20
+ip address 172.26.250.1 24
+int g0/0/1
+port link-type trunk
+port turnk allow-pass vlan 10 20
+</code></pre>
+<h2 id="DHCP配置命令"><a href="#DHCP配置命令" class="headerlink" title="DHCP配置命令"></a>DHCP配置命令</h2><p>DHCP工作原理</p>
+<p><img src="/../../../../images/image-20240427142145631.png" alt="image-20240427142145631"></p>
+<p>DHCP租期更新</p>
+<p><img src="/../../../../images/image-20240427142225375.png" alt="image-20240427142225375"></p>
+<p><strong>基于接口地址池的DHCP配置</strong></p>
+<p><img src="/../../../../images/image-20240427140743295.png" alt="image-20240427140743295"></p>
+<p>dhcp enable  &#x2F;&#x2F;开启DHCP功能</p>
+<p>int g0&#x2F;0&#x2F;0  </p>
+<p>dhcp select interface  &#x2F;&#x2F;采用接口地址池的DHCP服务器端功能</p>
+<p>dhcp server dns-list 10.1.1.2  &#x2F;&#x2F;指定接口地址池下的DNS服务器地址</p>
+<p>dhcp server excluded-ip-address 10.1.1.2 &#x2F;&#x2F;配置接口池中不参与自动分配的IP地址范围</p>
+<p>dhcp server lease day 3 &#x2F;&#x2F;接口地址池中IP地址的租用有效期</p>
+<p>#注意每个接口的地址池可以网段，但一般是不同网段，容易IP冲突</p>
+<p><strong>基于全局地址池的DHCP配置</strong></p>
+<p><img src="/../../../../images/image-20240427141207127.png" alt="image-20240427141207127"></p>
+<p>dhcp enable  </p>
+<p>ip pool pool2 &#x2F;&#x2F;创建全局地址池名字为pool2</p>
+<p>network 1.1.1.0 mask 24 &#x2F;&#x2F;设置IP地址范围</p>
+<p>gateway-list 1.1.1.1 &#x2F;&#x2F;配置DHCP客户端的网关地址</p>
+<p>dns-list 1.1.1.1 &#x2F;&#x2F;配置DHCP客户端的DNS服务器的IP地址</p>
+<p>lease day 10  &#x2F;&#x2F; IP地址租期</p>
+<p>int g0&#x2F;0&#x2F;0</p>
+<p>dhcp select global  &#x2F;&#x2F;使能让接口DHCP服务器的功能</p>
+<p>#最后在具体的接口中配置选择全局地址池。当GE0&#x2F;0&#x2F;0收到DHCP请求就会从全局地址池中进行IP地址分配。</p>
+<hr>
+<p><strong>DHCP-VLAN配置</strong></p>
+<p><img src="/../../../../images/image-20240427151144856.png" alt="image-20240427151144856"></p>
+<p>interface GigabitEthernet0&#x2F;0&#x2F;1<br> port link-type access<br> port default vlan 10</p>
+<p>interface GigabitEthernet0&#x2F;0&#x2F;2<br> port link-type access<br> port default vlan 20</p>
+<p>dhcp enable</p>
+<p>interface Vlanif10<br> ip address 172.25.250.254 255.255.255.0<br> dhcp select interface<br> dhcp server excluded-ip-address 172.25.250.120 172.25.250.253<br> dhcp server lease day 3 hour 0 minute 0<br> dhcp server dns-list 8.8.8.8</p>
+<p>interface Vlanif20<br> ip address 172.26.250.254 255.255.255.0<br> dhcp select global</p>
+<p>[Huawei]ip pool pool2<br>[Huawei-ip-pool-pool2]network 172.26.250.0 mask 24<br>[Huawei-ip-pool-pool2]gateway-list 172.26.250.254<br>[Huawei-ip-pool-pool2]dns-list 8.8.8.8<br>[Huawei-ip-pool-pool2]lease day 10</p>
+<h2 id="dhcp-relay-dhcp中继"><a href="#dhcp-relay-dhcp中继" class="headerlink" title="dhcp-relay(dhcp中继)"></a>dhcp-relay(dhcp中继)</h2><p>dhcp-relay(dhcp中继)的作用场景：dhcp客户端和dhcp服务器之间有很多设备，想要发送dhcp广播，中间有路由器，路由器能够隔离广播，所以发不了到dhcp服务器，所以需要dhcp-relay能够把dhcp广播转换会单播发给dhcp服务器</p>
+<p>通俗地说，就是把dhcp广播转换为单播，从而发给dhcp服务器</p>
+<p><img src="/../../../../images/image-20240427174409154.png" alt="image-20240427174409154"></p>
+<p>R1</p>
+<p><img src="/../../../../images/image-20240427174631228.png" alt="image-20240427174631228"></p>
+<p>注意：只有一个DHCP服务器，选择DHCP relay server-ip</p>
+<p>多个DHCP服务器，选择DHCP relay server-select </p>
+<p>R2</p>
+<p><img src="/../../../../images/image-20240427174700578.png" alt="image-20240427174700578"></p>
+<h2 id="DHCP-Snooping"><a href="#DHCP-Snooping" class="headerlink" title="DHCP Snooping"></a>DHCP Snooping</h2><p>为什么需要DHCP snooping？</p>
+<p>现实当中，除了有安全的DHCP服务器，可能还有”流氓”的DHCP服务器，当PC发送dhcp广播时，有可能”流氓”的DHCP服务器先收到，然后她给你先响应，对你的电脑造成影响。</p>
+<p>如果配置了DHCP snooping，尽管”流氓”服务器她先响应，但是她不是trusted区域，响应包发给她，就被丢弃，根本到不了PC。</p>
+<p>防止网络中非法DHCP服务器分配IP地址，从而有效防范DHCP攻击</p>
+<p><img src="/../../../../images/image-20240427164919233.png" alt="image-20240427164919233"></p>
+<p>R1</p>
+<p><img src="/../../../../images/image-20240427175053356.png" alt="image-20240427175053356"></p>
+<h2 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h2><h3 id="ACL原理"><a href="#ACL原理" class="headerlink" title="ACL原理"></a>ACL原理</h3><p><strong>作用：实现流量过滤</strong></p>
+<p>ACL是由一系列permit或deny语句组成的，有序规则的列表。</p>
+<p><img src="/../../../../images/image-20240427232056629.png" alt="image-20240427232056629"></p>
+<p>每一条语句就说该ACL的一条规则。ACL则是规则的集合</p>
+<hr>
+<p>子网掩码：用来区分主机位和网络位</p>
+<p>通配符掩码：ACL中使用。用来标识或检查IP地址的位，里面的0或1可以不是连续的</p>
+<p>例如： source 1.1.1.0  0.0.0.255</p>
+<p>0表示要检查，255表示任意</p>
+<p>反掩码：OSPF中使用。里面的0和1必须是连续的</p>
+<hr>
+<p><strong>通配符</strong></p>
+<p>通配符是一个32比特长度的数值，用于指示IP地址中哪些比特位需要严格匹配，哪些比特位无需匹配。</p>
+<p>通配符通常采用类似网络掩码的点分十进制形式表示，但是含义却与网络掩码完全不同。</p>
+<p>通配符中的1或者0可以不连续</p>
+<p><img src="/../../../../images/image-20240427181827873.png" alt="image-20240427181827873"></p>
+<p>匹配规则：   <strong>“0” 表示 “严格匹配”    “1” 表示 “任意”</strong></p>
+<p>上图中：</p>
+<p>rule 5中 匹配对象是：10.1.1.1</p>
+<p>rule10中 匹配对象是：10.1.1.2</p>
+<p>rule 15中 匹配对象是：10.1.1.0网段</p>
+<p>如何匹配192.168.1.1&#x2F;24对应网段的地址?</p>
+<p><img src="/../../../../images/image-20240427182324210.png" alt="image-20240427182324210"></p>
+<p>如果匹配192.168.1.0网段的奇数地址或者偶数地址呢，该怎么写？</p>
+<p>奇数：192.168.1.1	0.0.0.254</p>
+<p>偶数：192.168.1.0	0.0.0.254</p>
+<p><strong>分析：</strong></p>
+<p>“0” 表示 “严格匹配”    “1” 表示 “任意”</p>
+<p>那么通配符：</p>
+<p>通配符：0.0.0.254		0.0.0.11111110</p>
+<p>IP地址：192.168.1.1  192.168.1.00000001</p>
+<p>00000001，1~7位对应的通配符是1， “1” 表示 “任意”。</p>
+<p>而最后一位”1”，对应的通配符是0，”0” 表示 “严格匹配”  </p>
+<p>那好，为啥是奇数呢？</p>
+<p>因为二进制转换成十进制，都是2^0+2^1+…</p>
+<p>所以，只要最后一位是奇数，那么整个就是奇数</p>
+<p>偶数同理。</p>
+<h3 id="ACL分类"><a href="#ACL分类" class="headerlink" title="ACL分类"></a>ACL分类</h3><p>基于ACL规则定义方式的分类</p>
+<p><img src="/../../../../images/image-20240427232410688.png" alt="image-20240427232410688"></p>
+<p>基于ACL标识方法的分类</p>
+<p><img src="/../../../../images/image-20240427232427994.png" alt="image-20240427232427994"></p>
+<p><strong>基本ACL和高级ACL</strong></p>
+<p><img src="/../../../../images/image-20240427232508478.png" alt="image-20240427232508478"></p>
+<p><img src="/../../../../images/image-20240427232522098.png" alt="image-20240427232522098"></p>
+<p>ACL的匹配顺序及匹配结果</p>
+<p><strong>配置顺序(config模式)</strong></p>
+<p>​	系统按照ACL规则编号从小到大的顺序进行报文匹配，规则编号越小越容易被匹配</p>
+<p><img src="/../../../../images/image-20240427232714333.png" alt="image-20240427232714333"></p>
+<p>auto模式</p>
+<p>它会根据颗粒度，自动调整规则顺序</p>
+<p>例如：</p>
+<p>acl 2000 match-order auto</p>
+<p>rule permit source any</p>
+<p>rule permit source 192.168.1.1 0.0.0.255</p>
+<p>#她会自动调整顺序，不然这个没有啥意义</p>
+<h3 id="ACL配置"><a href="#ACL配置" class="headerlink" title="ACL配置"></a>ACL配置</h3><p>基础ACL</p>
+<p><img src="/../../../../images/image-20240427234341048.png" alt="image-20240427234341048"></p>
+<p><img src="/../../../../images/image-20240427234359050.png" alt="image-20240427234359050"></p>
+<p>高级ACL</p>
+<p><img src="/../../../../images/image-20240427234445236.png" alt="image-20240427234445236"></p>
+<p><img src="/../../../../images/image-20240427234452380.png" alt="image-20240427234452380"></p>
+<p><img src="/../../../../images/image-20240427234511735.png" alt="image-20240427234511735"></p>
+<h2 id="NAT网络地址转换"><a href="#NAT网络地址转换" class="headerlink" title="NAT网络地址转换"></a>NAT网络地址转换</h2><p>产生原因：IP地址不够用。</p>
+<p>意义：能够有效节约IPv4地址</p>
+<p>NAT：是对IP数据报文中的IP地址在进行转换，一般部署在网络出口设备，例如路由器或防火墙上。</p>
+<h3 id="静态NAT"><a href="#静态NAT" class="headerlink" title="静态NAT"></a>静态NAT</h3><p>私有地址和公有地址进行一对一的映射。</p>
+<p>支持双向互访: 私有地址访问Internet经过出口设备NAT转换时，会被转换成对应的公有地址。</p>
+<p>同时，外部网络访问内部网络时，其报文中携带的公有地址(目的地址)也会被NAT设备转换成对应的私有地址。</p>
+<p><img src="/../../../../images/image-20240429155947027.png" alt="image-20240429155947027"></p>
+<p><strong>配置</strong></p>
+<p>1.方式一:接口视图下配置静态NAT<br>[Huawei-GigabitEthernet0&#x2F;0&#x2F;0] </p>
+<p><strong>nat static global</strong> {global-address} <strong>inside</strong> {host-address )</p>
+<p>global参数用于配置外部公有地址，inside参数用于配置内部私有地址。</p>
+<p>2:方式二:系统视图下配置静态NAT<br>[Huawei] </p>
+<p>**nat static global **{global-address}<strong>inside</strong> {host-address }</p>
+<p>配置命令相同，视图为系统视图，之后在具体的接口下开启静态NAT。</p>
+<p>[Huawei-GigabitEthernet0&#x2F;0&#x2F;0] <strong>nat static enable</strong></p>
+<p>在接口下使能nat static功能。</p>
+<p><strong>示例</strong></p>
+<p><img src="/../../../../images/image-20240429160342215.png" alt="image-20240429160342215"></p>
+<pre><code>[R1]interface GigabitEthernet0/0/1
+[R1-GigabitEthernet0/0/1]ip address 122.1.2.1 24
+[R1-GigabitEthernet0/0/1]nat static global 122.1.2.1 inside 192.168.1.1
+[R1-GigabitEthernet0/0/1]nat static global 122.1.2.2 inside 192.168.1.2
+[R1-GigabitEthernet0/0/1]nat static global 122.1.2.3 inside 192.168.1.3
+</code></pre>
+<h3 id="动态NAT"><a href="#动态NAT" class="headerlink" title="动态NAT"></a>动态NAT</h3><p>出现的原因：因为静态NAT也是一对一的映射，但内网主机长时间离线或不发数据时，也占用公有地址。</p>
+<p>意义：避免了地址浪费，把公有地址组成地址池</p>
+<p>特点：</p>
+<p>当内部主机访问外部网络时临时分配一个地址池中未使用的地址，并将该地址标记为“In Use”。当该主机不再访问外部网络时回收分配的地址，重新标记为“Not Use”</p>
+<p><strong>示例(出去流量)</strong></p>
+<p><img src="/../../../../images/image-20240429160635691.png" alt="image-20240429160635691"></p>
+<p><strong>示例(回程流量)</strong></p>
+<p><img src="/../../../../images/image-20240429162629336.png" alt="image-20240429162629336"></p>
+<p><strong>示例</strong></p>
+<p><img src="/../../../../images/image-20240429171310748.png" alt="image-20240429171310748"></p>
+<p>R1</p>
+<p>nat address-group 1 122.1.2.1 122.1.2.3  #设置公网地址池</p>
+<p>acl 2000  #配置acl规则</p>
+<p>rule 5 permit source 192.168.1.0 0.0.0.255</p>
+<p>quit</p>
+<p>int g0&#x2F;0&#x2F;1</p>
+<p><strong>nat outbound 2000 address-group 1 no-pat</strong>  </p>
+<p>#no-pat是指非端口地址转换，No-Port Address Translation</p>
+<h3 id="NAPT"><a href="#NAPT" class="headerlink" title="NAPT"></a>NAPT</h3><p>出现的原因：因为动态NAT的地址池中的地址进行地址转换时不会转换端口号，公有地址和私有地址还是1：1的映射关系，<strong>无法提高公有地址利用率</strong>。</p>
+<p>NAPT(Network Address and Port Translation, 网络地址端口转换)</p>
+<p>解决问题：能够实现公有地址与私有地址的1：n映射，可以有效提高公有地址利用率。</p>
+<p>NAPT转换(出去流量)</p>
+<p><img src="/../../../../images/image-20240429172734964.png" alt="image-20240429172734964"></p>
+<p>NAPT转换(回城流量)</p>
+<p><img src="/../../../../images/image-20240429172745756.png" alt="image-20240429172745756"></p>
+<p><strong>注意icmp是属于二层，但是napt会给她icmp包给一个伪端口</strong></p>
+<p>示例配置：</p>
+<p><img src="/../../../../images/image-20240429172808863.png" alt="image-20240429172808863"></p>
+<p>在R1上配置NAPT让内网所有私有地址通过122.1.2.1访问公网。</p>
+<p>nat address-group 1 122.1.2.1 122.1.2.1 #起始地址和结束地址一样，则指一个地址</p>
+<p>acl 2000</p>
+<p>rule 5 permit source 192.168.1.0 0.0.0.255</p>
+<p>quit</p>
+<p>int g0&#x2F;0&#x2F;1</p>
+<p><strong>nat outbound 2000 address-group 1</strong></p>
+<h3 id="Easy-IP"><a href="#Easy-IP" class="headerlink" title="Easy IP"></a>Easy IP</h3><p>出现的原因：因为我们公有地址经常会变化，而且有可能我们不知道公网地址是多少，但只知道网络出口的接口，那么Easy IP则可以实现NAT转换。</p>
+<p>Easy IP的实现原理跟NAPT相同，同时转换IP地址和传输层端口。</p>
+<p>区别：Easy IP没有地址池的概念，<strong>是使用接口地址作为NAT转换的公有地址</strong></p>
+<p>适用的场景：<strong>适用于不具备固定公网IP地址的场景。</strong>如通过DHCP、PPPOE拨号获取地址的私有网络出口。</p>
+<p>示例：</p>
+<p><img src="/../../../../images/image-20240429173632161.png" alt="image-20240429173632161"></p>
+<p>在R1上配置Easy-IP让内网所有私有地址通过122.1.2.1访问公网</p>
+<p>acl 2000</p>
+<p>rule 5 permit source 192.168.1.0 0.0.0.255</p>
+<p>quit </p>
+<p>int g 0&#x2F;0&#x2F;1</p>
+<p><strong>nat outbound 2000</strong></p>
+<h3 id="NAT-Server"><a href="#NAT-Server" class="headerlink" title="NAT Server"></a>NAT Server</h3><p>作用：<strong>让内网服务器映射到公网</strong>，当私有网络中的服务需要对公网提供服务时使用。</p>
+<p>外网主机主动访问[公有地址:端口]实现对内网服务器的访问。</p>
+<p><img src="/../../../../images/image-20240429173954054.png" alt="image-20240429173954054"></p>
+<p>示例：</p>
+<p><img src="/../../../../images/image-20240429174018228.png" alt="image-20240429174018228"></p>
+<p>在R1上配置NAT Server将内网服务器192.168.1,10的80端口映射到公有地址122.1.2.1的8080端口</p>
+<p>int g0&#x2F;0&#x2F;1</p>
+<p>ip address 122.1.2.1 24</p>
+<p><strong>nat server protocol  tcp global 202.10.10.1 www inside 192.168.1.1 8080</strong></p>
+<h3 id="NAT示例集合"><a href="#NAT示例集合" class="headerlink" title="NAT示例集合"></a>NAT示例集合</h3><p><img src="/../../../../images/image-20240429174318906.png" alt="image-20240429174318906"></p>
+<pre><code>静态配置：
+AR1
+方法1：接口配置
+int g0/0/1
+nat static global 12.1.1.2 inside 192.168.1.1
+方法2：全局配置
+nat static global 12.1.1.2 inside 192.168.1.1
+int g0/0/1
+nat static enable
+--------------
+动态配置：
+AR1
+nat address-group 1 12.1.1.2 12.1.1.10
+acl 2000
+rule 5 permit source 192.168.1.0 0.0.0.255
+quit 
+int g0/0/1
+nat outbound 2000 address-group 1 no-pat
+-------------
+NAPT配置：
+AR1
+nat address group 1 12.1.1.2 12.1.1.10
+acl 2000
+rule 5 permit source 192.168.1.0 0.0.0.255
+quit
+int g0/0/1
+nat outbound 2000 address-group 1
+----------------------
+Easy IP配置(端口上配置)：
+AR1
+nat outbound 2000
+---------------------
+NAT Server：
+AR1
+int g0/0/1
+nat server tcp global 12.1.1.2 80 inside 192.168.1.2 80
+</code></pre>
+<h2 id="VRRP"><a href="#VRRP" class="headerlink" title="VRRP"></a>VRRP</h2><p><strong>解决问题：单点故障</strong></p>
+<p>实现：把几台路由设备联合组成一台虚拟的”路由设备”，使用一定的机制保证当主机的下一跳舍友设备出现故障时，能够将业务进行切换到备份路由设备，从而保持通讯的连续性和可靠性。</p>
+<p><strong>这里的切换设备的时间，可以提高，BFD+VRRP能够实现毫秒级别的切换</strong></p>
+<p>为什么能够实现切换？</p>
+<p>实现的实质是；降低设备的优先级，使得备份设备的优先级大于主设备，则实现切换。</p>
+<p><img src="/../../../../images/image-20240429174914401.png" alt="image-20240429174914401"></p>
+<p>这里的”Virtual IP”的作用是什么？</p>
+<p>可以理解为：为这台虚拟的”路由设备”的IP地址，是PC对外提供服务的入口地址，此时PC的网关是VIrtual IP。</p>
+<p>VRRP常用配置命令：</p>
+<p>1.创建VRRP备份组并给备份组配置虚拟IP地址</p>
+<pre><code>[interface-GigabitEthernet0/0/0] vrrp vrid virtual-router-id virtual-ip virtual-address
+</code></pre>
+<p>注意:各备份组之间的虚拟IP地址不能重复;同属一个备份组的设备接口需使用相同的VRID。</p>
+<p>2.配置路由器在备份组中的优先级</p>
+<pre><code>[interface-GigabitEthernet0/0/0] vrrp vrid virtual-router-id priority priority-value
+</code></pre>
+<p>注意:通常情况下，Master设备的优先级应高于Backup设备。</p>
+<p>3.配置备份组中设备的抢占延迟时间</p>
+<pre><code>[interface-GigabitEthernet0/0/0] vrrp vrid virtual-router-id preempt-mode timer delay delay-value
+</code></pre>
+<p>4.配置VRRP备份组中设备采用非抢占模式</p>
+<pre><code>[interface-GigabitEthernet0/0/0] vrrp vrid virtual-router-id preempt-mode disable
+</code></pre>
+<p>缺省情况下，抢占模式已被激活。</p>
+<p>5.配置VRRP备份组监视接口</p>
+<pre><code>[interface-GieabitEthernet0/0/0] vrrp vrid virtual-router-id track interface interface-type interface-number [ increased value.increasedlreduced value-decreased]
+</code></pre>
+<p>可配置设备当检测到上行接口或链路出现故障时，增加或者减少自身优先级，IP地址拥有者和Eth-trunk成员口不允许配置VRRP监视功能。</p>
+<p>6.配置VRRP备份组联动普通BFD会话</p>
+<pre><code>[interface-GigabitEthernet0/0/0] vrp vrid virtual-router-id track bfd-session &#123; bfd-session-id | session-name bfd-configurename &#125;[increased value-increasedl reduced value-reduced]
+</code></pre>
+<p>如果选择参数session-name bfd-configure-name，可以绑定静态BFD会话或者标识符自协商的静态BFD会话如果选择参数bfd-session-id，只能绑定静态BFD会话。</p>
+<p>基础配置：</p>
+<p><img src="/../../../../images/image-20240429181849985.png" alt="image-20240429181849985"></p>
+<p><img src="/../../../../images/image-20240429181859238.png" alt="image-20240429181859238"></p>
+<p>验证：display vrrp</p>
+<p><img src="/../../../../images/image-20240429181923560.png" alt="image-20240429181923560"></p>
+<h2 id="综合实验"><a href="#综合实验" class="headerlink" title="综合实验"></a>综合实验</h2><h3 id="ospf-nat-默认路由"><a href="#ospf-nat-默认路由" class="headerlink" title="ospf-nat-默认路由"></a>ospf-nat-默认路由</h3><p><img src="/../../../../images/image-20240506173838552.png" alt="image-20240506173838552"></p>
+<pre><code>1、接口配置
+
+Router
+int g0/0/0
+ip add 192.168.10.254 24
+int g0/0/1
+ip add 192.168.20.254 24
+int g0/0/2
+ip add 12.1.1.1 30
+int g4/0/0
+ip add 13.1.1.1 30
+
+Router电信
+int Loopback 0  //环回接口
+ip add 1.1.1.1 32  
+int g0/0/0
+ip add 12.1.1.2 30
+int g0/0/1
+ip add 100.1.1.1 30
+
+Router联通
+int Loopback 0 //环回接口
+ip add 2.2.2.2 32
+int g0/0/0
+ip add 13.1.1.2 30
+int g0/0/1
+ip add 200.1.1.1 30
+
+Router互联网
+int Loopback 0 //环回接口
+ip add 22.22.22.22 32
+int g0/0/0
+ip add 100.1.1.2 30
+intg 0/0/1
+ip add 200.1.1.2 30
+
+2、配置OSPF
+
+Router电信
+ospf 1
+area 0
+network 0.0.0.0 0.0.0.0
+
+Router联通
+ospf 1
+area 0
+network 0.0.0.0 0.0.0.0
+
+Router互联网
+ospf 1
+area 0
+network 0.0.0.0 0.0.0.0
+
+//此时  互相能够获得邻居的路由
+//验证命令：
+display ospf peer brief
+display ip routing-table
+
+3、配置NAT(easy-ip)
+Router
+acl 2000
+rule 10 permit source 192.168.10.0 0.0.0.255
+rule 20 permit source 192.168.20.0 0.0.0.255
+
+int g0/0/2
+nat outbound 2000
+int g4/0/0
+nat outbound 2000
+
+4、配置默认路由
+Router
+ip route-static 0.0.0.0 0 12.1.1.2
+ip route-static 0.0.0.0 0 13.1.1.2
+</code></pre>
+<h2 id="IPSec-VPN"><a href="#IPSec-VPN" class="headerlink" title="IPSec VPN"></a>IPSec VPN</h2><p>打通隧道，实现，私有地址&#x2F;公有地址的通信</p>
+<p>私有地址建议使用：隧道模式</p>
+<p>公有地址建议使用：传输模式(速度快)</p>
+<p>两种模式：手工模式、IKE模式(自动设置密钥、ISP值等)</p>
+<p>注意：IKE模式还需要配置IKE提议、IKE对等体</p>
+<p>工作一般流程：</p>
+<p>1、设置acl</p>
+<p>2、配置IPSec安全提议</p>
+<p>3、创建IPSec安全策略(把acl和安全提议进行绑定)</p>
+<p>4、在接口调用安全策略</p>
+<p>什么是IPSec安全提议？</p>
+<p>它描述了两个IPSec对等体之间进行安全通信所需的安全设置和协议选项。</p>
+<ol>
+<li><strong>安全通信</strong>：通过指定加密算法和认证算法，IPSec安全提议确保IP数据包在传输过程中得到加密保护，防止未经授权的访问者读取或修改数据。</li>
+<li><strong>身份验证</strong>：通过认证算法，IPSec安全提议确保通信双方的身份得到验证，防止恶意主体冒充合法的通信节点。</li>
+<li><strong>完整性保护</strong>：通过指定完整性保护机制，IPSec安全提议确保传输的数据包在传输过程中没有被篡改，从而保障数据的完整性。</li>
+<li><strong>密钥协商</strong>：通过指定密钥交换协议，IPSec安全提议允许通信双方协商并建立共享的密钥，以用于加密和解密IP数据包。</li>
+<li><strong>安全协议选择</strong>：通过指定安全协议，如ESP或AH，IPSec安全提议确定用于提供机密性和完整性的具体协议。</li>
+</ol>
+<p><img src="/../../../../images/image-20240508230953321.png" alt="image-20240508230953321"></p>
+<p>拓扑实验：</p>
+<p><img src="/../../../../images/image-20240508231422680.png" alt="image-20240508231422680"></p>
+<p>实验需求<br>1、成都和北京两个站点用户均可以访问互联网2.2.2.22、配置手动IPSECVPN，实现成都和北京两个站点内网数据互通，且数据加密3、配置自动 IPSEC VPN，实现成都和北京两个站点内网数据互通，且数据加密<br>三、实验步骤及配置<br>整体步骤:<br>1、配置IP地址，ISP路由器用100模拟互联网<br>2、成都和北京两个出口路由器配置默认路由指向ISP路由器3、进行 IPSEC VPN配置，让两个站点内网互通，同时数据加密。静态IPSEC配置步骤如下，一共分为四步:</p>
+<h3 id="手工模式"><a href="#手工模式" class="headerlink" title="手工模式"></a>手工模式</h3><p>基础配置：</p>
+<p>R1</p>
+<p>int g0&#x2F;0&#x2F;0</p>
+<p>ip add 192.168.10.254 24</p>
+<p>int g0&#x2F;0&#x2F;1</p>
+<p>ip add 100.1.1.1 30</p>
+<p>ISP</p>
+<p>int g0&#x2F;0&#x2F;0</p>
+<p>ip add 100.1.1.2 30</p>
+<p>int g0&#x2F;0&#x2F;1</p>
+<p>ip add 200.1.1.2 30</p>
+<p>R2</p>
+<p>int 0&#x2F;0&#x2F;0</p>
+<p>ip add 192.168.20.254 24</p>
+<p>int 0&#x2F;0&#x2F;1</p>
+<p>ip add 200.1.1.1 30</p>
+<p>先打通双方能够访问ISP</p>
+<p>R1</p>
+<p>ip route-static 0.0.0.0 0 100.1.1.2</p>
+<p>acl 2000</p>
+<p>rule 10  permit source 192.168.10.0 0.0.0.255</p>
+<p>int g0&#x2F;0&#x2F;1</p>
+<p>nat outbound 2000</p>
+<p>R2</p>
+<p>ip route-static 0.0.0.0 0 200.1.1.2</p>
+<p>acl 2000</p>
+<p>rule 10 permit source 192.168.20.0 0.0.0.255</p>
+<p>int g0&#x2F;0&#x2F;1</p>
+<p>nat outbound 2000</p>
+<p>IPSec VPN配置(两个站点通信，同时数据加密)</p>
+<pre><code>R1
+
+第一步:匹配感兴趣的流量
+[R1]ac13000 //配置ACL3000
+[R1-acl-adv-3000]rule 10 permit ip source 192.168.10.0 0.0.0.255 destination 192.168.20.0
+0.0.0.255  
+//规则10，匹配源为192.168.10.0/24，目的192.168.20.0/24的流量
+
+第二步:配置ipsec 提议
+
+[R1]ipsec proposal cd //ipsec 提议名称 cd
+[R1-ipsec-proposal-cd]esp authentication-algorithm sha2-256 //认证算法采用sha2-256
+[R1-ipsec-proposal-cd]esp encryption-algorithm aes-128 //加密算法采用aes-128
+
+第三步:配置ipsec 手动方式安全策略
+
+[R1]ipsec policy chengdu 10 manual//配置IPSEC策略 chegndu，方式为手动
+[Rl-ipsec-policy-manual-chengdu-10]security acl 3000 //包含acl3000的流量
+[R1-ipsec-policy-manual-chengdu-10] proposal cd//采用ipsec 提议 cd
+[R1-ipsec-policy-manual-chengdu-10]tunnel local 100.1.1.1 //配置隧道本地地址 100.1. 1.1
+[R1-ipsec-policy-manual-chengdu-10]tunnel remote 200.1.1.1 //配置隧道远端地址 200.1.1.1
+[R1-ipsec-policy-manual-chengdu-10]sa spi inbound esp 12345 //配置入方向SA编号12345
+[Rl-ipsec-policy-manual-chengdu-10]sa string-key inbound esp cipher hahaha //配置入方向SA的认证密钥为hahaha
+[Rl-ipsec-policy-manual-chengdu-10]sa spi outbound esp 56789 //配置出方向SA编号56789
+[R1-ipsec-policy-manual-chengdu-10]sa string-key outbound esp cipher xixixi 
+//配置出方向SA 的认证密钥为xixixi
+
+第四步:在接口上应用ipsec策略
+[R1] interface GigabitEthernet0/0/1
+[R1-GigabitEthernet0/0/1] ipsec policy chengdu
+//接口上应用ipsce 策略(只能用于出接口)
+</code></pre>
+<pre><code>R2
+
+第一步:匹配感兴趣的流量
+[R2]ac13000 //配置ACL3000
+[R2-acl-adv-3000]rule 10 permit ip source 192.168.20.0 0.0.0.255 destination 192.168.10.0
+0.0.0.255  
+//规则10，匹配源为192.168.20.0/24，目的192.168.10.0/24的流量
+
+第二步:配置ipsec 提议
+
+[R2]ipsec proposal bj //ipsec 提议名称 cd
+[R2-ipsec-proposal-bj]esp authentication-algorithm sha2-256 //认证算法采用sha2-256
+[R2-ipsec-proposal-bj]esp encryption-algorithm aes-128 //加密算法采用aes-128
+
+第三步:配置ipsec 手动方式安全策略
+
+[R2]ipsec policy beijing 10 manual//配置IPSEC策略 chegndu，方式为手动
+[R2-ipsec-policy-manual-beijing-10]security acl 3000 //包含acl3000的流量
+[R2-ipsec-policy-manual-beijing-10] proposal bj//采用ipsec 提议 bj
+[R2-ipsec-policy-manual-beijing-10]tunnel local 200.1.1.1 //配置隧道本地地址 200.1. 1.1
+[R2-ipsec-policy-manual-beijing-10]tunnel remote 100.1.1.1 //配置隧道远端地址 100.1.1.1
+[R2-ipsec-policy-manual-beijing-10]sa spi inbound esp 56789 //配置入方向SA编号56789
+[R2-ipsec-policy-manual-beijing-10]sa string-key inbound esp cipher xixixi //配置入方向SA的认证密钥为xixixi
+[R2-ipsec-policy-manual-beijing-10]sa spi outbound esp 12345 //配置出方向SA编号12345
+[R2-ipsec-policy-manual-beijing-10]sa string-key outbound esp cipher hahaha 
+//配置出方向SA 的认证密钥为hahaha
+
+第四步:在接口上应用ipsec策略
+[R2] interface GigabitEthernet0/0/1
+[R2-GigabitEthernet0/0/1] ipsec policy beijing
+//接口上应用ipsce 策略(只能用于出接口)
+</code></pre>
+<hr>
+<p>此时是不通的</p>
+<p>问题分析:R1上配置了ACL2000和ACL3000，其中ACL2000用于匹配内部需要NAT的地址，ACL3000用于匹配需要通过VPN隧道加密的流量，两条ACL重合，即ACL2000会把需要进行 VPN 传递的流量匹配出来，进行 NAT。</p>
+<hr>
+<p>[Rl] interface GigabitEthernet0&#x2F;0&#x2F;1</p>
+<p>[R1-GigabitEthernet0&#x2F;0&#x2F;1]undo nat outbound 2000&#x2F;&#x2F;删除 NAT在接口上的应用</p>
+<p>[R1-GigabitEthernet0&#x2F;0&#x2F;1] quit&#x2F;&#x2F;删除 ACL2000</p>
+<p>[R1]undo acl 2000</p>
+<p>[R1]ac13001&#x2F;&#x2F;配置ACL3001</p>
+<p>[Rl-acl-adv-300l]rule 10 deny ip source 192.168.10.0 0.0.0.255 destination 192.168.20.00.0.0.255 &#x2F;&#x2F;设置规则10，拒绝源为192.168.10.0&#x2F;24，目的是192.168.20.0&#x2F;24的流量</p>
+<p>[R1-acl-adv-3001]rule 20 permit ip &#x2F;&#x2F;设置规则20，其他流量全部允许</p>
+<p>[R1-acl-adv-3001] quit</p>
+<p>[R1] interface GigabitEthernet0&#x2F;0&#x2F;1</p>
+<p>[R1-GigabitEthernet0&#x2F;0&#x2F;1] nat outbound 3001&#x2F;&#x2F;重新配置NAT转换</p>
+<p>R2进行如下调整，在NAT地址池中排除需要进行VPN传送的流量(同R1类似)<br>[R2]interface GigabitEthernet0&#x2F;0&#x2F;1<br>[R2-GigabitEthernet0&#x2F;0&#x2F;1]undo nat outbound 2000<br>[R2-GigabitEthernet0&#x2F;0&#x2F;1] quit<br>[R2]undo acl 2000<br>[R2]acl 3001<br>[R2-acl-adv-3001]rule 10 deny ip source 192.168.20.0 0.0.0.255 destination 192.168. 10.0 0.0.0.255<br>[R2-acl-adv-3001]rule 20 permit ip<br>[R2-acl-adv-3001]quit<br>[R2]interface GigabitEthernet0&#x2F;0&#x2F;1<br>[R2-GigabitEthernet0&#x2F;0&#x2F;1] nat outbound 3001</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

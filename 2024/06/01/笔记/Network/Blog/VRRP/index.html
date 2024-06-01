@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>VRRP | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>VRRP</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-Blog/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - Blog
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00bcd4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/VRRP/" style="color: #03a9f4">
+                    VRRP
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="VRRP"><a href="#VRRP" class="headerlink" title="VRRP"></a>VRRP</h1><p>VRRP能够在不改变组网的情况下，将多台路由器虚拟成一个虚拟路由器，通过配置虚拟路由器的IP地址为默认网关，实现网关的备份。</p>
+<p>协议版本：VRRPv2，VRRPv3</p>
+<p>VRRP仅使用IPv4，VRRP适用于IPv4和IPv6</p>
+<p>VRRP协议报文：</p>
+<p>只有一种报文：Advertisement报文；其目的IP地址224.0.0.18，目的MAC地址：01-00-5e-00-00-12(48位)，协议号是112</p>
+<h2 id="VRRP基本结构"><a href="#VRRP基本结构" class="headerlink" title="VRRP基本结构"></a>VRRP基本结构</h2><p><img src="/../../../../images/image-20240517104911462.png" alt="image-20240517104911462"></p>
+<p>编号优先级(vrrp id)，1~255</p>
+<p>Priority,0~255,越大越优先，默认优先级是100</p>
+<p>什么时候优先级会255？</p>
+<p>虚拟IP和真实IP相同的时候才会是255，并选择那个接口作为master</p>
+<p><strong>Virtual IP 给下面的虚拟机充当网关</strong></p>
+<p>MAC地址： 0000-5e00-0101</p>
+<p>从左往右：第一个：00 表示单播  01表示 组播(111)</p>
+<p>00-5e00固定</p>
+<p>0101，第一个01表示v2版本，如果是02表示v3版本</p>
+<p>第二个01表示vrid1的编号</p>
+<h2 id="VRRP主备备份工作过程"><a href="#VRRP主备备份工作过程" class="headerlink" title="VRRP主备备份工作过程"></a>VRRP主备备份工作过程</h2><p><img src="/../../../../images/image-20240517105527981.png" alt="image-20240517105527981"></p>
+<p>1、最开始两台都是backup状态，配置完信息后，他们会互相交互报文</p>
+<p>2、互相收到报文后，RouterA发现RouterB比自己优先级低，然后RouterA变成master，Router变成Backup，然后终端数据就会从RouterA出去。</p>
+<p>3、终端发出的数据，交换机会把数据转到RouterA那个接口出去。</p>
+<p>为什么交换机会把数据转到RouterA那个接口出去？</p>
+<p>首先，RouterA成为Master后，RouterA会发送一个免费ARP报文(免费ARP是指发送IP地址和接收的IP地址是相同的)，ARP会以RouterA虚拟MAC地址作为源MAC地址，交换机是基于源MAC地址学习的，所以交换机能够学到RouterA的虚拟MAC地址，然后交换机就会把数据往RouterA去发送。 </p>
+<p>4、状态维持，Master设备周期性(默认1s)地发送VRRP通告报文给组内其他设备，以通知自己处于正常工作状态。</p>
+<h2 id="VRRP负载分担工作过程"><a href="#VRRP负载分担工作过程" class="headerlink" title="VRRP负载分担工作过程"></a>VRRP负载分担工作过程</h2><p>背景：传统的主备方式流量都经由单个Master转发，Master负担过重，而备机处于空闲状态</p>
+<p><img src="/../../../../images/image-20240517110850267.png" alt="image-20240517110850267"></p>
+<p>解决方案：通过配置不同的备份组，使RouterB成为新备份组的Master，这样就可以分担网络中流量了。</p>
+<p><img src="/../../../../images/image-20240517111224641.png" alt="image-20240517111224641"></p>
+<h2 id="VRRP主备路由器切换过程"><a href="#VRRP主备路由器切换过程" class="headerlink" title="VRRP主备路由器切换过程"></a>VRRP主备路由器切换过程</h2><p><img src="/../../../../images/image-20240517111427635.png" alt="image-20240517111427635"></p>
+<p>如果Master发送故障，Backup在Master_Down_Interval时间内未收到Master发送的状态通告报文，则立即成为Master。</p>
+<p>如果原Master故障恢复，则主备回切的过程：</p>
+<p>发现收到RouterB的VRRP报文中的优先级比自己低，RouterA立即抢占成为Master。</p>
+<p>Master立即抢占会出现什么问题？</p>
+<p>如果Master恢复，但又没有恢复完全，网络是好是坏，网络就会出现抖动，然后导致主备切换频繁；所有需要<strong>抢占延迟</strong>，使得网络更加稳定</p>
+<h2 id="VRRP故障场景"><a href="#VRRP故障场景" class="headerlink" title="VRRP故障场景"></a>VRRP故障场景</h2><p><img src="/../../../../images/image-20240517111956223.png" alt="image-20240517111956223"></p>
+<p>设备(故障点2)或链路(故障点3)出现故障，在三倍周期时间内，Backup设备没有收到Master的通告报文，Backup设备认为Master不存在，Backup就会切换成Master</p>
+<p>在没有联动的前提下，<strong>故障点1是无法被检测的</strong>(上行链路无法被检测)</p>
+<p>为什么故障点1无法被检测？</p>
+<p>因为Master和Backup交互报文是走下面那个链路，到达不了故障点1的链路。</p>
+<h2 id="VRRP联动功能"><a href="#VRRP联动功能" class="headerlink" title="VRRP联动功能"></a>VRRP联动功能</h2><p>解决方法： 利用VRRP的联动功能监视上行接口或链路故障，主动进行主备切换。</p>
+<p><img src="/../../../../images/image-20240517112904668.png" alt="image-20240517112904668"></p>
+<p>如果没有联动功能：<strong>上行链路Down掉，但主备间通告正常，未发送状态切换，导致主机访问异常。</strong></p>
+<p>联动功能：能够检测上行链路，如果那个上行链路的端口down掉，会把Master的优先级做一个“惩罚”，把优先级降低，降低到比Backup还低，然后使得Backup成为Master</p>
+<p>但是联动不能万能的，如果故障出现在RouterA上行链路的另一端，那还是检测不到，所以需要借助BFD&#x2F;NQA&#x2F;IP-link监视整个链路</p>
+<h2 id="VRRP配置实现"><a href="#VRRP配置实现" class="headerlink" title="VRRP配置实现"></a>VRRP配置实现</h2><p>主备备份方式</p>
+<p><img src="/../../../../images/image-20240517113918477.png" alt="image-20240517113918477"></p>
+<p>负载分担方式</p>
+<p><img src="/../../../../images/image-20240517113953049.png" alt="image-20240517113953049"></p>
+<ul>
+<li>配置了 VRID 2 的虚拟IP地址为 <code>10.0.0.11</code>。</li>
+<li>设置 VRID 2 的优先级为 <code>120</code>。优先级越高，越可能成为主VRRP路由器。</li>
+<li>启用了抢占模式，并设置了延迟时间为 <code>20</code> 秒。在主路由器失效恢复后，等待 <code>20</code> 秒再抢占回主路由器角色。</li>
+<li>跟踪接口 <code>GigabitEthernet0/0/0</code>，如果该接口状态变为不可用，则将 VRID 2 的优先级减少 <code>30</code>。</li>
+</ul>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p><img src="/../../../../images/image-20240517114755479.png" alt="image-20240517114755479"></p>
+<p><img src="/../../../../images/image-20240517114804347.png" alt="image-20240517114804347"></p>
+<p><img src="/../../../../images/image-20240517114855784.png" alt="image-20240517114855784"></p>
+<p>[RA] interface GigabitEthernet 10&#x2F;1<br>[RA-GigabitEtheret1&#x2F;0&#x2F;1]standby interface GigabitEthernet 1&#x2F;0&#x2F;2 30  &#x2F;&#x2F;监视g1&#x2F;0&#x2F;2，成为备份端口<br>[RA-GigabitEthemet1&#x2F;0&#x2F;1]standby interface GigabitEthernet 1&#x2F;0&#x2F;3 20 &#x2F;&#x2F;监视g1&#x2F;0&#x2F;3成为备份端口<br>[RA-GigabitEthernet1&#x2F;0&#x2F;1]standby timerdelay  10 &#x2F;&#x2F;配置切换延迟10s<br>[RA-GigabitEtheret1&#x2F;0&#x2F;1] quit</p>
+<p>某分支机构网络拓扑图如1-1所示，该网络通过 BGP 接收总部网络路由，设备1与设备2作为该网络的网关设备，且运行VRRP(虚拟网络冗余协议)，与出口设备运行OSPF该网络规划两个网段10.11.229,0&#x2F;24 和10.11.230.0&#x2F;24，其中10.11.229.0网段只能访问总部网络10.11.230.0网段只能访问互联网。</p>
+<p><img src="/../../../../images/image-20240517114923968.png" alt="image-20240517114923968"></p>
+<p>若设备1处于活动状态(Master)，设备2的状态在哪条链路出现故障时会发生改变?请说明状态改变的原因.</p>
+<p>答案：设备2在link e故障时，无法检测设备1的状态自动转换为master</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

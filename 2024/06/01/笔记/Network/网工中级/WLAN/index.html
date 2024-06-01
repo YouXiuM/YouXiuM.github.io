@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>WLAN | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>WLAN</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00a596">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #03a9f4">
+                    网工中级
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/WLAN/" style="color: #ffa2c4">
+                    WLAN
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h3 id="AP-AC组网方式"><a href="#AP-AC组网方式" class="headerlink" title="AP - AC组网方式"></a>AP - AC组网方式</h3><h4 id="AP和AC间的组网分为：二层组网和三层组网"><a href="#AP和AC间的组网分为：二层组网和三层组网" class="headerlink" title="AP和AC间的组网分为：二层组网和三层组网"></a>AP和AC间的组网分为：二层组网和三层组网</h4><p>二层组网</p>
+<p><img src="/../../../../images/image-20240512092151203.png" alt="image-20240512092151203"></p>
+<p>二层组网：“零配置”</p>
+<p>AP和AC在二层网络，属于同一广播域，DHCP先给AP分配IP，然后AP发广播，寻找AC的地址，然后AC对他统一管理</p>
+<p>三层组网</p>
+<p><img src="/../../../../images/image-20240512092204831.png" alt="image-20240512092204831"></p>
+<p>在三层网络，AC和AP之间不属于同一广播域，发广播是转发不到AP，需要AP单播给AC，而是DHCP的option 43功能起作用，在给AP分配IP同时并告知AC的IP</p>
+<h3 id="AC连接方式"><a href="#AC连接方式" class="headerlink" title="AC连接方式"></a>AC连接方式</h3><p>AC连接方式：直连式组网和旁挂式组网</p>
+<p>直连式</p>
+<p><img src="/../../../../images/image-20240512102444055.png" alt="image-20240512102444055"></p>
+<p>AC充当：AC和汇聚交换机</p>
+<p>缺点：AC发生故障，整个网就瘫痪</p>
+<p>旁挂式组网</p>
+<p><img src="/../../../../images/image-20240512102508658.png" alt="image-20240512102508658"></p>
+<p>这里架构，对以前的架构没影响，AC出故障，也不会对网络造成很大影响(对无线网造成影响，有线网没影响)</p>
+<h3 id="数据转发方式"><a href="#数据转发方式" class="headerlink" title="数据转发方式"></a>数据转发方式</h3><p>隧道转发方式</p>
+<p><img src="/../../../../images/image-20240512103005206.png" alt="image-20240512103005206"></p>
+<p>将数据封装到隧道里再发送，送到AC，在AC再解封装，然后AC再把他发送出去；</p>
+<p>注意：经过交换机，但不暴露</p>
+<p>适用的场景：底层设备链路太过凌乱，这时候AC可能合适，因为选用AC，就不需要你在交换机梳理清楚，因为在交换机不会暴露出来，他会通过隧道的方式送到AC那，再暴露出来</p>
+<p>缺点：</p>
+<p>1、AC压力很大，业务流量和管理流量都需要AC处理</p>
+<p>2、数据有迂回的流量，AP-交换机-路由器-AC-路由器-防火墙</p>
+<p>优点：</p>
+<p>1、安全性高一定，可以在隧道做DTS加密</p>
+<p>2、可以屏蔽底层的vlan</p>
+<p>直接转发方式</p>
+<p><img src="/../../../../images/image-20240512103023669.png" alt="image-20240512103023669"></p>
+<p>把数据送到最近的交换机，然后再转发出去。</p>
+<p>配置方面：</p>
+<p>直接转发方式</p>
+<p>业务数据流量：STA-Switch-Router-Firewall</p>
+<p>STA发送数据，AP会打上业务标签，送到最近的交换机。然后这时候需要在AP~Switch之间放行业务vlan</p>
+<p>隧道转发方式</p>
+<p>业务数据流量：STA-Switch-AC-Switch-Router-Firewall</p>
+<p>STA发送数据，AP会打上业务标签，AP继续做隧道封装，然后把业务封装遮盖，暂时不会暴露，AP会把数据一路送到AC，AC解开隧道头部，业务数据才暴露。所以需要再AC和router放心业务vlan则可以了</p>
+<h3 id="无线侧组网"><a href="#无线侧组网" class="headerlink" title="无线侧组网"></a>无线侧组网</h3><h4 id="BSS-SSID-BSSID"><a href="#BSS-SSID-BSSID" class="headerlink" title="BSS&#x2F;SSID&#x2F;BSSID"></a>BSS&#x2F;SSID&#x2F;BSSID</h4><p><img src="/../../../../images/image-20240512103126412.png" alt="image-20240512103126412"></p>
+<p>ssid就相当于，wifi的名字</p>
+<p>bssid就相当于，wifi的mac地址，身份标识</p>
+<p>bss，就说ap所覆盖的范围</p>
+<h4 id="VAP"><a href="#VAP" class="headerlink" title="VAP"></a>VAP</h4><p><img src="/../../../../images/image-20240512103304177.png" alt="image-20240512103304177"></p>
+<p>VAP，就是相当于一个wifi分成多个wifi，例如办公室专用，教室专用</p>
+<h4 id="ESS-ESSID"><a href="#ESS-ESSID" class="headerlink" title="ESS&#x2F;ESSID"></a>ESS&#x2F;ESSID</h4><p><img src="/../../../../images/image-20240512103442195.png" alt="image-20240512103442195"></p>
+<p>举个例子</p>
+<p>其中一家肯德基(SSID)，开在万达广场的一楼A3店铺(BSSID)</p>
+<p>然后肯德基(ESSID)也是一个品牌，全国都有，万达广场只是其中一个分店。</p>
+<h3 id="WLAN工作流程"><a href="#WLAN工作流程" class="headerlink" title="WLAN工作流程"></a>WLAN工作流程</h3><p><img src="/../../../../images/image-20240512153044724.png" alt="image-20240512153044724"></p>
+<p>步骤：</p>
+<p><strong>1、AP上线</strong></p>
+<p>​	AP获取IP地址并发现AC，与AC建立连接</p>
+<p><strong>2、WLAN业务配置下发</strong></p>
+<p>​	AC将WLAN业务配置下发到AP生效</p>
+<p><strong>3、STA接入</strong></p>
+<p>​	STA搜索到AP发射的SSID并连接、上线、接入网络</p>
+<p><strong>4、WLAN业务数据转发</strong></p>
+<p>​	WLAN网络开始转发业务数据</p>
+<hr>
+<h4 id="AP上线"><a href="#AP上线" class="headerlink" title="AP上线"></a>AP上线</h4><p><strong>AP获取IP地址(为了能够与AC通信，WLAN网络才能够正常通信)</strong></p>
+<p>AP获取IP地址的方式包括以下：</p>
+<p>​	静态方式：登录到AP设备上手工配置IP地址。</p>
+<p>​	DHCP方式：通过配置DHCP服务器，使AP作为DHCP客户端	向DHCP服务器请求IP地址。</p>
+<p>典型方案：</p>
+<p>​	部署专门的DHCP Server为AP分配IP地址</p>
+<p>​	使用AC的DHCP服务为AP分配IP地址</p>
+<p>​	使用网络中的设备，例如核心交换机为AP分配IP地址</p>
+<p><img src="/../../../../images/image-20240512153831983.png" alt="image-20240512153831983"></p>
+<p><strong>CAPWAP隧道建立</strong></p>
+<p>AC通过CAPWAP隧道来实现对AP的集中管理和控制</p>
+<p>Step 1：Discovery阶段(AP发现AC阶段)</p>
+<p>AP通过发送Discovery Request报文，找到可用的AC。</p>
+<p>AP发现AC有两个方式：</p>
+<p>​	静态方式：AP上预先配置AC的静态IP地址列表</p>
+<p>​	动态方式：DHCP方式，DNS方式和广播方式</p>
+<p>Step 2：建立CAPWAP隧道阶段</p>
+<p>AP与AC关联，完成CAPWAP隧道建立。包括数据隧道和控制隧道:<br>    数据隧道: AP接收的业务数据报文经过CAPWAP数据隧道集中到AC上转发。</p>
+<p>​	控制隧道: 通过CAPWAP控制隧道实现AP与AC之间的管理报文的交互。</p>
+<p><img src="/../../../../images/image-20240512154651238.png" alt="image-20240512154651238"></p>
+<p><strong>AP接入控制</strong></p>
+<p><img src="/../../../../images/image-20240512154740205.png" alt="image-20240512154740205"></p>
+<p><strong>AP的版本升级(可选)</strong></p>
+<p><img src="/../../../../images/image-20240512154834266.png" alt="image-20240512154834266"></p>
+<p><strong>CAPWAP隧道维持</strong></p>
+<p><img src="/../../../../images/image-20240512155020581.png" alt="image-20240512155020581"></p>
+<h4 id="WLAN业务配置下发"><a href="#WLAN业务配置下发" class="headerlink" title="WLAN业务配置下发"></a>WLAN业务配置下发</h4><p>AC向AP发送Configuration Update Request请求消息，AP回应Configuration Update Response消息，AC再将AP的业务配置信息下发给AP.</p>
+<p><img src="/../../../../images/image-20240512155809797.png" alt="image-20240512155809797"></p>
+<p><strong>配置模板</strong></p>
+<p>针对WLAN的不同功能和特性设计了各种类型的模板(WLAN模板)</p>
+<p><img src="/../../../../images/image-20240512155333007.png" alt="image-20240512155333007"></p>
+<p><strong>VAP模板</strong></p>
+<p><img src="/../../../../images/image-20240512155410767.png" alt="image-20240512155410767"></p>
+<h4 id="STA接入"><a href="#STA接入" class="headerlink" title="STA接入"></a>STA接入</h4><p>CAPWAP隧道建立完成后，用户就可以接入无线网络。STA接入过程分为六个阶段:扫描阶段、链路认证阶段、关联阶段、接入认证阶段、DHCP、用户认证。</p>
+<p><strong>802.11协议定义的帧类型</strong></p>
+<p><img src="/../../../../images/image-20240512160334490.png" alt="image-20240512160334490"></p>
+<p>管理帧</p>
+<p>​	管理帧负责监督，主要用来加入或退出无线网络以及处理基站	之间连接的转移事宜。</p>
+<p>控制帧</p>
+<p>​	控制帧通常与数据帧搭配使用，负责区域的清空信道的取得以	及载波监听的维护，并在收到数据时予以正面的应答，借此促进工作站间数据传输的可靠性。</p>
+<p>​	简单地说，维护数据发送</p>
+<p>数据帧</p>
+<p>​	数据帧好比802.11的运输工具，负责在工作站之间传输数据。</p>
+<p>802.11关键报文 - 管理帧</p>
+<p><img src="/../../../../images/image-20240512160611540.png" alt="image-20240512160611540"></p>
+<p>Beacon信标帧，是AP主动放出来，是给STA被动扫描</p>
+<p>检测请求帧、检测应答帧，是STA主动找AP探测，AP响应</p>
+<p>举个例子：</p>
+<p>周围wifi信号，不是自己的wifi，为啥能够看到，是AP主动放出来。理解为这就是信标帧。</p>
+<p>某家的wifi设置了隐藏wifi，需要主动去检测，输入信息，发现该IP然后再接入。</p>
+<p>802.11关键报文 - 控制帧</p>
+<p><img src="/../../../../images/image-20240512161611802.png" alt="image-20240512161611802"></p>
+<p>作用：维护终端发送数据</p>
+<p>为什么需要维护？</p>
+<p>因为，无线不像有线一样，监听(CSMA&#x2F;CA)到信道空闲就发送数据，无线还需要预约信道(RTS)；然后AP会给你一个响应(CTS),允许你发送，你才能发送；数据发完之后，需要发一个ACK确认包(无线空口传输是不可靠传输，所以想要保证可靠传输，用ACK确认机制)，</p>
+<p>为什么需要RTS和CTS？</p>
+<p><img src="/../../../../images/image-20240512171411416.png" alt="image-20240512171411416"></p>
+<p>STA-1通过无线空口扫描到AP，然后STA-2扫AP也是空闲的，因为STA-2没有收到STA-1的信号，所以STA-2认为AP是空闲的；</p>
+<p>然后两个人STA，接入AP，产生冲突。</p>
+<p>如果有RTS,CTS就不会发送冲突。</p>
+<p>STA-1使用无线空口之前，会先发送RTS，AP收到后，但STA-2没有收到，但没啥影响，AP发送响应一个CTS，AP覆盖的范围是整个区域(虚线)，1，2肯定能够收到，虽然STA-2没有收到RTS，但收到CTS，STA-2就知道该AP已经被人使用； 并且AP同意STA-1使用；</p>
+<p>STA-2收到CTS后，CTS会携带MAV向量(网络大概使用多长时间)，就会保持”静默”若干时间，此期间不会使用该AP，等时间过后，再次监听无线空口有没有使用</p>
+<hr>
+<p><strong>扫描阶段</strong></p>
+<p>分为：</p>
+<p>携带有指定SSID的主动扫描方式<br>携带空SSID的主动扫描方式</p>
+<p><img src="/../../../../images/image-20240512164502780.png" alt="image-20240512164502780"></p>
+<p><strong>链路认证阶段</strong></p>
+<p>常用安全策略</p>
+<p><img src="/../../../../images/image-20240512164911900.png" alt="image-20240512164911900"></p>
+<p>802.11链路定义两种认证机制：</p>
+<p>开放系统认证(多数使用这个)、共享密钥认证</p>
+<p>开放系统认证：即不认真，任意STA都可以认证成功。</p>
+<p>链路一般不做认证。</p>
+<p><strong>关联阶段</strong></p>
+<p><img src="/../../../../images/image-20240512165244007.png" alt="image-20240512165244007"></p>
+<p>AC来决策，是否允许STA接入</p>
+<p><strong>接入认证阶段</strong></p>
+<p>接入认证即<strong>对用户进行区分</strong>，并在用户访问网络之前限制其访问权限。相对于链路认证，接入认证安全性更高。</p>
+<p>主要包含: PSK认证(密码)和802.1X认证(用户+密码)。</p>
+<p><img src="/../../../../images/image-20240512165418816.png" alt="image-20240512165418816"></p>
+<p><strong>STA地址分配</strong></p>
+<p>AP给STA分配地址</p>
+<p>如果STA是通过DHCP方式获取IP地址，可以用AC设备或汇聚交换机作为DHCP服务器为STA分配IP地址。一般情况下使用汇聚交换机作为DHCP服务器。</p>
+<p><img src="/../../../../images/image-20240512165717088.png" alt="image-20240512165717088"></p>
+<p><strong>用户认证阶段</strong></p>
+<p>到达这一阶段前提是：底层全部打通</p>
+<p>用户认证是一种“端到端”的安全结构，包括:802.1X认证、MAC认证和Portal认证。</p>
+<p><img src="/../../../../images/image-20240512165851352.png" alt="image-20240512165851352"></p>
+<p>举个例子：例如高铁&#x2F;麦当劳等上要使用wifi，连接wifi时，自动弹出一个网页，让你填写手机验证，然后才能使用。</p>
+<h4 id="WLAN业务数据转发"><a href="#WLAN业务数据转发" class="headerlink" title="WLAN业务数据转发"></a>WLAN业务数据转发</h4><p>CAPWAP中的数据包括控制报文(管理报文)和数据报文。控制报文是通过CAPWAP的控制隧道转发的，</p>
+<p>转发的方式：</p>
+<p>隧道转发(集中转发)、直接转发(本地转发)</p>
+<h3 id="案例：旁挂二层组网隧道转发"><a href="#案例：旁挂二层组网隧道转发" class="headerlink" title="案例：旁挂二层组网隧道转发"></a>案例：旁挂二层组网隧道转发</h3><p><img src="/../../../../images/image-20240512180631440.png" alt="image-20240512180631440"></p>
+<p><img src="/../../../../images/image-20240512181125742.png" alt="image-20240512181125742"></p>
+<p>access模式和trunk模式的选择</p>
+<p>直接转发模式</p>
+<p>S1~AP之间使用trunk，STA发送数据到AP，AP会打上业务标签(vlan101),但是隧道模式转发，则再此基础上打赏隧道标签，遮盖主vlan101，而AP的信息会再交换机S1才打上管理标签(vlan100),</p>
+<p>所以S1的g0&#x2F;0&#x2F;1可能会到带标签的或不带标签的数据包，那么使用trunk</p>
+<p>隧道转发模式</p>
+<p>S1~AP之间使用access，因为到达S1的g0&#x2F;0&#x2F;1口，ap的信息才打上管理标签。</p>
+<p>AP-S1-S2-AC，都要放行管理标签的数据帧(vlan100),而</p>
+<p>而s2-ac之间需要放行，vlan100，vlan101</p>
+<p>配置网络互通</p>
+<p><img src="/../../../../images/image-20240512181157756.png" alt="image-20240512181157756"></p>
+<p>配置AP上线</p>
+<p><img src="/../../../../images/image-20240512182756306.png" alt="image-20240512182756306"></p>
+<p><img src="/../../../../images/image-20240512182814645.png" alt="image-20240512182814645"></p>
+<p>配置WLAN业务参数</p>
+<p><img src="/../../../../images/image-20240512182845799.png" alt="image-20240512182845799"></p>
+<p><img src="/../../../../images/image-20240512182910236.png" alt="image-20240512182910236"></p>
+<h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><h4 id="信号覆盖设计原则"><a href="#信号覆盖设计原则" class="headerlink" title="信号覆盖设计原则"></a>信号覆盖设计原则</h4><p><img src="/../../../../images/image-20240512183043947.png" alt="image-20240512183043947"></p>
+<h4 id="信道设计原则"><a href="#信道设计原则" class="headerlink" title="信道设计原则"></a>信道设计原则</h4><p>确定当地可用信道</p>
+<p>以中国为例，网桥回传用的5G频段可选信道:149、153、157、161、165。</p>
+<p>不同国家或地区，可用信道不同，有些地区会预留一些信道，所以规划前必须确认清楚。</p>
+<p>避免同频干扰</p>
+<p>多楼层同时考虑周边和上下楼AP信道错开。</p>
+<p>如信道实在无法错开，通常降低功率来减少重叠区域范围。</p>
+<h4 id="AP布防"><a href="#AP布防" class="headerlink" title="AP布防"></a>AP布防</h4><p>信道规划-室内放装AP</p>
+<p>​	减少跨层</p>
+<p>​	干扰避免信道冲突</p>
+<p>​	统一规划信道</p>
+<p><img src="/../../../../images/image-20240512183541437.png" alt="image-20240512183541437"></p>
+<h4 id="供电和走线设计"><a href="#供电和走线设计" class="headerlink" title="供电和走线设计"></a>供电和走线设计</h4><p>POE供电(推荐)<br>    由POE交换机负责AP的数据传输和供电:网线或光电混合缆;</p>
+<p>本地供电<br>    非POE交换机负责AP的数据传输，独立电源负责AP的供电；</p>
+<p>POE模块供电<br>    由POE适配器负责AP的数据传输和供电。</p>
+<p><img src="/../../../../images/image-20240512183848686.png" alt="image-20240512183848686"></p>
+<p>AP到POE交换机的网线长度不超过80米;</p>
+<p>AP到交换机的光电混合缆长度不超过200米;</p>
+<p>网线&#x2F;光电混合缆在AP点位处长度需要预留5米左右，以备后期调整</p>
+<p>远离强电强磁；</p>
+<p>提前与用户确认，避免因物业、美观等其他原因，用户不同意施工</p>
+<p>馈线长度越长，天线覆盖范围内的信号强度越差。请使用尽量短的馈线，不建议使用15 m馈线</p>
+<p><img src="/../../../../images/image-20240512184058508.png" alt="image-20240512184058508"></p>
+<h4 id="室内放装AP安装方式及原则"><a href="#室内放装AP安装方式及原则" class="headerlink" title="室内放装AP安装方式及原则"></a>室内放装AP安装方式及原则</h4><p>吸顶安装(推荐):安装高度低于6米则使用全向天线AP，高于6米建议使用定向天线AP;</p>
+<p>挂壁安装:不便吸顶安装时考虑;</p>
+<p>支架安装:是不便吸顶或挂墙情况下的临时安装方式，通常用于临时展会场景。</p>
+<h3 id="真题"><a href="#真题" class="headerlink" title="真题"></a>真题</h3><p>某企业生产网络拓扑如图2-1所示，该网络采用静态路由配置，交换机A和交换机B配置VRRP，车间1和车间2部署了多台AGV，通过无线Wi-Fi向AGV设备下发指令。</p>
+<p>AGV是移动机器人(用来搬运货物)</p>
+<p><img src="/../../../../images/1703689913207439.png" alt="image.png"></p>
+<p>简要说明AGV可靠性受Wi-Fi信号影响，可能有哪些因素。<br>1.信道规划不合理，存在同频干扰</p>
+<p>2.AP覆盖重叠区域过大，存在干扰</p>
+<p>3.AP覆盖不足，信号差，存在盲区</p>
+<p>4.周边存在其它无线信号源干扰</p>
+<p>5.存在遮挡，导致信号衰减过大</p>
+<p>6.AP间漫游中断</p>
+<p>根据网络安全的需要，无线校园网要求全网认证接入，其中台式电脑、笔记本、手机等智能终端，从兼容性角度考虑应优先选用(<strong>Portal</strong>)认证方式;打印机、门禁等非智能终端应该选用(<strong>MAC</strong>)认证方式。<br>图2-1中，数据业务流量通过AC与AP建立的隧道进行转发时，该转发模式为(<strong>隧道转发</strong>);不经过AC转发由AP经接入交换机到核心交换机传输至上层网络时，该转发模式为(<strong>直接转发</strong>)。<br>学校的新一代无线网络采用Wifi6技术，要求兼容仍工作在2.4G的老旧终端，Wifi6 AP的部署密度较大，为减少无线AP在2.4G模式下信道之间的干扰，信道之间至少应间隔(<strong>5</strong>)个信道。<br>无线网络实施后，校园网络在线用户数大幅增长。原楼宇汇聚为千兆上联，高峰时期上行链路负载已经100%，经常有丢包现象，在不更换设备的前提下，可以通过(<strong>增加链路并作聚合</strong>)解决。</p>
+<p>相较于以旁路方式部署，将AC直连部署存在的问题是(<strong>增加AC压力，并且出故障影响全网通信</strong>);相较于该网络规划中，于部署在核心层，将AC部署在接入层存在的问题是(<strong>可靠性下降，流量不清晰</strong>)。</p>
+<p>2.在不增加网络设备的情况下，防止外网用户对本网络进行攻击，隐藏内部网NAT策略通常配置在(<strong>Router</strong>)。</p>
+<p>3.某用户通过手机连接该网络的WIFI信号，使用WEB页面进行认证后上网，无线网络使用的认证方式是(<strong>Portal</strong>)认证。</p>
+<p>2.若在大楼内相邻的办公室共用1台AP会造成信号衰减，造成信号衰减的是<strong>障碍物</strong></p>
+<p>3.在网络规划中，对AP供电方式可以采取(<strong>POE</strong>)供电或DC电源适配器供电。</p>
+<p>4.不考虑其他因素的情况下，若室内AP区域信号场强&gt;-60dBm，停车场AP区域的场强&gt;-70dBm，则用户在(<strong>室内</strong>)区域的上网体验好。</p>
+<p>5、组播报文对无线网络空口的影响主要是<strong>会以低速报文形式发送，易造成无线空口拥堵</strong></p>
+<p>6、网络AP部署再每一间宿舍的原因是：<strong>提升信号质量</strong></p>
+<p>在①处部署(1)设备，实现各会议室的无线网络统一管理，无缝漫游:在②处部署(2)设备，实现内部用户使用用户名和密码认证登录，外来访客通过扫描二维码或者手机短信验证登录无线网络;在③处部署(3)设备，实现无线AP的接入和供电;大型会议室部署(4)设备，实现高密度人群的无线访问;在小型会议室借助86线盒部署(5)设备，实现无线访问。(1)~(5)备选答案:</p>
+<p>A、面板式AP B、高密吸顶式AP C、无线控制器 D、无线认证系统A、E、无线路由器 F、普遍吸顶式AP G、普通交换机 H、POE交换机</p>
+<p>答案 C D H B A</p>
+<p>在核心交换机上配置(6)，可以实现无线网络和办公区网络、服务器区网络逻辑隔离;在④处部署(7)设备，可以对所有用户的互联网访问进行审计和控制，阻止并记录非法访问:在⑤处部署(8)设备，实现服务器区域的边界防护，防范来自无线区域和办公区域的安全威胁;在路由器上配置基于(9)地址的策略路由，实现无线区域用户通过运营商1访问互联网，办公区域和服务器区域通过运营商2访问互联网。</p>
+<p>6.VLAN 7.上网行为管理 8.防火墙 9.源</p>
+<p>外面对里面的入侵检测&#x2F;防御，就是IDS&#x2F;IPS</p>
+<p>部分无线用户反映WLAN无法连接，网络管理员登录AC查看日志，日志显示AP-03掉线无法管理，造成该故障可能的原因包括:(1)(2)、(3)(1)~(3)备选答案(每空限选一项，不得重复)</p>
+<p>A.AP与AC的连接断开<br>B.AP断电<br>C.AP未认证<br>D.由于自动升级造成AC、AP版本不匹配<br>E.AC与核心交换机连接断开<br>F.该AP无线接入用户数达到上限</p>
+<p>答案：ABD</p>
+<p>常见的无线网络安全隐患有IP地址欺骗、数据泄露、(9)、网络通信被窃(8)听等;为保护核心业务数据区域的安全网络管理员在设备①处部署(10)实现核心业务区域边界防护;在设备②处部署(11)实现无线用户的上网行为管控;在设备③处部署(12)分析检测网络中的入侵行为;为加强用户安全认证，配置基于(13)的RASIUS认证。<br>(8)~(9)备选答案(每空限选一项，选项不能重复)</p>
+<p>A.端口扫描B.非授权用户接入C.非法入侵D. sql注入攻击</p>
+<p>(13)备选答案:<br>A.IEEE 802.11<br>B.IEEE 802.1x</p>
+<p>8.B 9.C 10.防火墙 11.上网行为管理!12.IDS 13.B</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

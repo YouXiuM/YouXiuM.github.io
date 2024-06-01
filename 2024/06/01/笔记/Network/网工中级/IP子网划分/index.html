@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>IP子网划分 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>IP子网划分</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00bcd4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00a596">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="IP子网划分"><a href="#IP子网划分" class="headerlink" title="IP子网划分"></a>IP子网划分</h1><h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>IPv4地址：32位，点分十进制方式表示</p>
+<p>IP地址组成：网络位+主机位</p>
+<p><img src="/../../../../images/image-20240510110624771.png" alt="image-20240510110624771"></p>
+<p>例如：</p>
+<p>192.168.0.1 - &gt; 11000000 10101000 00000000 00000001</p>
+<p><img src="/../../../../images/image-20240510110719602.png" alt="image-20240510110719602"></p>
+<h3 id="IP地址分类"><a href="#IP地址分类" class="headerlink" title="IP地址分类"></a>IP地址分类</h3><p><img src="/../../../../images/image-20240510110833383.png" alt="image-20240510110833383"></p>
+<p><img src="/../../../../images/image-20240510110840324.png" alt="image-20240510110840324"></p>
+<h3 id="网络掩码"><a href="#网络掩码" class="headerlink" title="网络掩码"></a>网络掩码</h3><p>作用：用于描述IP地址中网络位和主机位的分界线</p>
+<p>掩码两种表示方法:255.255.255.0&#x3D;&#x2F;24  255.255.255.128&#x3D;&#x2F;25</p>
+<p><img src="/../../../../images/image-20240510111039229.png" alt="image-20240510111039229"></p>
+<h3 id="三类地址"><a href="#三类地址" class="headerlink" title="三类地址"></a>三类地址</h3><p>**网络地址: **</p>
+<p>指代网络的地址。在网络的IPv4 地址范围内，最小地址保留为网络地址。此地址的主机部分的每个主机位均为0。</p>
+<p>**广播地址: **</p>
+<p>用于向网络中的所有主机发送数据的特殊地址。广播地址使用该网络范围内的最大地址。<br>即主机部分的各比特位全部为1的地址。</p>
+<p><strong>主机地址:</strong> </p>
+<p>可分配给网络中终端设备的地址。</p>
+<p><img src="/../../../../images/image-20240510111243336.png" alt="image-20240510111243336"></p>
+<h2 id="VLSM和CIDR"><a href="#VLSM和CIDR" class="headerlink" title="VLSM和CIDR"></a>VLSM和CIDR</h2><p>VLSM(变长子网掩码，Variable Length Subnet Mask）</p>
+<p>就是”子网掩码值”变大。</p>
+<p>例如：172.16.10.0&#x2F;24  —VLSM —&gt; 172.16.10.0&#x2F;30</p>
+<p>作用：有效利用IP地址，减小广播风暴。</p>
+<p>CIDR(无类域间路由，超网 ClasslessInter-Domain Routing )</p>
+<p>就是”IP地址聚合”</p>
+<p>例如：</p>
+<p>200.200.192.0&#x2F;24</p>
+<p>200.200.193.0&#x2F;24</p>
+<p>200.200.194.0&#x2F;24</p>
+<p>200.200.195.0&#x2F;24</p>
+<p>超网聚合：200.200.192.0&#x2F;22</p>
+<p>作用：减小骨干路由器表项压力。</p>
+<h2 id="子网划分-VLSM"><a href="#子网划分-VLSM" class="headerlink" title="子网划分 VLSM"></a>子网划分 VLSM</h2><p>为什么子网划分呢？</p>
+<p>某公司有500台PC，分配一个标准C类网段(254个可用)，IP地址不够用，分配一个标准B类网IP又会产生大量的浪费(65534个可用，利用率不足1%)。标准ABC类地址存在如下问题:</p>
+<p><strong>(1)标准主类网络划分，造成IP地址空间浪费。<br>(2)广播域中PC数量过多，广播风暴会消耗网络资源。</strong></p>
+<p>IP子网划分和VLAN的关系：</p>
+<p>1、都是隔离技术。</p>
+<p>2、子网划分是针对IP(网络层)，VLAN是针对以太网(数据链路层)。</p>
+<p>3、一般VLAN与子网对应，每个子网主机数量建议一个C类地址(254台)，最大不超4个C类地址(1016台)</p>
+<p><img src="/../../../../images/image-20240510112541606.png" alt="image-20240510112541606"></p>
+<h3 id="子网划分原理"><a href="#子网划分原理" class="headerlink" title="子网划分原理"></a>子网划分原理</h3><p>原理：网络位向主机位借位</p>
+<p>网络位向主机位借位，即网络部分的位数加长，借用的位表示子网位。</p>
+<p>如果借用1位，则可以划分为21&#x3D;2个子网，借用2位可以划分为22&#x3D;4个子网，借用3位，可以划分为23&#x3D;8个子网。</p>
+<p><img src="/../../../../images/image-20240510113007143.png" alt="image-20240510113007143"></p>
+<p><img src="/../../../../images/image-20240510113058784.png" alt="image-20240510113058784"></p>
+<h3 id="类1：已知子网主机数量，进行子网划分"><a href="#类1：已知子网主机数量，进行子网划分" class="headerlink" title="类1：已知子网主机数量，进行子网划分"></a><strong>类1</strong>：已知子网主机数量，进行子网划分</h3><p>某公司有6个部门，给出IP地址段192.168.1.0&#x2F;24，如何进行子网划分?</p>
+<p><img src="/../../../../images/image-20240510113305879.png" alt="image-20240510113305879"></p>
+<p>扩展1:进行子网划分后，第一个子网广播地址是多少?</p>
+<p><img src="/../../../../images/image-20240510113357127.png" alt="image-20240510113357127"></p>
+<p>扩展2:192.168.1.159属于什么地址?</p>
+<p><img src="/../../../../images/image-20240510113411005.png" alt="image-20240510113411005"></p>
+<h3 id="类2：掩码转换"><a href="#类2：掩码转换" class="headerlink" title="类2：掩码转换"></a><strong>类2</strong>：掩码转换</h3><p>PC1的IP地址为192.168.5.16，PC2的IP地址为192.168.5.100，PC1和PC2在同一网段中，其子网掩<br>码可能是( D )。<br>A.255.255.255.240                                         B.255.255.255.224<br>C.255.255.255.192<br>D.255.255.255.128</p>
+<p>【解析】100-16&#x3D;84，那么地址块需要大于84，只有D满足要求。A可以转换为&#x2F;28，地址块是232-28&#x3D;16，B可以转换为&#x2F;27，地址块是232-27&#x3D;32;C转换为126，地址块是232-26&#x3D;64;D可以转换为&#x2F;25地址块是232-25&#x3D;128。</p>
+<p>某校园网的地址是202.115.192.0&#x2F;19，要把该网络分成30个子网，则子网掩码应该是( D )</p>
+<p>A.255.255.200.0                                                     B.255.255.224.0<br>C.255.255.254.0<br>D.255.255.255.0</p>
+<p>记住：128 64 32 16 8 4 2 1 0</p>
+<p><img src="/../../../../images/image-20240510113927559.png" alt="image-20240510113927559"></p>
+<p>对IPv4地址段192.168.10.0&#x2F;24进行子网划分，<br>要求每个子网至少50个可用IP地址其主机位数最少需要<br>(52)位，(53)属于所划分子网的网络号。</p>
+<p>(52)A.7 B.5 C.8 D.6</p>
+<p>(53 )                                                                     A.192.168.10.32<br>C.192.168.10.160<br>B.192.168.10.0<br>D.192.168.10.96</p>
+<p>答案： D B</p>
+<p>【解析】要满足每个子网50台主机，即主机位至少为6(2^6-2&#x3D;62)，网络号是&#x2F;26,地址块是2^(32-26)&#x3D;64，故子网地址肯定是64的倍数，即192.168.10.64n(n&#x3D;0,1,2,3…)。</p>
+<h3 id="类3：掩码作用位置与地址块计算"><a href="#类3：掩码作用位置与地址块计算" class="headerlink" title="类3：掩码作用位置与地址块计算"></a>类3：掩码作用位置与地址块计算</h3><p>如下图所示，如果网络掩码是x，那么:</p>
+<p>如果x范围是25-32，那么掩码作用于第四段，地址块&#x3D;2^(32-x),例如掩码是28，地址块&#x3D;2^(32-28)&#x3D;2^4&#x3D;16</p>
+<p>如果x范围是17-24，那么掩码作用于第三段，地址块&#x3D;2^(24-x),例如掩码是22，地址块&#x3D;2^(24-22)&#x3D;2^2&#x3D;4</p>
+<p>如果x范围是9-16,那么掩码作用于第二段，地址块&#x3D;2^(16-x),例如掩码是12，地址块&#x3D;2^(16-12)&#x3D;2^4&#x3D;16</p>
+<p>如果x范围是0-8，那么掩码作用于第一段，地址块&#x3D;2^(8-x),例如掩码是7，地址块&#x3D;2^(8-7)&#x3D;2^1&#x3D;2</p>
+<p><img src="/../../../../images/image-20240510114550154.png" alt="image-20240510114550154"></p>
+<p>下面的IP地址中，不属于同一网络的是(52)。A.172.20.34.28&#x2F;21 B.172.20.39.100&#x2F;21  C.172.20.32.176&#x2F;21D.172.20.40.177&#x2F;21</p>
+<p>【解析】求给出几个选项的网络地址。121掩码地址块都是224-21&#x3D;8，那么可以推出子网部分肯定是8的倍数，且作用于第三段。故172.20.32.0和172.20.40.0是网络地址，ABC都属于前者，只有D属于后者。</p>
+<p>属于网络215.17.204.0&#x2F;22的地址是(51)。B      A.215.17.208.200<br>B.215.17.206.10<br>C.215.17.203.0<br>D.215.17.224.0</p>
+<p>【summer解析】215.17.204.0&#x2F;22掩码是&#x2F;22，作用位在第三段，且地址块为224-22&#x3D;22&#x3D;4。可以写出所有子网地址:</p>
+<p><img src="/../../../../images/image-20240510114734848.png" alt="image-20240510114734848"></p>
+<p>有4个网络地址:192.168.224.1、192.168.223.255、192.168.232.25和192.168.216.5，如果子网掩码为 255.255.240.0，则这4个地址分别属于(54)个子网。下面列出的地址对中，属于同一个子网的是(55)。<br>(54)A.1B.2 C3 D.4<br>(55)                                                                      A.192.168.224.1和192.168.223.255<br>C.192.168.232.25 和192.168.216.5<br>B.192.168.223.255和192.168.232.25        D.192.168.223.255 和192.168.216.5</p>
+<p>B D</p>
+<p><img src="/../../../../images/image-20240510114906356.png" alt="image-20240510114906356"></p>
+<h3 id="类4应用型子网划分"><a href="#类4应用型子网划分" class="headerlink" title="类4应用型子网划分"></a>类4应用型子网划分</h3><p>某公司为多个部门划分了不同的局域网，每个局域网中的主机数量如下表所示，计划使用地址段192.168.10.0&#x2F;24划分子网，以满足公司每个局域网的IP地址需求，请为各部门选择最经济的地址段或子网掩码长度。</p>
+<p><img src="/../../../../images/image-20240510115630177.png" alt="image-20240510115630177"></p>
+<p>答案： D A C</p>
+<p>【summer解析】子网划分一般先满足主机量需求大的部门,题目中应先满足财务部需求，一共60台主机，而2^6-2&#x3D;62,刚好满足，那么主机位建议6位,地址块为2^6&#x3D;64。网络位32-6&#x3D;26，原来的网络位是24位，则相当于新增了2位子网位，可以分成4个子网，分别为:                                     192.168.10.0&#x2F;26、192.168.10.64&#x2F;26、192.168.10.128&#x2F;26、192.168.10.192&#x2F;26。<br>财务部使用这四个子网地址中的哪一个,直接看(53)题选项,只有A答案属于这四个子网，故(53)选A。接着计算营销部的掩码，由于20台主机需求，主机位为5位即可,那么子网掩码是&#x2F;27，选D。管理部主机数量为8，主机位至少为4为，掩码是&#x2F;28。计算完成后，最好带入题目进行检验，实际划分如下图所示:</p>
+<p><img src="/../../../../images/image-20240510115716066.png" alt="image-20240510115716066"></p>
+<p>分支机构有营销部、市场部、生产部、人事部四个部门，每个部门需要访问互联网主机数量如表所示，现计划对网段10.11.230.0&#x2F;24 进行子网划分，为以上四个部分规划IP 地址，请补充表中的空(1)-(4)。</p>
+<p><img src="/../../../../images/image-20240510115733372.png" alt="image-20240510115733372"></p>
+<p>[答案]     (1)10.11.230.0(2)255.255.255.192(3)10.11.230.224(4)255.255.255.240</p>
+<p><img src="/../../../../images/image-20240510115827007.png" alt="image-20240510115827007"></p>
+<p>该企业办公网络采用172.16.1.0&#x2F;24地址段，部门终端数量如表1-1所示，请将网络地址规划补充完整。</p>
+<p><img src="/../../../../images/image-20240510115853079.png" alt="image-20240510115853079"></p>
+<p>【参考答案】<br>(1)255.255.255.224<br>(3)172.16.1.33<del>172.16.1.62<br>(2)172.16.1.65</del>172.16.1.126<br>(4)255.255.255.128</p>
+<p><img src="/../../../../images/image-20240510115926144.png" alt="image-20240510115926144"></p>
+<p><img src="/../../../../images/image-20240510120021439.png" alt="image-20240510120021439"></p>
+<p>(1)28<br>(2)172.16.1.17~172.16.1.30<br>(3)172.16.1.33 ~172.16.1.62<br>(4)26</p>
+<p>假设某公司有8000台主机，采用CIDR方法进行划分，则至少给它分配(51)个C类网络。如果192.168.210.181是其中一台主机地址，则其网络地址为(52)<br>(51)A.8 B.10 C.16 D.32<br>(52)A.192.168.192.0&#x2F;19 B192.168.192.0&#x2F;20 C.192.168.208.0&#x2F;19 D.192.168.208.0&#x2F;20</p>
+<p><a href="51">参考答案</a>D A<br>【解析】<br>(51)1个C类地址有254个可用地址，4个C即接近1000个，那么8000台PC，合计约32个C类地址</p>
+<p>(52)8000台主机，那么主机位至少是13位，2^13-2&#x3D;8190，网络位最多32-13&#x3D;19，直接排除BD.&#x2F;19掩码作用于第3段，地址块是224-19&#x3D;25&#x3D;32，则子网必须是32的倍数。192132&#x3D;6,208&#x2F;32&#x3D;6.5<br>故排除C。</p>
+<p>路由器收到一个数据报文，其目标地址为20.112.17.12，该地址属于(53)子网。<br>A.20.112.17.8&#x2F;30<br>C.20.96.0.0&#x2F;11<br>B.20.112.16.0&#x2F;24<br>D.20.112.18.0&#x2F;23</p>
+<p>【参考答案】C<br>【解析】思路与上题第二问类似，A选项可用地址20.112.17.9-11，B选项可用地址是20.112.16.1-254。</p>
+<p>C选项&#x2F;11作用于第2段，地址块是216-11&#x3D;25&#x3D;32，即可用地址区间是20.96.0.1-20.127.255.254</p>
+<p>D选项&#x2F;23作用于第3段，地址块是224-23&#x3D;21&#x3D;2，即可用地址:20.112.18.1-20.112.19.254。</p>
+<h2 id="无类域间路由CIDR"><a href="#无类域间路由CIDR" class="headerlink" title="无类域间路由CIDR"></a>无类域间路由CIDR</h2><p>计算过程：</p>
+<p><img src="/../../../../images/image-20240510120319332.png" alt="image-20240510120319332"></p>
+<p>某企业分配给产品部的IP地址块为192.168.31.192&#x2F;26，分配给市场部的IP地址块为192.168.31.160&#x2F;27，分配给财务部的IP地址块为192.168.31.128&#x2F;27，那么这三个地址块经过聚合后的地址为()。                                                 A.192.168.31.0&#x2F;25<br>B.192.168.31.0&#x2F;26<br>C.192.168.31.128&#x2F;25<br>D.192.168.31.128&#x2F;26</p>
+<p><img src="/../../../../images/image-20240510120341224.png" alt="image-20240510120341224"></p>
+<p>对下面4个网络:110.125.129.0&#x2F;24、110.125.130.0&#x2F;24、110.125.132.0&#x2F;24和110.125.133.0&#x2F;24进行路由汇聚，能覆盖这4个网络的地址是(26)。                                   A.110.125.128.0&#x2F;21<br>B.110.125.128.0&#x2F;22<br>C.110.125.130.0&#x2F;22<br>D.110.125.132.0&#x2F;23</p>
+<p>【参考答案】 A<br>【解析】</p>
+<p>110.125.10000  001.0</p>
+<p>110.125.10000  010.0</p>
+<p>110.125.10000  100.0</p>
+<p>110.125.10000  101.0</p>
+<p><strong>汇总后为110.125.128.0&#x2F;21</strong></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

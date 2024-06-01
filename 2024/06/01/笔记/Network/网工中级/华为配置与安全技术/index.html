@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>华为配置与安全技术 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>华为配置与安全技术</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #03a9f4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ff7d73">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="华为配置与安全技术"><a href="#华为配置与安全技术" class="headerlink" title="华为配置与安全技术"></a>华为配置与安全技术</h1><h2 id="网络探测BFD和NQA"><a href="#网络探测BFD和NQA" class="headerlink" title="网络探测BFD和NQA"></a>网络探测BFD和NQA</h2><h3 id="BFD"><a href="#BFD" class="headerlink" title="BFD"></a>BFD</h3><p>BFD(Bidirectional Forwarding Detection)双向转发检测</p>
+<p><strong>BFD是一种用于快速检测网络链路或设备故障的协议。</strong></p>
+<p>提供了一个<strong>通用的、标准化的、介质无关的、协议无关</strong>的快速故障检测机制，有两大优点：</p>
+<p>​	对链路连通状态提供轻负荷、<strong>快速故障检测(毫秒级)。 检测速度快</strong></p>
+<p>​	<strong>对任何介质、任何协议层进行实时检测</strong></p>
+<p>   <strong>例如：[静态路由、RIP、OSPF、VRRP等] 兼容性强</strong></p>
+<p>说直白一点，能够快速检测设备的状态，例如路由发生故障，可能线路需要几秒或几十秒才能够检测，如果有这BFD就能够实现毫秒级别的检测到，最多3秒。</p>
+<h3 id="联动功能"><a href="#联动功能" class="headerlink" title="联动功能"></a>联动功能</h3><p>什么叫联动？</p>
+<p>就是一个技术和另一个技术联合起来，例如vrrpo和bfd联动，能够更快速检测链路状态，设备故障时，本来vrrp需要几十秒才能切换，现在bfd能够50毫秒就能切换了</p>
+<p>联动功能由检测模块、Track和应用模块三部分组成</p>
+<p><strong>监测模块</strong>:负责对链路状态、网络性能等进行监测，并将探测结果通知给Track模块。<br><strong>Track模块</strong>:收到监测模块的探测结果后，及时改变Track项的状态，并通知应用模块。<br><strong>应用模块</strong>:根据Track项的状态，进行相应的处理，从而实现联动。</p>
+<p><img src="/../../../../images/image-20240424131032548.png" alt="image-20240424131032548"></p>
+<h4 id="BFD可以联动的协议"><a href="#BFD可以联动的协议" class="headerlink" title="BFD可以联动的协议"></a>BFD可以联动的协议</h4><p>检测IP链路、BFD单臂回声功能、与MPLS联动<br>与接口状态联动、与VRRP联动、与PIM联动</p>
+<p><strong>与RIP联动、与OSPF联动、与IS-IS联动</strong></p>
+<p><strong>与BGP联动、与静态路由联动、与静态路由联动</strong></p>
+<p>BFD默认参数</p>
+<p><img src="/../../../../images/image-20240424131338390.png" alt="image-20240424131338390"></p>
+<p>常用命令：</p>
+<p><img src="/../../../../images/image-20240424131540243.png" alt="image-20240424131540243"></p>
+<p><img src="/../../../../images/image-20240424131546668.png" alt="image-20240424131546668"></p>
+<h4 id="BFD和VRRP联动"><a href="#BFD和VRRP联动" class="headerlink" title="BFD和VRRP联动"></a>BFD和VRRP联动</h4><p>将BFD应用于Backup对Master的检测，VRRP通过监视BFD会话状态实现主备快速切换，切换时间控制在<strong>50毫秒以内。</strong></p>
+<p><img src="/../../../../images/image-20240424131641740.png" alt="image-20240424131641740"></p>
+<h4 id="静态路由与BFD联动配置"><a href="#静态路由与BFD联动配置" class="headerlink" title="静态路由与BFD联动配置"></a>静态路由与BFD联动配置</h4><p><img src="/../../../../images/image-20240424131708401.png" alt="image-20240424131708401"></p>
+<p><img src="/../../../../images/image-20240424131716577.png" alt="image-20240424131716577"></p>
+<p>BFD会话配置验证</p>
+<p><img src="/../../../../images/image-20240424131757057.png" alt="image-20240424131757057"></p>
+<h4 id="OSPF与BFD联动配置"><a href="#OSPF与BFD联动配置" class="headerlink" title="OSPF与BFD联动配置"></a>OSPF与BFD联动配置</h4><p><img src="/../../../../images/image-20240424131820841.png" alt="image-20240424131820841"></p>
+<p><img src="/../../../../images/image-20240424131826989.png" alt="image-20240424131826989"></p>
+<p>BFD会话配置验证</p>
+<p><img src="/../../../../images/image-20240424131846412.png" alt="image-20240424131846412"></p>
+<h3 id="NQA"><a href="#NQA" class="headerlink" title="NQA"></a>NQA</h3><p>NQA(Network Quality Analysis)，即网络质量分析，是用于帮助用户度量网络性能和检测网络故障的工具。NQA通过从一个网络端点向另一个网络端点发送报文，<strong>检测网络可达性，并统计两端之间网络的时延、丢包率、抖动等性能数据</strong>，从而帮助用户监视网络质量及检测网络故障。</p>
+<p><img src="/../../../../images/image-20240424131946620.png" alt="image-20240424131946620"></p>
+<p>NQA检测IP网络</p>
+<p><img src="/../../../../images/image-20240424132011323.png" alt="image-20240424132011323"></p>
+<h3 id="BFD和NQA相同点和不同点"><a href="#BFD和NQA相同点和不同点" class="headerlink" title="BFD和NQA相同点和不同点"></a>BFD和NQA相同点和不同点</h3><p>相同点:都可以检测网络连通性。</p>
+<p>不同点:</p>
+<p>(1)BFD检测速度快，能实现毫秒级检测，而NQA只能做到秒级。</p>
+<p>(2)BFD功能简单，只能检测连通性，而NQA功能复杂，可以统计两端之间网络的时延、丢包率、抖动等性能数据。</p>
+<h2 id="端口隔离Port-isolate"><a href="#端口隔离Port-isolate" class="headerlink" title="端口隔离Port-isolate"></a>端口隔离Port-isolate</h2><p>技术背景</p>
+<p><img src="/../../../../images/image-20240424152536282.png" alt="image-20240424152536282"></p>
+<p>ACL能够实现访问限制，为啥还需要端口隔离？</p>
+<p>原因：主要acl配置太多，网络不只是三四台设备，限制需要六条命令，而端口隔离，只需要port-isolate就能够实现访问限制</p>
+<h3 id="端口隔离技术"><a href="#端口隔离技术" class="headerlink" title="端口隔离技术"></a>端口隔离技术</h3><p>采用端口隔离功能，可以<strong>实现同一VLAN内端口之间的隔离</strong>。用户只需要将端口加入到隔离组中，就可以实现隔离组内端口之间二层数据的隔离。端口隔离功能为用户<strong>提供了更安全、更灵活的组网方案。</strong></p>
+<p>配置</p>
+<p><img src="/../../../../images/image-20240424154310537.png" alt="image-20240424154310537"></p>
+<p><img src="/../../../../images/image-20240424153110950.png" alt="image-20240424153110950"></p>
+<p>任务1：在同一网段、vlan。默认他们之间是可以互连。</p>
+<p>实现：PC1和PC2不能访问，PC1和PC3能够访问</p>
+<pre><code>int g0/0/1
+port-isolate enable group 1
+int g/0/02
+port-isolate enable group 1 
+#把她们放在同一个隔离组(group1)中
+</code></pre>
+<p>任务2：默认已经设置三台PC机放在同一个隔离组中，默认是不能通信。</p>
+<p>实现：PC1和PC2能互相访问，PC1和PC3不能访问。</p>
+<pre><code>#需要设置代理ARP(中间人)
+int vlanif1
+ip address 192.168.1.254 24
+arp-proxy inner-sub-vlan-proxy enable
+#注意：如果port-isolate 隔离模式是二层三层都隔离(port-isolate mode all)，那么就代理ARP就没啥用了。
+</code></pre>
+<p>端口隔离技术原理</p>
+<p><img src="/../../../../images/image-20240424154647351.png" alt="image-20240424154647351"></p>
+<h4 id="端口隔离配置案例"><a href="#端口隔离配置案例" class="headerlink" title="端口隔离配置案例"></a>端口隔离配置案例</h4><p><img src="/../../../../images/image-20240424154859834.png" alt="image-20240424154859834"></p>
+<p><img src="/../../../../images/image-20240424154955260.png" alt="image-20240424154955260"></p>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>同一项目组的员工都被划分到VLAN10中，其中属于企业内部的员工允许相互通信，属于企业外部的员工不允许相互通信，外部员工与内部员工之间允许通信，该如何实现?</p>
+<p><img src="/../../../../images/image-20240424155102527.png" alt="image-20240424155102527"></p>
+<p>解决方案：</p>
+<p><img src="/../../../../images/image-20240424155128287.png" alt="image-20240424155128287"></p>
+<p><img src="/../../../../images/image-20240424155135708.png" alt="image-20240424155135708"></p>
+<h2 id="广播风暴问题与解决方案"><a href="#广播风暴问题与解决方案" class="headerlink" title="广播风暴问题与解决方案"></a>广播风暴问题与解决方案</h2><h3 id="广播风暴"><a href="#广播风暴" class="headerlink" title="广播风暴"></a>广播风暴</h3><h4 id="广播风暴是什么？"><a href="#广播风暴是什么？" class="headerlink" title="广播风暴是什么？"></a>广播风暴是什么？</h4><p>指在计算机网络中，大量的广播消息在网络中传播，导致网络拥塞和性能下降的情况。</p>
+<p>就比如：某个设备的网卡出现了异常，导致该设备不断地发送大量的广播消息。其他设备在收到这些广播消息后，会将其转发到其他端口，进而使得网络中的所有设备都收到这些广播消息。</p>
+<h4 id="广播风暴的原因？"><a href="#广播风暴的原因？" class="headerlink" title="广播风暴的原因？"></a><strong>广播风暴的原因？</strong></h4><p>(1)二层环路。(没有启用生成树，或者生成树故障,设备&#x2F;接口故障等 )</p>
+<p>(2)网络中存在攻击行为，某些终端中毒，持续发送恶意广播，或者扫描。</p>
+<p>(3)特殊应用场景，比如云桌面批量启动，网络教室PC一键开机。</p>
+<h4 id="如何解决广播风暴？"><a href="#如何解决广播风暴？" class="headerlink" title="如何解决广播风暴？"></a><strong>如何解决广播风暴？</strong></h4><p>(1)划分虚拟局域网VLAN，隔离广播域，缩小广播传递范围。</p>
+<p>(2)通过STP&#x2F;MSTP、堆叠、链路聚合等技术，破除二层环路</p>
+<p>(3)查杀终端病毒，消除网络攻击,</p>
+<p>(4)交换机配置广播抑制。</p>
+<h4 id="广播风暴的现象"><a href="#广播风暴的现象" class="headerlink" title="广播风暴的现象"></a><strong>广播风暴的现象</strong></h4><p>(1)交换机接口指示灯疯狂闪烁。<br>(2)交换机CPU利用率高。<br>(3)交换机命令行卡顿。<br>(4)用户上网慢，或者不能上网。<br>(5)出现MAC地址漂移。<br>(6)抓包分析，很多ARP、DHCP Discovery广播</p>
+<h4 id="为什么二层环路会早餐广播风暴，三层环路不会呢？"><a href="#为什么二层环路会早餐广播风暴，三层环路不会呢？" class="headerlink" title="为什么二层环路会早餐广播风暴，三层环路不会呢？"></a><strong>为什么二层环路会早餐广播风暴，三层环路不会呢？</strong></h4><p>因为，三层是网络层，IP地址中有TTL值，每经过一跳，TTL值就减1，直到为0，则该包还没发出去，则丢弃。</p>
+<h4 id="破除二层环路的方法？"><a href="#破除二层环路的方法？" class="headerlink" title="破除二层环路的方法？"></a><strong>破除二层环路的方法？</strong></h4><p>1、拔网线</p>
+<p>2、MAC地址黑洞(把MAC地址拉入黑名单，mac-address blackhole xxx)</p>
+<p>3、设置ACL</p>
+<h3 id="流量抑制"><a href="#流量抑制" class="headerlink" title="流量抑制"></a>流量抑制</h3><p><img src="/../../../../images/image-20240424173136108.png" alt="image-20240424173136108"></p>
+<p><img src="/../../../../images/image-20240424173426158.png" alt="image-20240424173426158"></p>
+<p><img src="/../../../../images/image-20240424173435456.png" alt="image-20240424173435456"></p>
+<h3 id="风暴控制"><a href="#风暴控制" class="headerlink" title="风暴控制"></a>风暴控制</h3><p><img src="/../../../../images/image-20240424173834336.png" alt="image-20240424173834336"></p>
+<p><img src="/../../../../images/image-20240424173840809.png" alt="image-20240424173840809"></p>
+<p><img src="/../../../../images/image-20240424173918690.png" alt="image-20240424173918690"></p>
+<h3 id="流量抑制和风暴控制的区别"><a href="#流量抑制和风暴控制的区别" class="headerlink" title="流量抑制和风暴控制的区别"></a>流量抑制和风暴控制的区别</h3><p>从原理来看，两者都是为了防止广播、组播以及未知单播报文所引起的<strong>广播风暴</strong>，但两者对流量控制的形式不一样。</p>
+<p>​	流量抑制给三种报文流量配置阈值，当流量超过阈值时，系统将<strong>丢弃多余的流量</strong></p>
+<p>​	风暴控制给三种报文流量配置阈值，当流量超过阈值时，系统<strong>直接将端口关闭</strong></p>
+<p>​	<strong>一个接口下流量抑制和风暴控制特性冲突，同时只能配置其中的一个</strong></p>
+<h2 id="MAC-Flood与解决方案"><a href="#MAC-Flood与解决方案" class="headerlink" title="MAC Flood与解决方案"></a>MAC Flood与解决方案</h2><h3 id="交换机工作原理"><a href="#交换机工作原理" class="headerlink" title="交换机工作原理"></a>交换机工作原理</h3><p><img src="/../../../../images/image-20240424215945134.png" alt="image-20240424215945134"></p>
+<p>1、初始情况下，交换MAC地址表是空的。</p>
+<p>2、当PC机发送一个数据帧，然后交换机收到数据帧后，将数据帧的源MAC地址学习到MAC地址表中，并与接收该帧的接口进行关联。</p>
+<p>3、当交换机MAC地址表中查询发现没有匹配的表项，则将数据帧从除了其入站接口之外的接口泛洪出去。</p>
+<p>4、当有PC机收到该数据帧，则会回复给PC(发送)，其他的PC则丢弃</p>
+<p>5、当交换收到PC(接收)的数据帧，将帧头中的源MAC地址学习到MAC表，并与接收的PC的接口进行关联</p>
+<p>6、交换机找到MAC表中查找数据帧的目的MAC地址，然后进行转发</p>
+<p><strong>MAC Flood的本质：耗尽交换MAC地址表的DoS攻击</strong></p>
+<h3 id="端口安全"><a href="#端口安全" class="headerlink" title="端口安全"></a>端口安全</h3><p>举个例子</p>
+<p>这个端口安全是为防止别人攻击你设备的一种手段。</p>
+<p>例如：当别人假的MAC进行攻击，每一次都是不一样的MAC地址。</p>
+<p>而你只需要设置一些端口，例如只允许一个MAC地址通过，其他不通过，或者当MAC达到某一个极限值就会自动触发机制(接口关机、警告等)</p>
+<p>将学习到的动态MAC地址转换为<strong>安全MAC地址</strong>，阻止非法用户通过本接口和交换机通信，从而增强设备的安全性。</p>
+<p>应用在接入层设备，可以<strong>防止仿冒</strong>用户从其他端口攻击。</p>
+<p>应用在汇聚层设备，可以<strong>控制</strong>接入用户的<strong>数量。</strong></p>
+<p>启用后，端口之前学习到的动态MAC将被删除。</p>
+<p><img src="/../../../../images/image-20240424221049584.png" alt="image-20240424221049584"></p>
+<p>保护动作:流量如果违规(非安全MAC流量)，将会采取保护措施。</p>
+<p><img src="/../../../../images/image-20240424221502747.png" alt="image-20240424221502747"></p>
+<p>配置命令</p>
+<p><img src="/../../../../images/image-20240424221524418.png" alt="image-20240424221524418"></p>
+<p><img src="/../../../../images/image-20240424222614697.png" alt="image-20240424222614697"></p>
+<h2 id="DHCP-Snooping"><a href="#DHCP-Snooping" class="headerlink" title="DHCP Snooping"></a>DHCP Snooping</h2><p><strong>私接DHCP服务器</strong></p>
+<p>场景分析<br>(1)办公室只有2个网口，但有4名同事都需要连接有线网络私接小交换机或小路由器。<br>(2)单位没有部署无线网络，用户想手机上网，私接无线路由器</p>
+<p>问题:</p>
+<p>1、网络中有多个DHCP服务器，用户通过非官方DHCP服务器获取地址从而导致不能正常上网。</p>
+<p>2、可能IP冲突</p>
+<p>3、网络不稳定，安全漏洞，数据可能会被窃取</p>
+<p><strong>DHCP Snooping</strong>的出现就是解决私接DHCP服务器问题</p>
+<p>DHCP Snooping的信任功能，能够保证DHCP客户端从合法的DHCP服务器获取IP地址。</p>
+<p>DHCP Snooping信任功能将接口分为信任接口和非信任接口：<br>    信任接口<strong>正常接收</strong>DHCP服务器响应的DHCP ACK、DHCP NAK和DHCP Offer报文</p>
+<p>​	设备只将DHCP客户端的DHCP请求报文通过<strong>信任接口发送</strong>给合法的DHCP服务器，不会向非信任接口转发</p>
+<p>​	非信任接口收到的DHCP Server发送的DHCP OFFER、DHCP ACK、DHCP NAK报文会被直接丢弃</p>
+<p>通俗地说，DHCP Snooping把DHCP服务器的接口设置为trusted和untrusted。</p>
+<p><img src="/../../../../images/image-20240424224743851.png" alt="image-20240424224743851"></p>
+<p><strong>DHCP Snooping配置举例</strong></p>
+<p><img src="/../../../../images/image-20240424225507937.png" alt="image-20240424225507937"></p>
+<p><img src="/../../../../images/image-20240424225522111.png" alt="image-20240424225522111"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240424225610455.png" alt="image-20240424225610455"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>网络管理 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>网络管理</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #03a9f4">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00a596">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h1><h2 id="网络管理基础"><a href="#网络管理基础" class="headerlink" title="网络管理基础"></a>网络管理基础</h2><h3 id="网络管理体系结构"><a href="#网络管理体系结构" class="headerlink" title="网络管理体系结构"></a>网络管理体系结构</h3><p>网络管理五大功能域：</p>
+<p><strong>故障管理、配置管理、计费管理、性能管理、安全管理</strong></p>
+<p>助记：“安配能计障”</p>
+<p>故障管理：<strong>尽快发现故障、找出故障原因、以便采取补救措施</strong></p>
+<p><img src="/../../../../images/image-20240419143436269.png" alt="image-20240419143436269"></p>
+<p><img src="/../../../../images/image-20240419143523745.png" alt="image-20240419143523745"></p>
+<h2 id="SNMP"><a href="#SNMP" class="headerlink" title="SNMP"></a>SNMP</h2><h3 id="网络管理协议五大标准"><a href="#网络管理协议五大标准" class="headerlink" title="网络管理协议五大标准"></a>网络管理协议五大标准</h3><p><img src="/../../../../images/image-20240419165123554.png" alt="image-20240419165123554"></p>
+<h3 id="SNMP-记"><a href="#SNMP-记" class="headerlink" title="SNMP(记)"></a>SNMP(记)</h3><p><strong>2个服务3个端口5个报文(235)</strong></p>
+<p>SNMP为应用层协议，通过<strong>UDP承载</strong>，端口161和162.</p>
+<p>不可靠，但效率高，网络管理<strong>不会太多增加网络负载.</strong></p>
+<p><img src="/../../../../images/image-20240419165426889.png" alt="image-20240419165426889"></p>
+<p><strong>5个报文</strong></p>
+<p><img src="/../../../../images/image-20240419165503382.png" alt="image-20240419165503382"></p>
+<p>为了简化书写，前三个可以简写为：<strong>get、get-next、set</strong>。</p>
+<p>SNMP双端口:客户端用端口<strong>161</strong>来接收get&#x2F;set，服务器端用端口<strong>162</strong>来接收trap。</p>
+<p>get：服务器查询客户机的信息，例如CPU利用率的数值等等</p>
+<p>get-next：MIB数据库，就相当于给一个变量1.3.0.1是指CPU的利用率，通过调用这个1.3.0.1，就知道是CPU利用率的值</p>
+<p>set：设置，修改命令配置等</p>
+<p>get-response：每次服务器发来一次请求，客户机就需要响应给服务器</p>
+<p>trap：客户机”主动上报“，例如客户机的CPU利用率高达90%，主动上报给服务器，说我这个机器有点异常。</p>
+<hr>
+<p>管理数据库 MIB - 2</p>
+<p>被管理对象标识符OID</p>
+<p><img src="/../../../../images/image-20240419180144779.png" alt="image-20240419180144779"></p>
+<hr>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240419170722382.png" alt="image-20240419170722382"></p>
+<p><img src="/../../../../images/image-20240419170744231.png" alt="image-20240419170744231"></p>
+<h3 id="SNMP版本"><a href="#SNMP版本" class="headerlink" title="SNMP版本"></a>SNMP版本</h3><h4 id="SNMPv1"><a href="#SNMPv1" class="headerlink" title="SNMPv1"></a>SNMPv1</h4><p>管理站和代理站之间可以是<strong>一对多</strong>关系，也可以是<strong>多对一</strong>关系</p>
+<p>RFC1157规定SNMP基本认证和控制机制，通过**团体名(community)**验证实现。</p>
+<p>团体名<strong>Community明文传输，不安全</strong>。</p>
+<p><img src="/../../../../images/image-20240419171032808.png" alt="image-20240419171032808"></p>
+<h4 id="SNMPv2"><a href="#SNMPv2" class="headerlink" title="SNMPv2"></a>SNMPv2</h4><p>SNMPv2增加定义了GetBulk和inform两个新协议操作。<br><strong>GetBulk</strong>: 快速获取大块数据。<br><strong>Inform</strong>: 允许一个NMS向另一个NMS<strong>发送Trap信息&#x2F;接收响应</strong>消息。</p>
+<p><img src="/../../../../images/image-20240419174942651.png" alt="image-20240419174942651"></p>
+<h4 id="SNMPv3"><a href="#SNMPv3" class="headerlink" title="SNMPv3"></a>SNMPv3</h4><p>SNMPv3重新定义了网络管理框架和安全机制</p>
+<p>重新定义网络管理框架:将前两版中的管理站和代理统一叫做SNMP实体(entity)。</p>
+<p>安全机制: <strong>认证和加密传输</strong>。</p>
+<p><strong>时间序列模块</strong>: 提供重放攻击防护。</p>
+<p><strong>认证模块</strong>: 完整性和数据源认证，使用SHA或MD5。</p>
+<p><strong>加密模块</strong>: 防止内容泄露，使用DES算法。</p>
+<p>有两种威胁是SNMPV3没有防护的: <strong>拒绝服务和通信分析</strong>。</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240419175851469.png" alt="image-20240419175851469"></p>
+<p><img src="/../../../../images/image-20240419175917338.png" alt="image-20240419175917338"></p>
+<h2 id="RMON"><a href="#RMON" class="headerlink" title="RMON"></a>RMON</h2><p>RMON(Remote Network Monitoring)</p>
+<p>用于<strong>监视网络通信情况</strong>的设备叫网络监视器(Monitor)或网络分析器(Analyzer)、探测器(Probe)等。【监测流量 vs 监测设备】</p>
+<p>RMON定义了管理信息库<strong>RMON MIB-II(流量信息)与SNMP MIB(设备信息)</strong></p>
+<p>RMON目标: <strong>监视子网范围内通信</strong>，从而减少管理站和被管理系统之间的通信负载。</p>
+<p><img src="/../../../../images/image-20240419182721895.png" alt="image-20240419182721895"></p>
+<h2 id="网络管理命令"><a href="#网络管理命令" class="headerlink" title="网络管理命令"></a>网络管理命令</h2><h3 id="ipconfig-网络诊断命令"><a href="#ipconfig-网络诊断命令" class="headerlink" title="ipconfig(网络诊断命令)"></a>ipconfig(网络诊断命令)</h3><p><img src="/../../../../images/image-20240419192700950.png" alt="image-20240419192700950"></p>
+<h3 id="ping-traceroute-故障诊断"><a href="#ping-traceroute-故障诊断" class="headerlink" title="ping traceroute(故障诊断)"></a>ping traceroute(故障诊断)</h3><p><img src="/../../../../images/image-20240419192810208.png" alt="image-20240419192810208"></p>
+<h3 id="ARP命令"><a href="#ARP命令" class="headerlink" title="ARP命令"></a>ARP命令</h3><p><img src="/../../../../images/image-20240419193027195.png" alt="image-20240419193027195"></p>
+<h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><p><img src="/../../../../images/image-20240419193042913.png" alt="image-20240419193042913"></p>
+<h3 id="route和nslookup"><a href="#route和nslookup" class="headerlink" title="route和nslookup"></a>route和nslookup</h3><p><img src="/../../../../images/image-20240419193255552.png" alt="image-20240419193255552"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

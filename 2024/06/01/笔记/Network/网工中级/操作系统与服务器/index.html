@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>操作系统与服务器 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>操作系统与服务器</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/1
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Network-%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Network - 网工中级
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Network/" style="color: #00a596">
+                    Network
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00bcd4">
+                    网工中级
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="操作系统与服务器"><a href="#操作系统与服务器" class="headerlink" title="操作系统与服务器"></a>操作系统与服务器</h1><h2 id="IIS服务器"><a href="#IIS服务器" class="headerlink" title="IIS服务器"></a>IIS服务器</h2><p>远程桌面：RDP 3389</p>
+<p>Samba： Linux主机提供Windows风格的<strong>文件和打印机共享服务</strong></p>
+<p>IIS(Internet Information Server)因特网信息服务器</p>
+<p>IIS可以搭建<strong>Web服务器、FTP服务器、SMTP服务器</strong></p>
+<p>IIS支持身份验证安全机制有4种验证方法：</p>
+<p>集成Windows身份验证 &gt;  摘要式身份验证 &gt; 基本身份验证 &gt; 匿名身份验证</p>
+<p>邮件三剑客：</p>
+<p><strong>SMTP(发) - POP3(收) - IMAP(同步)</strong></p>
+<p>Linux Apache服务器</p>
+<p>提供Web和FTP等服务，Web配置文件是httpd.conf</p>
+<p>默认Web根目录：&#x2F;var&#x2F;www&#x2F;html或&#x2F;home&#x2F;httpd</p>
+<p>虚拟主机：<strong>基于IP地址、基于端口、基于名字</strong></p>
+<p>FTP服务器</p>
+<p>FTP端口：<strong>21(控制)、TCP 20(数据)</strong></p>
+<p>FTP站点访问：</p>
+<p><strong>get：从服务器端下载文件</strong></p>
+<p><strong>put：向FTP服务器端上传文件</strong></p>
+<p>lcd： 设置客户端当前的目录</p>
+<p>dir：展示目录下的文件</p>
+<h2 id="DNS域名服务器"><a href="#DNS域名服务器" class="headerlink" title="DNS域名服务器"></a>DNS域名服务器</h2><p>域名系统(Domain Name System ,DNS)</p>
+<p>DNS作用： 把域名转换为IP地址</p>
+<p>DNS&#x2F;DHCP服务器必须为<strong>静态IP地址</strong>，而Web&#x2F;FTP均可以为动态IP。</p>
+<p>Linux系统中提供DNS服务的组件为<strong>bind</strong>，主配置文件为<strong>named.conf</strong></p>
+<p>诊断域名系统基础结构的信息和查看DNS服务器的IP地址命令是:<strong>nslookup</strong>。</p>
+<h3 id="DNS域名系统结构"><a href="#DNS域名系统结构" class="headerlink" title="DNS域名系统结构"></a>DNS域名系统结构</h3><p>DNS通过层次结构的<strong>分布式数据库</strong>建立一致性名字空间。</p>
+<p>FQDN完全合格域名，比如<a target="_blank" rel="noopener" href="http://www.whu.edu.cn/">www.whu.edu.cn</a>.</p>
+<p>最顶层是根域，用“”表示根域下面是顶级域，分为国家顶级域和通用顶级域</p>
+<p>顶级域下面是二级域，二级域下还可以划分子域</p>
+<p><img src="/../../../../images/image-20240417162931388.png" alt="image-20240417162931388"></p>
+<h3 id="DNS记录类型-记"><a href="#DNS记录类型-记" class="headerlink" title="DNS记录类型(记)"></a>DNS记录类型(记)</h3><p><img src="/../../../../images/image-20240417163015638.png" alt="image-20240417163015638"></p>
+<p>NS：表示一个局域网内的一个DNS服务器</p>
+<p>SOA：在一个区域内众多NS(DNS服务器)中的主服务器</p>
+<p>MX：全称 Mail Exchange </p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240417163303975.png" alt="image-20240417163303975"></p>
+<h3 id="DNS查询过程"><a href="#DNS查询过程" class="headerlink" title="DNS查询过程"></a>DNS查询过程</h3><p><img src="/../../../../images/image-20240417163347612.png" alt="image-20240417163347612"></p>
+<pre><code>过程：
+1、输入www.test.com
+2、PC先去找浏览器的DNS缓存，如果没有，则找系统缓存，如果也没有，则找本地DNS服务器
+3、本地DNS服务器先会去区域记录查找，如果没有再去DNS服务器缓存。如果没有，则找转发器
+注意：这里可能会有疑问，为啥不先去找DNS服务器缓存呢？因为DNS服务器缓存是由其他域名服务器发过来的，并且DNS服务器的缓存并不是永久保存的，过一段时间就会清空，所以优先级的话就区域记录较高。
+4、转发器又向其他域名服务器查询，最终返回结果。
+</code></pre>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240417164036569.png" alt="image-20240417164036569"></p>
+<p><strong>递归查询和迭代查询</strong></p>
+<p><strong>递归查询</strong>:域名服务器帮助用户进行名字解析，并返回最后的结果。<strong>【老好人】</strong></p>
+<p>比如：A,B,C,D四个人，A想知道”上学期的成绩”,A去问B，然后B不知道，B就去问C，C不知道，然后又去问D，D告诉B后，B就告诉A</p>
+<p><strong>迭代查询:<strong>域名服务器进行迭代访问，反复多次，直到最后找到结果。</strong>【踢皮球】</strong></p>
+<p>比如，A,B,C,D四个人，A想知道”上学期的成绩”,A去问B，然后B不知道，B然后去问C，C叫你去问D，然后B又去问D，D知道，然后告诉B或直接告诉A</p>
+<p><img src="/../../../../images/image-20240417164149179.png" alt="image-20240417164149179"></p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240417164949139.png" alt="image-20240417164949139"></p>
+<p><img src="/../../../../images/image-20240417164959825.png" alt="image-20240417164959825"></p>
+<h3 id="辅助DNS服务器"><a href="#辅助DNS服务器" class="headerlink" title="辅助DNS服务器"></a>辅助DNS服务器</h3><p><strong>DNS主服务器出现故障或因负载太重无法及时响应客户机请求</strong>，辅助服务器就会为主服务器共同承担压力</p>
+<p>辅助服务器的区域数据都是从主服务器复制而来，<strong>DNS通知消息</strong>让辅助服务器能及时更新区域信息只有被通知的辅助域名服务器才能从主域名服务器进行区域复制。</p>
+<p><img src="/../../../../images/image-20240417165153457.png" alt="image-20240417165153457"></p>
+<h3 id="DNS配置文件"><a href="#DNS配置文件" class="headerlink" title="DNS配置文件"></a>DNS配置文件</h3><p><img src="/../../../../images/image-20240417165235351.png" alt="image-20240417165235351"></p>
+<pre><code>/etc/hostname是主机名文件，包含主机IP地址、主机名、别名，其中别名可能没有。
+/etc/hosts 存放主机DNS解析缓存，包含IP地址、主机名。
+/etc/resolv.conf 是DNS服务器的配置文件，它包含了主机的域名搜索顺序和DNS服务器的地址。
+/etc/named.conf是DNS主配置文件，存放各类DNS记录，比如A记录、PTR记录。
+</code></pre>
+<h2 id="DHCP服务器"><a href="#DHCP服务器" class="headerlink" title="DHCP服务器"></a>DHCP服务器</h2><h3 id="DHCP工作原理"><a href="#DHCP工作原理" class="headerlink" title="DHCP工作原理"></a>DHCP工作原理</h3><p><img src="/../../../../images/image-20240417230404932.png" alt="image-20240417230404932"></p>
+<h3 id="DHCP租期更新"><a href="#DHCP租期更新" class="headerlink" title="DHCP租期更新"></a>DHCP租期更新</h3><p><img src="/../../../../images/image-20240417230546425.png" alt="image-20240417230546425"></p>
+<h3 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置"></a>DHCP配置</h3><p>Linux</p>
+<p><img src="/../../../../images/image-20240417230817159.png" alt="image-20240417230817159"></p>
+<p>华为路由器</p>
+<p><img src="/../../../../images/image-20240417230903065.png" alt="image-20240417230903065"></p>
+<h3 id="DHCP报文格式"><a href="#DHCP报文格式" class="headerlink" title="DHCP报文格式"></a>DHCP报文格式</h3><p><img src="/../../../../images/image-20240417231414345.png" alt="image-20240417231414345"></p>
+<h4 id="Option-43"><a href="#Option-43" class="headerlink" title="Option 43"></a>Option 43</h4><p>AC 负责对无线网络的管理和控制，包括配置无线网络参数、安全策略、用户认证、流量控制等。而</p>
+<p>AP 则专注于提供无线信号覆盖，并负责与终端设备建立连接，传输数据。</p>
+<p>Option 43应用举例</p>
+<p><img src="/../../../../images/image-20240417231622574.png" alt="image-20240417231622574"></p>
+<h3 id="华为DHCP-option-43配置"><a href="#华为DHCP-option-43配置" class="headerlink" title="华为DHCP option 43配置"></a>华为DHCP option 43配置</h3><p><img src="/../../../../images/image-20240417232554347.png" alt="image-20240417232554347"></p>
+<p>为什么命令有ascii？</p>
+<p>因为它能够将文本字符转换为数字的标准编码方式，它可以将人类可读的字符（如字母、数字和符号）转换为数字形式。</p>
+<h3 id="DHCP分配固定IP地址"><a href="#DHCP分配固定IP地址" class="headerlink" title="DHCP分配固定IP地址"></a>DHCP分配固定IP地址</h3><p><img src="/../../../../images/image-20240417233010285.png" alt="image-20240417233010285"></p>
+<pre><code>实验要求:
+[R1
+采用基于全局地址池的方式为PC1分配IP地址。
+采用基于接口地址池的方式为PC2和PC3分配IP地址，且PC3获取固定的IP地址。
+[R1]interface GigabitEthernet 0/0/1
+[R1-GigabitEthernet0/0/1]ip address 192.168.2.1 24
+[R1-GigabitEthernet0/0/1]DHCP select interface #选择接口地址池
+[R1-GigabitEthernet0/0/1]DHCP server excluded-ip-address 192.168.2.254
+[R1-GigabitEthernet0/0/1]DHCP server static-bind ip-address 192.168.2.2 mac-address 00e0-fc00-00aa #为PC3分配固定的IP地址
+</code></pre>
+<h3 id="DHCP中继-DHCP-Relay"><a href="#DHCP中继-DHCP-Relay" class="headerlink" title="DHCP中继(DHCP Relay)"></a>DHCP中继(DHCP Relay)</h3><p>DHCP Relay即DHCP中继，它是为解决DHCP服务器和DHCP客户端不在同一个广播域而提出的，提供了对DHCP广播报文的中继转发功能，能够把DHCP客户端的广播报文“透明地”传送到其它广播域的DHCP服务器上，同样也能够把DHCF服务器端的应答报文“透明地”传送到其它广播域的DHCP客户端。</p>
+<p><img src="/../../../../images/image-20240417233407896.png" alt="image-20240417233407896"></p>
+<h4 id="DHCPRelay工作原理"><a href="#DHCPRelay工作原理" class="headerlink" title="DHCPRelay工作原理"></a>DHCPRelay工作原理</h4><p><img src="/../../../../images/image-20240417233500988.png" alt="image-20240417233500988"></p>
+<h4 id="DHCP-Relay配置"><a href="#DHCP-Relay配置" class="headerlink" title="DHCP Relay配置"></a>DHCP Relay配置</h4><p><img src="/../../../../images/image-20240417233543946.png" alt="image-20240417233543946"></p>
+<pre><code>R1、R2配置如下:
+[R1]interface GigabitEthernet0/0/0
+[R1-GigabitEthernet0/0/0] ip address DHCP-alloc
+[R1-GigabitEthernet0/0/0] quit
+[R2] DHCP server group HW
+[R2-DHCP-server-group-HW]DHCP-server 10.1.1.2
+[R2-DHCP-server-group-HW] quit
+[R2]interface GigabitEthernet 0/0/1
+[R2-GigabitEthernet0/0/1]ip address 10.1.1.1 24
+[R2-GigabitEthernet0/0/1] quit
+[R2]interface GigabitEthernet 0/0/0
+[R2-GigabitEthernet0/0/0]ip address 192.168.1.1 24
+[R2-GigabitEthernet0/0/0] DHCP select relay #配置中继器
+[R2-GigabitEthernet0/0/0] DHCP relay server-select HW #选择单播的目标对象
+[R2-GigabitEthernet0/0/0] quit
+</code></pre>
+<h3 id="DHCP-Snooping"><a href="#DHCP-Snooping" class="headerlink" title="DHCP Snooping"></a>DHCP Snooping</h3><p>目的：防止私接DHCP服务器</p>
+<pre><code>           +-----------+
+           | DHCP      |
+           | Server    |
+           +-----+-----+
+                 |
+        +--------+---------+
+        |    Switch 1      |
+        |                  |
+   +----+----+         +---+----+
+   | Client 1 |         | Client 2 |
+   +----------+         +---------+
+   
+Switch 1：
+端口1：连接到 DHCP 服务器，标记为“信任”端口。
+端口2：连接到 Client 1，未标记为“信任”端口。
+端口3：连接到 Client 2，未标记为“信任”端口。
+
+DHCP Snooping 配置的存在，Switch 1 在端口 2 上发现了来自未知 DHCP 服务器的 DHCP Offer 消息，因此阻止了 Client 1 的 IP 地址分配。而对于端口 3，Switch 1 发现了来自已知 DHCP 服务器的 DHCP Offer 消息，因此允许 Client 2 成功获得 IP 地址。
+</code></pre>
+<h4 id="DHCP-Snooping配置"><a href="#DHCP-Snooping配置" class="headerlink" title="DHCP Snooping配置"></a>DHCP Snooping配置</h4><p><img src="/../../../../images/image-20240417234047054.png" alt="image-20240417234047054"></p>
+<p>实现的实质：则在接口打”标签”，trusted和untrusted</p>
+<p>例题：</p>
+<p><img src="/../../../../images/image-20240417234220616.png" alt="image-20240417234220616"></p>
+<p><img src="/../../../../images/image-20240417234259706.png" alt="image-20240417234259706"></p>
+<h2 id="Linux服务器"><a href="#Linux服务器" class="headerlink" title="Linux服务器"></a>Linux服务器</h2><h3 id="Linux网络配置"><a href="#Linux网络配置" class="headerlink" title="Linux网络配置"></a>Linux网络配置</h3><p>Linux系统，设备和配置都是<strong>文件</strong></p>
+<p>网络相关配置文件大多数位于&#x2F;etc目录下，这些文件可以在<strong>系统运行时修改</strong>，不用重启或停止任何守护程序，更改<strong>立刻生效</strong>。<br>“#”开头的为注释内容。</p>
+<h4 id="Linux网络配置文件"><a href="#Linux网络配置文件" class="headerlink" title="Linux网络配置文件"></a>Linux网络配置文件</h4><p><img src="/../../../../images/image-20240418000841766.png" alt="image-20240418000841766"></p>
+<p><img src="/../../../../images/image-20240418000856969.png" alt="image-20240418000856969"></p>
+<h4 id="Linux网络接口配置"><a href="#Linux网络接口配置" class="headerlink" title="Linux网络接口配置"></a>Linux网络接口配置</h4><p><img src="/../../../../images/image-20240418001153217.png" alt="image-20240418001153217"></p>
+<h4 id="网络配置命令"><a href="#网络配置命令" class="headerlink" title="网络配置命令"></a>网络配置命令</h4><p>route 配置路由的命令</p>
+<p><img src="/../../../../images/image-20240418001849072.png" alt="image-20240418001849072"></p>
+<p><img src="/../../../../images/image-20240418001856307.png" alt="image-20240418001856307"></p>
+<h3 id="iptables防火墙配置"><a href="#iptables防火墙配置" class="headerlink" title="iptables防火墙配置"></a>iptables防火墙配置</h3><p><strong>四表五链</strong></p>
+<p><img src="/../../../../images/image-20240419000330127.png" alt="image-20240419000330127"></p>
+<p><strong>iptables命令的语法格式</strong></p>
+<p><strong>iptables【-t表名】管理选项【链名】条件匹配-j执行动作</strong>例:iptables -t filter -A INPUT -s 192.168.184.20-p tcp –dport 22 -j DROP</p>
+<p><img src="/../../../../images/image-20240419000535162.png" alt="image-20240419000535162"></p>
+<h3 id="Linux文件目录、用户与组"><a href="#Linux文件目录、用户与组" class="headerlink" title="Linux文件目录、用户与组"></a>Linux文件目录、用户与组</h3><p><img src="/../../../../images/image-20240419000706435.png" alt="image-20240419000706435"></p>
+<p><img src="/../../../../images/image-20240419000727097.png" alt="image-20240419000727097"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
