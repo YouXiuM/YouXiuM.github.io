@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>WLAN | MaYouXiu</title>
     <meta name="author" content="John Doe" />
-    <meta name="description" content="" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
     <meta name="keywords" content="" />
     <meta
         name="viewport"
@@ -154,7 +154,7 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
 
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+        <div id="main" :class="loading">
             <div class="article">
     <div>
         <h1>WLAN</h1>
@@ -185,14 +185,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Network/" style="color: #ff7d73">
+                <a href="/tags/Network/" style="color: #03a9f4">
                     Network
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ffa2c4">
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ff7d73">
                     网工中级
                 </a>
             </span>
@@ -436,6 +436,18 @@
 <p>8.B 9.C 10.防火墙 11.上网行为管理!12.IDS 13.B</p>
 
     </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/01/%E7%AC%94%E8%AE%B0/Network/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/WLAN/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#AP-AC%E7%BB%84%E7%BD%91%E6%96%B9%E5%BC%8F"><span class="toc-text">AP - AC组网方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AP%E5%92%8CAC%E9%97%B4%E7%9A%84%E7%BB%84%E7%BD%91%E5%88%86%E4%B8%BA%EF%BC%9A%E4%BA%8C%E5%B1%82%E7%BB%84%E7%BD%91%E5%92%8C%E4%B8%89%E5%B1%82%E7%BB%84%E7%BD%91"><span class="toc-text">AP和AC间的组网分为：二层组网和三层组网</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="toc-text">AC连接方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91%E6%96%B9%E5%BC%8F"><span class="toc-text">数据转发方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%BA%BF%E4%BE%A7%E7%BB%84%E7%BD%91"><span class="toc-text">无线侧组网</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BSS-SSID-BSSID"><span class="toc-text">BSS&#x2F;SSID&#x2F;BSSID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VAP"><span class="toc-text">VAP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ESS-ESSID"><span class="toc-text">ESS&#x2F;ESSID</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WLAN%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">WLAN工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AP%E4%B8%8A%E7%BA%BF"><span class="toc-text">AP上线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WLAN%E4%B8%9A%E5%8A%A1%E9%85%8D%E7%BD%AE%E4%B8%8B%E5%8F%91"><span class="toc-text">WLAN业务配置下发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#STA%E6%8E%A5%E5%85%A5"><span class="toc-text">STA接入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WLAN%E4%B8%9A%E5%8A%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91"><span class="toc-text">WLAN业务数据转发</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9A%E6%97%81%E6%8C%82%E4%BA%8C%E5%B1%82%E7%BB%84%E7%BD%91%E9%9A%A7%E9%81%93%E8%BD%AC%E5%8F%91"><span class="toc-text">案例：旁挂二层组网隧道转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-text">设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E8%A6%86%E7%9B%96%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-text">信号覆盖设计原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E9%81%93%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-text">信道设计原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AP%E5%B8%83%E9%98%B2"><span class="toc-text">AP布防</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9B%E7%94%B5%E5%92%8C%E8%B5%B0%E7%BA%BF%E8%AE%BE%E8%AE%A1"><span class="toc-text">供电和走线设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A4%E5%86%85%E6%94%BE%E8%A3%85AP%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F%E5%8F%8A%E5%8E%9F%E5%88%99"><span class="toc-text">室内放装AP安装方式及原则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9C%9F%E9%A2%98"><span class="toc-text">真题</span></a></li></ol>
+        </li>
+    </ul>
+    
+
     
     
     

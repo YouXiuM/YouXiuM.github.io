@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>计划-调优-selinux-磁盘的管理 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>计划-调优-selinux-磁盘的管理</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #00a596">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #ffa2c4">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h1><h2 id="一次性的计划任务"><a href="#一次性的计划任务" class="headerlink" title="一次性的计划任务"></a>一次性的计划任务</h2><p>它只⽣效⼀次，任务执⾏完毕后这个任务会⾃动删除。</p>
+<p>由atd服务提供此功能</p>
+<p><img src="/../../../../images/clip_image002-17173002220683.jpg" alt="img"></p>
+<p>#设置一个at计划任务，任务要求从现在1分钟以后，执行echo 123 &gt; &#x2F;tmp&#x2F;at.txt</p>
+<p><img src="/../../../../images/clip_image004-17173002220681.jpg" alt="img"></p>
+<p>#at计划任务会保存在一下位置</p>
+<p><img src="/../../../../images/clip_image006-17173002220682.jpg" alt="img"></p>
+<p>#查看当前存在的at计划任务</p>
+<p><img src="/../../../../images/clip_image007-17173002220684.png" alt="img"></p>
+<p>#通过命令查看当前存在的某个at计划任务的详情</p>
+<p><img src="/../../../../images/clip_image009.jpg" alt="img"></p>
+<p>#删除at计划任务</p>
+<p><img src="/../../../../images/clip_image011.jpg" alt="img"></p>
+<h2 id="周期性的计划任务"><a href="#周期性的计划任务" class="headerlink" title="周期性的计划任务"></a>周期性的计划任务</h2><p><img src="/../../../../images/clip_image013.jpg" alt="img"></p>
+<h3 id="服务的配置文件"><a href="#服务的配置文件" class="headerlink" title="服务的配置文件"></a>服务的配置文件</h3><p><img src="/../../../../images/clip_image015.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image017.jpg" alt="img"></p>
+<p>使⽤*&#x2F;数字，描述的时”每”的含义。例如：*&#x2F;2 * * * *表示每小时的每两分钟</p>
+<p>使⽤x-y替代*,表⽰的是⼀个时间段。例如：* 9-14 * * *表示每天的9点到14点</p>
+<p>使⽤，分割不连续的时间。例如：* * 1，4，12 * *表示每个月的1,4,12号</p>
+<p>注意，02 * * * *表示每小时的02分，不是每隔两分钟</p>
+<p><img src="/../../../../images/clip_image019.jpg" alt="img"></p>
+<p>root⽤⼾可以为普通⽤⼾设置周期计划任务，普通⽤⼾只能给⾃⼰设置周期计划任务</p>
+<h3 id="使⽤命令⾏设置周期性计划任务"><a href="#使⽤命令⾏设置周期性计划任务" class="headerlink" title="使⽤命令⾏设置周期性计划任务"></a>使⽤命令⾏设置周期性计划任务</h3><p><img src="/../../../../images/clip_image021-17173002220695.jpg" alt="img"></p>
+<p>#设置计划任务给student，执行每分钟往&#x2F;tmp&#x2F;cron.txt文件追加写入hello任务</p>
+<p><img src="/../../../../images/clip_image023-17173002220696.jpg" alt="img"></p>
+<h3 id="使⽤配置文件设置周期性计划任务"><a href="#使⽤配置文件设置周期性计划任务" class="headerlink" title="使⽤配置文件设置周期性计划任务"></a>使⽤配置文件设置周期性计划任务</h3><p>&#x2F;etc&#x2F;crontab和&#x2F;etc&#x2F;cron.d中是系统级别的cron任务，可能需要root用户权限</p>
+<p><img src="/../../../../images/clip_image025-17173002220697.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image027-17173002220698.jpg" alt="img"></p>
+<p>&#x2F;etc&#x2F;cron.daily、&#x2F;etc&#x2F;cron.hourly、 &#x2F;etc&#x2F;cron.monthly、&#x2F;etc&#x2F;cron.weekly</p>
+<p>分别代表每天、每小时、每月、每周的计划任务，可以根据需要执行脚本，注意权限问题，如果在计划任务执行脚本，需要添加+x权限等等</p>
+<p><img src="/../../../../images/clip_image029-17173002220699.jpg" alt="img"></p>
+<h3 id="删除计划任务"><a href="#删除计划任务" class="headerlink" title="删除计划任务"></a>删除计划任务</h3><p><img src="/../../../../images/clip_image031-171730022206910.jpg" alt="img"></p>
+<h2 id="systemd的计划任务"><a href="#systemd的计划任务" class="headerlink" title="systemd的计划任务"></a>systemd的计划任务</h2><p><img src="/../../../../images/clip_image033-171730022206911.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image035-171730022206912.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image037-171730022206913.jpg" alt="img"></p>
+<h1 id="调优"><a href="#调优" class="headerlink" title="调优"></a>调优</h1><p><img src="/../../../../images/clip_image039-171730022206914.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image041-171730022206915.jpg" alt="img"></p>
+<p>tuned-adm提供了一系列的调优模板</p>
+<p><img src="/../../../../images/clip_image043-171730022206916.jpg" alt="img"></p>
+<p>常⽤选项</p>
+<p>active show active profile &#x2F;&#x2F;查看当前激活的调优模板名 profile switch to a given profile, or list available &#x2F;&#x2F;⽤来设置调优模板</p>
+<p>recommend，recommend profile &#x2F;&#x2F;根据系统的情况，tuned服务推荐的调优模板</p>
+<h3 id="查看系统内的所有可⽤的调优模板"><a href="#查看系统内的所有可⽤的调优模板" class="headerlink" title="查看系统内的所有可⽤的调优模板"></a>查看系统内的所有可⽤的调优模板</h3><p><img src="/../../../../images/clip_image045-171730022206918.jpg" alt="img"></p>
+<p>其所有可用的调优模板对应的用途</p>
+<p><img src="/../../../../images/clip_image047-171730022206917.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image049-171730022206919.jpg" alt="img"></p>
+<p>配置文件目录：&#x2F;etc&#x2F;tuned&#x2F;</p>
+<h1 id="selinux"><a href="#selinux" class="headerlink" title="selinux"></a>selinux</h1><p>加强版本的安全linux,就是在传统的linux权限的基础之上，⼜添加了⼀个安全的权限验证层， 进程访问系统内的⽂件，⾸先进⾏传统权限的验证，通过之后，还需要通过selinux安全系统的 附加验证，同时通过才能正常访问，否则会被拒绝访问，selinx是内核功能，默认是安装好 的，它本⾝是⼀些策略，为了简化使⽤，它提供了⼀些⼯具来操作selinux的权限。</p>
+<h2 id="配置⽂件："><a href="#配置⽂件：" class="headerlink" title="配置⽂件："></a>配置⽂件：</h2><p><img src="/../../../../images/clip_image051-171730022206920.jpg" alt="img"></p>
+<h2 id="查看selinux的标签"><a href="#查看selinux的标签" class="headerlink" title="查看selinux的标签"></a>查看selinux的标签</h2><p>系统会根据进程层面的selinux标签(httpd)，就能够访问带有httpd标签的相关文件</p>
+<p>系统会根据进程的selinux标签进行匹配，进程访问目录或文件会根据自己的selinux标签与目录的selinux的标签，如果能够匹配，就能够访问，如果不能匹配 ，就不能够访问，即使是root用户也不能够访问</p>
+<p>#查看文件的selinux标签</p>
+<p><img src="/../../../../images/clip_image053.png" alt="img"></p>
+<p>#查看目录的selinux标签</p>
+<p><img src="/../../../../images/clip_image055.png" alt="img"></p>
+<p>#查看进程的selinux标签</p>
+<p><img src="/../../../../images/clip_image057.png" alt="img"></p>
+<p>能够访问&#x2F;var&#x2F;www&#x2F;html目录，其目录下。index1和2都能访问，index3不能访问 ，其标签导致不能访问。</p>
+<p>#selinux将系统内的所有资源文件、目录、端口等都打上selinux的标签，进程访问文 件，目录的时候会进行标签匹配，通过允许访问，不通过拒绝访问。要在selinux的状态 是enforcing的状态</p>
+<h2 id="命令⾏设置selinux的状态"><a href="#命令⾏设置selinux的状态" class="headerlink" title="命令⾏设置selinux的状态"></a>命令⾏设置selinux的状态</h2><p><img src="/../../../../images/clip_image059-171730022206921.jpg" alt="img"></p>
+<h2 id="修改selinux的标签"><a href="#修改selinux的标签" class="headerlink" title="修改selinux的标签"></a>修改selinux的标签</h2><p><img src="/../../../../images/clip_image061-171730022206922.jpg" alt="img"></p>
+<h2 id="修改selinux标签规则库-推荐"><a href="#修改selinux标签规则库-推荐" class="headerlink" title="修改selinux标签规则库(推荐)"></a>修改selinux标签规则库(推荐)</h2><p><img src="/../../../../images/clip_image063-171730022206923.jpg" alt="img"></p>
+<p>port       Manage network port type definitions</p>
+<p>fcontext    Manage file context mapping definitions</p>
+<p>#添加selinux标签的规则</p>
+<p><img src="/../../../../images/clip_image065-171730022207024.jpg" alt="img"></p>
+<p>#根据seliunx标签库的规则给文件添加标签</p>
+<p><img src="/../../../../images/clip_image067-171730022207026.jpg" alt="img"></p>
+<p>-R：是递归操作。  -v是显示过程</p>
+<h2 id="修改端⼝的selinux标签"><a href="#修改端⼝的selinux标签" class="headerlink" title="修改端⼝的selinux标签"></a>修改端⼝的selinux标签</h2><p><img src="/../../../../images/clip_image069-171730022207025.jpg" alt="img"></p>
+<p>查看服务对应的端口</p>
+<p>lsof -i:端口        lsof -i -P -n |grep 服务名  </p>
+<h2 id="selinux的布尔值"><a href="#selinux的布尔值" class="headerlink" title="selinux的布尔值"></a>selinux的布尔值</h2><p>#查看服务的bool</p>
+<p><img src="/../../../../images/clip_image071.jpg" alt="img"></p>
+<p>#修改服务的selinux bool</p>
+<p><img src="/../../../../images/clip_image073-171730022207028.jpg" alt="img"></p>
+<p>#永久修改selinux bool，查看是否为永久BOOL</p>
+<p><img src="/../../../../images/clip_image075-171730022207029.jpg" alt="img"></p>
+<h2 id="通过cockpit使⽤web界⾯管理selinux"><a href="#通过cockpit使⽤web界⾯管理selinux" class="headerlink" title="通过cockpit使⽤web界⾯管理selinux"></a>通过cockpit使⽤web界⾯管理selinux</h2><h1 id="磁盘的管理"><a href="#磁盘的管理" class="headerlink" title="磁盘的管理"></a>磁盘的管理</h1><h2 id="对磁盘进⾏分区"><a href="#对磁盘进⾏分区" class="headerlink" title="对磁盘进⾏分区"></a>对磁盘进⾏分区</h2><p>磁盘分区将硬盘驱动器划分为多个逻辑存储单元，这些单元称为分区 系统管理员可以使⽤不同的分区执⾏不同功能</p>
+<h2 id="分区的类型"><a href="#分区的类型" class="headerlink" title="分区的类型"></a>分区的类型</h2><p>MBR:(计较古⽼)</p>
+<p><img src="/../../../../images/clip_image077-171730022207027.jpg" alt="img"></p>
+<p>最多⽀持4个主分区，可以牺牲⼀个主分区，形成15个扩展分区。 MBR类型的任务格式最多⽀持2T的磁盘容量的管理。</p>
+<p>GPT：（⽐较新的分区⽅案）</p>
+<p><img src="/../../../../images/clip_image079.jpg" alt="img"></p>
+<p>最多可以有128个分区 它突破了2T磁盘空间管理的限制</p>
+<h2 id="分区的操作"><a href="#分区的操作" class="headerlink" title="分区的操作"></a>分区的操作</h2><h3 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk:"></a>fdisk:</h3><p>⽐较久远的⼀个⼯具，优点是他会⾃动计算分区的起始位置，然后操作的过程是在内存⾥⾯， 最后操作完毕，需要保存，否则他的设置不会落盘。</p>
+<p><img src="/../../../../images/clip_image081.jpg" alt="img"></p>
+<h3 id="parted："><a href="#parted：" class="headerlink" title="parted："></a>parted：</h3><p>#显示磁盘的信息</p>
+<p><img src="/../../../../images/clip_image083.jpg" alt="img"></p>
+<p>默认情况下，</p>
+<p>parted 单位是10进制（KB、MB、GB） 10的1， 10的2， 10的3次⽅这样计算的 </p>
+<p>2进制的⽅式（KiB、MiB、GiB） 2的1，2的2，2的3次⽅这样的⽅式计算 </p>
+<p>s 是磁盘的单位叫”扇区” 一般2048s&#x3D;2kb    B表示字节</p>
+<p>#设置磁盘的分区表类型</p>
+<p><img src="/../../../../images/clip_image085-171730022207031.jpg" alt="img"></p>
+<p>#创建一个分区(直接落盘，谨慎操作)</p>
+<p><img src="/../../../../images/clip_image087-171730022207030.jpg" alt="img"></p>
+<p>#删除分区</p>
+<p><img src="/../../../../images/clip_image089-171730022207032.jpg" alt="img"></p>
+<p>#非交互式的磁盘分区操作</p>
+<p><img src="/../../../../images/clip_image091-171730022207033.jpg" alt="img"></p>
+<h2 id="格式化操作："><a href="#格式化操作：" class="headerlink" title="格式化操作："></a>格式化操作：</h2><p><img src="/../../../../images/clip_image093-171730022207034.jpg" alt="img"></p>
+<h2 id="挂载："><a href="#挂载：" class="headerlink" title="挂载："></a>挂载：</h2><h3 id="手动挂载："><a href="#手动挂载：" class="headerlink" title="手动挂载："></a>手动挂载：</h3><p><img src="/../../../../images/clip_image095-171730022207035.jpg" alt="img"></p>
+<h3 id="自动挂载："><a href="#自动挂载：" class="headerlink" title="自动挂载："></a>自动挂载：</h3><p><img src="/../../../../images/clip_image097-171730022207036.jpg" alt="img"></p>
+<h2 id="交换分区"><a href="#交换分区" class="headerlink" title="交换分区"></a>交换分区</h2><p>虚拟内存，当物理内存不⾜的时候，他会将内存中不常⽤的数据，临死存放在交换分区⾥⾯， 当需要这些数据的时候，会直接读取，⼀定程度上缓解，内存不⾜的问题，但是要彻底解决问题，添加物理内存。</p>
+<p>如果程序启动的内存大于物理内存，那交换分区是起不了作用</p>
+<h3 id="交换分区的推荐⼤⼩"><a href="#交换分区的推荐⼤⼩" class="headerlink" title="交换分区的推荐⼤⼩"></a>交换分区的推荐⼤⼩</h3><p><img src="/../../../../images/clip_image099-171730022207037.jpg" alt="img"></p>
+<p>修改分区类型</p>
+<p><img src="/../../../../images/clip_image101-171730022207038.jpg" alt="img"></p>
+<p>格式化为swap，并进行挂载</p>
+<p><img src="/../../../../images/clip_image103-171730022207039.jpg" alt="img"></p>
+<h3 id="设置-SWAP-分区优先级"><a href="#设置-SWAP-分区优先级" class="headerlink" title="设置 SWAP 分区优先级"></a>设置 SWAP 分区优先级</h3><p>系统默认会按顺序使⽤ swap，即内核先使⽤第⼀个已激活swap，直⾄其空间已满， 然后开始使⽤第⼆个 swap 可以为每个 swap 定义⼀个优先级，从⽽强制按该顺序使⽤swap 可以在 &#x2F;etc&#x2F;fstab 中使⽤ pri 选项，默认优先级是 -2，值越⾼，优先级越⾼ swapon –show 可以显⽰ swap 分区优先级 当 swap 分区具有相同的优先级时，内核会以轮循⽅式向其中写⼊。</p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/%E5%9F%BA%E7%A1%80/%E8%AE%A1%E5%88%92-%E8%B0%83%E4%BC%98-selinux-%E7%A3%81%E7%9B%98%E7%9A%84%E7%AE%A1%E7%90%86/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">计划任务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E6%80%A7%E7%9A%84%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">一次性的计划任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%A8%E6%9C%9F%E6%80%A7%E7%9A%84%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">周期性的计划任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">服务的配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E2%BD%A4%E5%91%BD%E4%BB%A4%E2%BE%8F%E8%AE%BE%E7%BD%AE%E5%91%A8%E6%9C%9F%E6%80%A7%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">使⽤命令⾏设置周期性计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E2%BD%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E5%91%A8%E6%9C%9F%E6%80%A7%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">使⽤配置文件设置周期性计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">删除计划任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemd%E7%9A%84%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">systemd的计划任务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E4%BC%98"><span class="toc-text">调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%86%85%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%AF%E2%BD%A4%E7%9A%84%E8%B0%83%E4%BC%98%E6%A8%A1%E6%9D%BF"><span class="toc-text">查看系统内的所有可⽤的调优模板</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#selinux"><span class="toc-text">selinux</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E2%BD%82%E4%BB%B6%EF%BC%9A"><span class="toc-text">配置⽂件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bselinux%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="toc-text">查看selinux的标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E2%BE%8F%E8%AE%BE%E7%BD%AEselinux%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text">命令⾏设置selinux的状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9selinux%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="toc-text">修改selinux的标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9selinux%E6%A0%87%E7%AD%BE%E8%A7%84%E5%88%99%E5%BA%93-%E6%8E%A8%E8%8D%90"><span class="toc-text">修改selinux标签规则库(推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%AB%AF%E2%BC%9D%E7%9A%84selinux%E6%A0%87%E7%AD%BE"><span class="toc-text">修改端⼝的selinux标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selinux%E7%9A%84%E5%B8%83%E5%B0%94%E5%80%BC"><span class="toc-text">selinux的布尔值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87cockpit%E4%BD%BF%E2%BD%A4web%E7%95%8C%E2%BE%AF%E7%AE%A1%E7%90%86selinux"><span class="toc-text">通过cockpit使⽤web界⾯管理selinux</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E7%9A%84%E7%AE%A1%E7%90%86"><span class="toc-text">磁盘的管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A3%81%E7%9B%98%E8%BF%9B%E2%BE%8F%E5%88%86%E5%8C%BA"><span class="toc-text">对磁盘进⾏分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">分区的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">分区的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fdisk"><span class="toc-text">fdisk:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#parted%EF%BC%9A"><span class="toc-text">parted：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-text">格式化操作：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%EF%BC%9A"><span class="toc-text">挂载：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E6%8C%82%E8%BD%BD%EF%BC%9A"><span class="toc-text">手动挂载：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD%EF%BC%9A"><span class="toc-text">自动挂载：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA"><span class="toc-text">交换分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA%E7%9A%84%E6%8E%A8%E8%8D%90%E2%BC%A4%E2%BC%A9"><span class="toc-text">交换分区的推荐⼤⼩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-SWAP-%E5%88%86%E5%8C%BA%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">设置 SWAP 分区优先级</span></a></li></ol></li></ol></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

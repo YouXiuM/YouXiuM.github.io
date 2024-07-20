@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>权限 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>权限</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #ff7d73">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #03a9f4">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p> 用户权限</p>
+<p><strong>用户：⽤⼾账⼾为不同⼈员和运⾏的程序之间提供安全边界</strong></p>
+<p><strong>用户账户有三种主要类型：</strong></p>
+<p><strong>超级用户(root)、系统用户(由系统分配,不可交互登录)、普通用户(superuser、system user、regular user)</strong></p>
+<p><strong>superser    就是 root ⽤⼾，UID&#x3D;0，具有系统的最⾼权限</strong></p>
+<p><strong>system user  ⽤于系统管理，例如运⾏服务，不需要⽤于系统登录</strong></p>
+<p><strong>regular user  供⽤⼾进⾏⽇常系统管理，通常具有权限限制</strong></p>
+<p><strong>用户的ID和组ID，密码有效期相关配置的信息</strong></p>
+<p><strong><img src="/../../../../images/clip_image001-17172997028481.png" alt="img"></strong></p>
+<p><img src="/../../../../images/clip_image003-17172997028492.png" alt="img"><img src="/../../../../images/clip_image005-17172997028493.png" alt="img"><img src="/../../../../images/clip_image007.png" alt="img"></p>
+<p><strong>id****：查看当前登录的用户或某用户的信息</strong></p>
+<p><strong><img src="/../../../../images/clip_image008.png" alt="img"></strong></p>
+<p><strong>创建用户：useradd</strong></p>
+<pre><code>**-d  --home-dir HOME_DIR home directory of the new**
+
+**//默认情况下，创建用户会自动在/home目录下创建一个与用户名相同的目 录，作为用户的家目录，-d选项可以指定用户的家目录**
+
+**-M, --no-create-home   do not create the user&#39;s home directory** 
+
+**//不自动创建/home目录下的用户家目录，结合-d指定用户家目录**
+
+**-g, --gid GROUP  name or ID of the primary group of the new account**
+
+**//****不自动按照系统给的GID，自定义GID**
+
+**-G, --groups  GROUPS list of supplementary groups of the new account** 
+
+**//指定用户的附属组。**
+
+**-u, --uid UID user ID of the new account**
+
+**//**默认 情况下用户的uid会用1000开始以此类推指定uid编号，但是可以使用-u选项直接指定 uid编号，但是要注意不要重复** 
+
+**-s, --shell SHELL login shell of the new account** 
+
+**//****指定用户的shell类型（/bin/bash可交互式的shell,/sbin/nologin非交互式的 shell）**
+</code></pre>
+<p><strong>创建user2并将其添加到root组里面</strong></p>
+<p><strong><img src="/../../../../images/clip_image010-17172997028494.png" alt="img"></strong></p>
+<p><strong>指定用户user3的shell类型</strong></p>
+<p><strong><img src="/../../../../images/clip_image012.png" alt="img"></strong></p>
+<p><strong>解释&#x2F;etc&#x2F;passdw的字段</strong></p>
+<p><strong>root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash</strong></p>
+<p><strong>admin:x:972:972::&#x2F;home&#x2F;admin:&#x2F;sbin&#x2F;nologin</strong></p>
+<p><strong>以” : ”分割成为7段，用户名：密码：所有者：所属组：标识：家目录：shell类型</strong></p>
+<p><strong>注意：字段值的标识为”::”表示没用标识</strong></p>
+<p><strong>解释&#x2F;etc&#x2F;shadow****的字段</strong></p>
+<p><strong>记录的内容分别是：用户名：加过盐的密码：密码账号有效期相关的信息</strong></p>
+<p><strong>root:$6$sjbF09qE46pvPo.i$7RjUqdRls8aYE&#x2F;vePXYKbckixBVtrrlogpXQnmo&#x2F;ZSU2dvvMo8mRXpjy6Q2WYV8.V.YTAr7uJwPFbhEnXVhlb1::0:99999:7:::</strong></p>
+<p>用户的密码文件的记录内容：以：分割成为9段</p>
+<p>密码部分使用“ $ ”将其分割成为3个部分</p>
+<p>分$6这个是加密算法6（sha512算法）</p>
+<p><strong>$sjbF09qE46pvPo.i</strong>盐，系统生成的随机数，用来防止密码冲突</p>
+<p><strong>$7RjUqdRls8aYE&#x2F;vePXYKbckixBVtrrlogpXQnmo&#x2F;ZSU2dvvMo8mRXpjy6Q2WYV8.V.YTAr7uJwPFbhEnXVhlb1，</strong>就是用户的密码+盐通过算法计算后的用户密码(具有不可逆性)</p>
+<p><strong>修改用户(usermod)</strong></p>
+<pre><code>**-g, --gid GROUP force use GROUP as new primary group//修改GID**
+
+**-G, --groups GROUPS new list of supplementary GROUPS // 修改附属组**
+
+**-u, --uid UID new UID for the user account//修改uid** 
+
+**-s, --shell SHELL new login shell for the user account //修改shell类型** 
+
+**-L, --lock lock the user account //锁定用户**
+
+**-U, --unlock unlock the user account //解锁用户**
+</code></pre>
+<p><strong><img src="/../../../../images/clip_image014.png" alt="img"></strong></p>
+<p><strong>删除用户(userdel)</strong></p>
+<p><strong>-r, –remove remove home directory and mail spool</strong> </p>
+<p>**&#x2F;&#x2F;**<strong>删除用户同时也删除他的家目录</strong></p>
+<p><strong><img src="/../../../../images/clip_image016.png" alt="img"></strong></p>
+<p><strong>注意：假如user3(1002)在没有被删除前，创建了一个文件(file1)，所属者user3(1002),用户user3被删除后，file1的所属者是1002，如果再创建一个用户user4,其UID是1002，那么该file1的所属者是user4</strong></p>
+<p><strong>给用户添加密码(passwd)</strong></p>
+<p><strong>#passwd</strong> <strong>交互式</strong></p>
+<p><strong><img src="/../../../../images/clip_image018.png" alt="img"></strong></p>
+<p><strong>#passwd</strong> <strong>非交互式</strong></p>
+<p><strong><img src="/../../../../images/clip_image019-17172997028495.png" alt="img"></strong></p>
+<p><strong>创建用户组(groupadd)</strong></p>
+<p><strong><img src="/../../../../images/clip_image020.png" alt="img"></strong></p>
+<p><strong>-g, –gid GID         use GID for the new group</strong></p>
+<p><strong>解释&#x2F;etc&#x2F;group的字段</strong></p>
+<p><strong>root:x:0:</strong></p>
+<p><strong>以” : ”分割成为4段，组名：密码：组id:保留</strong></p>
+<p><strong>修改用户组groupmod</strong></p>
+<pre><code>**-g, --gid GID         change the group ID to GID  //****修改Gid**
+
+**-n, --new-name NEW_GROUP   change the name to NEW_GROUP //****修改组名**
+
+**-U, --users USERS list of user members of this group //****在用户组添加用户**
+</code></pre>
+<p><strong>删除用户组groupdel</strong></p>
+<pre><code>**配置密码生命周期chage**
+
+**-d, --lastday LAST_DAY set date of last password change to LAST_DAY** 
+
+**//修改最后登录时间**
+
+**-I(i), --inactive INACTIVE set password inactive after expiration to INACTIVE** 
+
+**//不可用周期(宽限期)**
+
+**-l, --list show account aging information //查看用户密码信息**
+
+**-m, --mindays MIN_DAYS set minimum number of days before password change to MIN_DAYS**  
+
+**//最小生命周期,离下一次的修改的密码的时间间隔，在最小时间内，是不能够修改密码**
+
+**-M, --maxdays MAX_DAYS set maximum number of days before password change to MAX_DAYS   //最大生命周期，有max时间是有效**
+
+**-W, --warndays WARN_DAYS set expiration warning days to WARN_DAYS**  
+</code></pre>
+<p><strong>&#x2F;&#x2F;警告周期</strong></p>
+<p><strong><img src="/../../../../images/clip_image022.png" alt="img"></strong></p>
+<h1 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h1><p><strong>解释Linux文件系统权限</strong></p>
+<p><strong>文件权限类别：读取(r，4)，写入(w，2)，执行(x，1)</strong></p>
+<p><img src="/../../../../images/clip_image024.png" alt="img"></p>
+<p><strong>-rw-r–r–</strong></p>
+<p><strong>第一位文件类型: -</strong></p>
+<p><strong>普通文件，d目录，l软链接，b块设备，</strong></p>
+<p><strong>c****字符设备，p管道，s  socket</strong></p>
+<p><strong>剩下九位表示文件权限:</strong></p>
+<p><strong>分三组(所属用户(u),所属组(g),其他用户(o))  u-user，g-group，o-other</strong></p>
+<p><strong>每组三个字符代表权限</strong></p>
+<p><strong>修改文件的的身份</strong></p>
+<p><strong>修改文件所属者：chown</strong></p>
+<p><img src="/../../../../images/clip_image026-17172997028496.jpg" alt="img"></p>
+<p><strong>修改文件所属组：chown 或者 chgrp</strong></p>
+<p><img src="/../../../../images/clip_image028-17172997028498.jpg" alt="img"></p>
+<p><strong>修改⽂件权限的⽅法</strong></p>
+<p>u所有者 g所属组 o其他人，a所有人</p>
+<p>读(read)：r，4   写(write)：w，2  执行：x，1</p>
+<p>设置文件权限</p>
+<p><img src="/../../../../images/clip_image030-17172997028497.jpg" alt="img"></p>
+<p><strong>减少文件权限</strong></p>
+<p><img src="/../../../../images/clip_image032-17172997028499.jpg" alt="img"></p>
+<p><strong>给所有的身份添加&#x2F;去除权限</strong></p>
+<p><img src="/../../../../images/clip_image034-171729970284910.jpg" alt="img"></p>
+<p><strong>数字表示法：r(4) w(2) x(1)</strong></p>
+<p><img src="/../../../../images/clip_image035.png" alt="img"></p>
+<p><strong>特殊权限</strong></p>
+<p>SUID（4 他只对⼆进制⽂件有效）、SGID（2 针对⽬录）、STICKY（1 针对⽬录）</p>
+<p><img src="/../../../../images/clip_image037-171729970285011.jpg" alt="img"></p>
+<p><strong>注意：对root无效</strong></p>
+<p><strong>SUID</strong></p>
+<p><strong>只对二进制文件有效</strong></p>
+<p><strong>效果：能够使得所有人能够以文件的用户身份执行</strong></p>
+<p><strong>例如:&#x2F;etc&#x2F;shadow,只能root能够cat打开,如果给cat的执行文件添加s权限，那么所有用户，可以利用cat打开shadow文件，但其他命令不能,例如tail、head等</strong></p>
+<p><strong>注意：如果文件自身没有可执行权限，那么suid就是大写的，但效果一样</strong></p>
+<p><img src="/../../../../images/clip_image039-171729970285012.jpg" alt="img"><img src="/../../../../images/clip_image041-171729970285013.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image043-171729970285015.jpg" alt="img"><img src="/../../../../images/clip_image045-171729970285014.jpg" alt="img"> </p>
+<p><strong>s权限借的是所有者的身份，sudo获取的是root的特权</strong></p>
+<p><strong>sgid(g+s)</strong></p>
+<p><strong>所属组自动设置为上级目录的所属组</strong></p>
+<p><strong>效果：设置g+s后，t1目录的所属组是test1，root用户在t1里面创建文件，其文件的所属者和所属组分别是：root:test1</strong></p>
+<p><strong><img src="/../../../../images/clip_image047.png" alt="img"></strong> <strong><img src="/../../../../images/clip_image049-171729970285016.png" alt="img"></strong></p>
+<p><strong>sticky****权限(o+t)</strong></p>
+<p><strong>作用：在这个目录下，不能删除其他用户拥有的文件或目录，也无法强制强制保持其他用户所拥有的文件(包括其他用户拥有的目录下创建文件)</strong></p>
+<p><strong>注意：sticky控制的是所有者，尽管该文件属组是t1，而用户t1的组是t1，也无法进行删除等操作</strong></p>
+<p><strong><img src="/../../../../images/clip_image051-171729970285017.png" alt="img"></strong><img src="/../../../../images/clip_image053-171729970285018.jpg" alt="img"></p>
+<p>**<br>**</p>
+<p><strong>attr****权限</strong></p>
+<p><strong>常用参数：</strong></p>
+<p>**+I,**<strong>文件不可删除，不可追加，不可写入</strong></p>
+<p><strong>+a, 文件变成只可追加写入，不可删除，不可覆盖写入</strong></p>
+<p><strong>作用：添加若干特殊权限，包括root也受限。</strong></p>
+<p><strong>一般适应范围：用于保护日志等文件不被破坏</strong></p>
+<p><img src="/../../../../images/clip_image055-171729970285019.jpg" alt="img"></p>
+<p><strong>文件默认权限</strong></p>
+<p><strong>文件的默认满权限：666，目录的满权限：777</strong></p>
+<p><strong>默认情况下：</strong></p>
+<p>**umask(UID&gt;199)**<strong>：002</strong></p>
+<p>**umask(UID&lt;199)**<strong>：022</strong></p>
+<p><strong>可以修改默认umask，vim &#x2F;etc&#x2F;bashrc</strong></p>
+<p><img src="/../../../../images/clip_image057-171729970285020.jpg" alt="img"></p>
+<p><strong>&#x2F;etc&#x2F;profile****、&#x2F;etc&#x2F;bashrc    系统级，是系统全局环境变量设定</strong></p>
+<p><strong><del>&#x2F;.profile****、</del>&#x2F;.bashrc       用户级，当前目录下的私有环境变量设定</strong></p>
+<p><strong>当登录系统时候会获得一个shell进程时，其读取环境设定档，以下流程：</strong></p>
+<p><strong><img src="/../../../../images/clip_image059-171729970285021.png" alt="img"></strong></p>
+<p><strong><del>&#x2F;.profile****与</del>&#x2F;.bashrc的区别</strong></p>
+<p><strong>~&#x2F;.profile****可以设定本用户专有路径,环境变量等，它只能登入的时候执行一次</strong></p>
+<p><strong>~&#x2F;.bashrc****也是某用户专有设定文档，可以设定路径，命令别名，每次shell script的执行都会使用它一次，bashrc文件智慧对指定的shell类型起作用，bashrc值会被bash shell调用</strong></p>
+<p>bashrc文件就像是一个个性化的“设置清单”，它存储了用户特定的配置信息，比如用户经常使用的命令、别名、函数等。这些信息是在用户登录后会被加载并应用的，让用户能够更方便地使用计算机。比如，用户可以在.bashrc文件中定义一些自定义的命令别名，这样就可以用更简短的命令来完成复杂的操作。</p>
+<p>而.profile文件则像是系统的“环境配置文件”，它在用户登录时被读取和执行，用来设置系统范围内的环境变量和执行一些初始化命令。这些环境变量和初始化命令会影响所有登录到系统的用户。比如，在.profile文件中可以设置系统的PATH环境变量，这样用户在任何地方都能够使用系统中的命令。</p>
+<p><strong>ACL</strong></p>
+<p><strong>这个与⽂件系统有关系,xfs的⽂件系统默认⽀持，他可以针对⽤⼾个⽤⼾组进⾏赋权，但是不会影响到原始⽂件的权限</strong></p>
+<p><strong>setfacl -m u:student:rwx &#x2F;root &#x2F;给student用户添 加&#x2F;root目录的读写进入权限</strong></p>
+<p><strong>getfacl  查看目录权限</strong></p>
+<p><strong>setfacl -b &#x2F;root 删除该&#x2F;root目录的全部acl参数</strong></p>
+<p><img src="/../../../../images/clip_image061-171729970285022.jpg" alt="img"></p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/%E5%9F%BA%E7%A1%80/%E6%9D%83%E9%99%90/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-text">文件权限</span></a></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

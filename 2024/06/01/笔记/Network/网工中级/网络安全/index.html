@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>网络安全 | MaYouXiu</title>
     <meta name="author" content="John Doe" />
-    <meta name="description" content="" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
     <meta name="keywords" content="" />
     <meta
         name="viewport"
@@ -154,7 +154,7 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
 
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+        <div id="main" :class="loading">
             <div class="article">
     <div>
         <h1>网络安全</h1>
@@ -185,14 +185,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Network/" style="color: #00a596">
+                <a href="/tags/Network/" style="color: #ff7d73">
                     Network
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00bcd4">
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #03a9f4">
                     网工中级
                 </a>
             </span>
@@ -418,6 +418,18 @@
 <p><img src="/../../../../images/image-20240411173318254.png" alt="image-20240411173318254"></p>
 
     </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/01/%E7%AC%94%E8%AE%B0/Network/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="toc-text">网络安全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80"><span class="toc-text">网络安全基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF"><span class="toc-text">现代加密技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E9%92%A5%E5%AF%86%E7%A0%81"><span class="toc-text">私钥密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81"><span class="toc-text">公钥密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E5%AF%86%E7%A0%81"><span class="toc-text">混合密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BD%E4%BA%A7%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95-SM%E7%B3%BB%E5%88%97"><span class="toc-text">国产加密算法 - SM系列</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95-Hash"><span class="toc-text">哈希算法 Hash</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HASH%E5%BA%94%E7%94%A8"><span class="toc-text">HASH应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-text">数字签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E4%B8%8ECA"><span class="toc-text">数字证书与CA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IPSec%E5%8E%9F%E7%90%86"><span class="toc-text">IPSec原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91-Virtual-Private-Network"><span class="toc-text">虚拟专用网(Virtual Private Network)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%B1%82%E9%9A%A7%E9%81%93%E5%8D%8F%E8%AE%AE"><span class="toc-text">二层隧道协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PPP%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F%EF%BC%9APAP%E5%92%8CCHAP"><span class="toc-text">PPP认证方式：PAP和CHAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IPSec%E5%8E%9F%E7%90%86-1"><span class="toc-text">IPSec原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL%E4%B8%8EHTTPS"><span class="toc-text">SSL与HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSL"><span class="toc-text">SSL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS%E5%92%8CS-HTTP"><span class="toc-text">HTTPS和S-HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PGP"><span class="toc-text">PGP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kerberos%E5%92%8CPKI"><span class="toc-text">Kerberos和PKI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8%E5%B1%82%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE"><span class="toc-text">其他应用层安全协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E5%92%8C%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B"><span class="toc-text">防火墙和入侵检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B"><span class="toc-text">入侵检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E4%BE%B5%E9%98%B2%E5%BE%A1%E7%B3%BB%E7%BB%9FIPS"><span class="toc-text">入侵防御系统IPS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%97%85%E6%AF%92%E5%9F%BA%E7%A1%80"><span class="toc-text">计算机病毒基础</span></a></li></ol></li></ol>
+        </li>
+    </ul>
+    
+
     
     
     

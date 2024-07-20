@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Podman-搭建与使用 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>Podman-搭建与使用</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #00bcd4">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #ffa2c4">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="Podman安装与配置"><a href="#Podman安装与配置" class="headerlink" title="Podman安装与配置"></a>Podman安装与配置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><img src="/../../../../images/clip_image002-17172999161452.jpg" alt="img"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>全局的配置文件：</p>
+<p><img src="/../../../../images/clip_image004-17172999161441.jpg" alt="img"></p>
+<p>配置镜像加速器:</p>
+<p><img src="/../../../../images/clip_image006-17172999161453.jpg" alt="img"></p>
+<p>仓库的先后顺序，决定查找优先级</p>
+<p>配置镜像下载Url顺序：</p>
+<p><img src="/../../../../images/clip_image008-17172999161454.jpg" alt="img"></p>
+<p>普通⽤⼾的配置⽂件：</p>
+<p><img src="/../../../../images/clip_image010-17172999161465.jpg" alt="img"></p>
+<h1 id="Podman镜像管理与镜像结构"><a href="#Podman镜像管理与镜像结构" class="headerlink" title="Podman镜像管理与镜像结构"></a>Podman镜像管理与镜像结构</h1><h2 id="Podman镜像管理"><a href="#Podman镜像管理" class="headerlink" title="Podman镜像管理"></a>Podman镜像管理</h2><p>1、列出镜像列表</p>
+<p><img src="/../../../../images/clip_image012-17172999161466.jpg" alt="img"></p>
+<pre><code class="perl">REPOSITORY：镜像的仓库源 
+
+TAG：镜像的标签。例如:latest表示最新版本
+
+IMAGE ID：镜像的ID
+
+CREATED：镜像创建时间
+
+SIZE：镜像大小
+
+注意：同一仓库源可以有多个TAG
+</code></pre>
+<p>2、搜索镜像</p>
+<p><img src="/../../../../images/clip_image014-17172999161468.jpg" alt="img"></p>
+<pre><code class="perl">INDEX：索引
+
+NAME：镜像仓库名
+
+DESCRIPTION：镜像的描述
+
+STATRS：表示点赞量或喜欢的意思
+
+OFFICAL：是否官方发布
+
+AUTOMATED：自动创建
+</code></pre>
+<p>3、获取镜像</p>
+<p><img src="/../../../../images/clip_image016-17172999161467.jpg" alt="img"></p>
+<p>4、使用tag命令添加镜像标签</p>
+<p><img src="/../../../../images/clip_image018-17172999161469.jpg" alt="img"></p>
+<p>注意：如果利用ID来删除是把镜像删除，而不是删除标签</p>
+<p>5、删除镜像</p>
+<p><img src="/../../../../images/clip_image020-171729991614610.jpg" alt="img"></p>
+<p>6、清理镜像(执行前一定确认清楚！！！)</p>
+<p><img src="/../../../../images/clip_image022-171729991614612.jpg" alt="img"></p>
+<p>作用：清理系统中所有不再被使用的镜像，包括悬挂的镜像。</p>
+<pre><code class="perl">悬挂的镜像，这些是没有与任何容器关联的镜像。当您构建一个新的容器镜像，或者通过拉取一个镜像时，可能会产生悬挂的镜像。这些镜像没有被任何正在运行的容器使用，并且可以被视为不再需要的。
+
+未被容器引用的镜像： 这些是没有被当前正在运行的容器引用的镜像。如果一个容器使用了特定版本的镜像，并且该容器已经停止或删除，那么该版本的镜像就不再被使用，可以被清理。
+</code></pre>
+<p>7、导出镜像</p>
+<p><img src="/../../../../images/clip_image024-171729991614613.jpg" alt="img"></p>
+<p>8、导入镜像</p>
+<p><img src="/../../../../images/clip_image026-171729991614611.jpg" alt="img"></p>
+<p>9、镜像历史</p>
+<p>作用：查看镜像的构建历史信息。可以查看到镜像构建的整个过程</p>
+<p><img src="/../../../../images/clip_image028-171729991614614.jpg" alt="img"></p>
+<h2 id="Podman镜像结构"><a href="#Podman镜像结构" class="headerlink" title="Podman镜像结构"></a>Podman镜像结构</h2><p>提供文件系统，例如一个centos:7的镜像，大小大致200M，但不包含操作系统Linux内核，容器的内涵是宿主机提供的，一起共用一个内核</p>
+<p><img src="/../../../../images/clip_image030-171729991614615.jpg" alt="img"></p>
+<p>流程：</p>
+<pre><code class="perl">1、先下载centos:7的镜像，然后生成容器(A)，然后在容器A执行 mkdir /dir，然后打包为镜像A(e1d…)，然后把容器A删除
+
+2、然后利用镜像A创建容器(B),执行 touch /dir/file，然后打包为镜像B(b34…),然后把容器B删除
+
+3、然后利用镜像B创建容器(C),执行，CMD”/bin/bash”和提交，然后打包为镜像C(33b…),最后删除容器C
+</code></pre>
+<p><img src="/../../../../images/clip_image032-171729991614618.jpg" alt="img"></p>
+<p>Podman 镜像构建过程，如上图所示，通过 podman history 可以看到镜像的构建历史信息，新镜像是从base 镜像一层一层叠加生成的。每执行一个任务，就在现有镜像的基础上增加一层。都是在Base镜像基础上逐步叠加。</p>
+<p>3、镜像缓存</p>
+<p>podman会把构建过程中的每一层临时镜像进行缓存。使用Podmanfile文件构建完镜像以后，新镜像时，，可以直接使用之前缓存的镜像层这样能加速镜像的</p>
+<p>构建。</p>
+<p><img src="/../../../../images/clip_image034-171729991614616.jpg" alt="img"></p>
+<p>修改之前的Podmanfile文件，Podmanfile文件里面共三条指令，前两条指令都是用之前构建镜像的缓存，只有第三个指令才重新构建了缓存层。如果希望在构建镜像时不使用缓存，可以在podman build命令中加上–no-cache参数。</p>
+<p>4、    COPY指令和ADD指令用于复制宿主机上的文件到目标镜像中</p>
+<p>COPY只是用于复制，ADD复制和解压</p>
+<p><src>:  要复制的源文件或目录，支持通配符</src></p>
+<p><dest>: 目标路径，即正创建的镜像的文件系统路径，建议使用绝对路径，否则，COPY指令会以WORKDIR为其起始路径。如果路径中如果包含空白字符，建议使用第二种格式用引号引起来，否则会被当成两个文件。</dest></p>
+<p><img src="/../../../../images/clip_image036-171729991614617.jpg" alt="img"></p>
+<p>5、    WORDDIR指令用于指定工作目录，可以指定多个，每个WORKDIR指影响他下面的指令，直到遇到下一个WORKDIR为止。类似与”cd(切换目录)”</p>
+<p>6、    VOLUME指令用于在镜像中创建一个挂载点目录。两种类型：绑定挂载和podman管理的卷，在Podmanfile中只支持Podman管理的卷，也就是说只能指定容器内的路径，不能指定宿主机的路径。</p>
+<p>7、    EXPOSE指令用于指定容器中待暴露的端口，例如，容器提供httpd服务且要对外提供访问，那就需要指定待暴露80端口，，然后在使用此镜像启动容器时搭配-P的参数才能将待暴露的状态转换为真正暴露的状态，转换的同时443也会转换成一个随机端口，跟-p :443一个意思。EXPOSE指令可以次指定多个端口，例如: EXPOSE 11111&#x2F;udp 11112&#x2F;tcp</p>
+<p>9、ENV指令用于为镜像定义所需的环境变量，并可被ENV指令后面的其它指令所调用。调用格式为$variable_name或者$(variable_name)，使用podman run 启动容器的时候加上-e 的参数为variable name赋值，可以覆盖Podmanfile中ENV指令指定的此variable name的值。但是不会影响到Dockerfile中已经引用过此变量的文件名，格式如下</p>
+<p>ENV <key> <value></value></key></p>
+<p>ENV <key> <value>…</value></key></p>
+<p>注意：podman run -e 指定环境变量，如果变量名相同她会覆盖dockerfile的变量</p>
+<p><img src="/../../../../images/clip_image038-171729991614619.jpg" alt="img"></p>
+<p>10、RUN指令运行于Podman build过程中运行的程序，可以是任何命令。RUN指令后所执行的命令必须在FROM指令后的基础镜像中存在才行</p>
+<p>11、CMD指令用于用户指定启动容器的默认要运行的程序，ENTRYPOINT指令类似CMD指令的功能，用于容器指定默认运行程序。podman run命令会覆盖CMD指令，ENTRYPOINT不会被覆盖。</p>
+<p>三种构建镜像：<br> 1、podman commit命令</p>
+<p>2、基于本地模板导入</p>
+<p>3、Podmanfile构建文件</p>
+<h1 id="Podman容器的管理"><a href="#Podman容器的管理" class="headerlink" title="Podman容器的管理"></a>Podman容器的管理</h1><p>1、    创建容器(podman create)</p>
+<p><img src="/../../../../images/clip_image040-171729991614620.jpg" alt="img"></p>
+<pre><code class="perl">-i：让容器的标准输入保持打开
+
+-t：分配一个伪终端并绑定到容器的标准输入
+
+-d：让容器后台运行
+
+podman create -d 适用于需要在后台运行的容器，通常用于服务或长时间运行的应用。
+
+podman create -it 适用于需要与容器进行交互的场景，例如手动调试或运行交互式应用程序。
+</code></pre>
+<p>2、查看容器(podman ps)</p>
+<p><img src="/../../../../images/clip_image042-171729991614721.jpg" alt="img"></p>
+<p>3、启动和关闭容器</p>
+<p><img src="/../../../../images/clip_image044-171729991614722.jpg" alt="img"></p>
+<p>4、创建并启动容器</p>
+<p><img src="/../../../../images/clip_image046-171729991614723.jpg" alt="img"></p>
+<p>加&#x2F;bin&#x2F;bash原因：指定容器内要启动Bash shell，这样就可以使用各种命令等</p>
+<p>5、容器的pause和unpause</p>
+<p><img src="/../../../../images/clip_image048-171729991614725.jpg" alt="img"></p>
+<p>6、    删除所有停止状态的容器(podman container prune)</p>
+<p><img src="/../../../../images/clip_image050-171729991614724.jpg" alt="img"></p>
+<p>7、进入容器</p>
+<pre><code class="perl">在使用-d参数时，容器启动后会进入后台。此时想要进入容器，可以通过以下指令进入:
+
+(1)podman attach: 不建议大家使用podman attach，因为退出容器终端，会导致容器的停止。
+
+(2) podman exec: 推荐大家使用podman exec命令，因为退出容器终端，不会导致容器的停止。
+
+podman attach
+</code></pre>
+<p><img src="/../../../../images/clip_image052.jpg" alt="img"></p>
+<p>podman exec</p>
+<p><img src="/../../../../images/clip_image054.jpg" alt="img"></p>
+<p>8、删除容器</p>
+<p>podman rm 只能删除停止的容器</p>
+<p>podman rm -f 删除停止或运行中的容器(强制删除)</p>
+<p><img src="/../../../../images/clip_image056-171729991614726.jpg" alt="img"></p>
+<p>9、查看容器的日志信息</p>
+<pre><code class="perl">podman logs container_id 或 name
+
+-f 动态跟踪容器的日志输出(类似于tail -f)
+
+--since 和 –until 限制输出日志的时间范围。指定开始时间和结束时间
+
+podman logs -f --since=10m &lt;container_id_or_name&gt;
+
+动态跟踪模式输出容器最近10分钟内的日志
+</code></pre>
+<p>10、导入和导出容器</p>
+<p><img src="/../../../../images/clip_image058-171729991614727.jpg" alt="img"></p>
+<p>11、列出最近创建的容器</p>
+<p>podman ps -n 3 或 podman ps -n -3</p>
+<p>显示最近最近创建的3个容器的简要信息</p>
+<p>12、显示正在运行容器中的进程信息</p>
+<p><img src="/../../../../images/clip_image060.jpg" alt="img"></p>
+<h1 id="Podman端口映射和持久性存储"><a href="#Podman端口映射和持久性存储" class="headerlink" title="Podman端口映射和持久性存储"></a>Podman端口映射和持久性存储</h1><p>1、容器端口映射</p>
+<p>-P：随机端口</p>
+<p>-p：指定端口</p>
+<p><img src="/../../../../images/clip_image062.jpg" alt="img"><img src="/../../../../images/clip_image064.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image066-171729991614728.jpg" alt="img"><img src="/../../../../images/clip_image068.jpg" alt="img"></p>
+<p>2、    查看容器日志</p>
+<p><img src="/../../../../images/clip_image070-171729991614729.jpg" alt="img"></p>
+<p>3、查看容器详细信息</p>
+<p>podman inspect container_id or name</p>
+<p>4、宿主机与容器之间的拷贝</p>
+<p><img src="/../../../../images/clip_image072-171729991614730.jpg" alt="img"></p>
+<p>5、持久化存储</p>
+<p>作用：对宿主机与容器的目录或文件的映射，达到持久化存储，防止容器宕机而其重要内容也消失。</p>
+<p>-v: ~&#x2F;nginx&#x2F;www:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html将我们自己创建的 www目录 挂载到容器d的v:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html.</p>
+<p>-v: ~&#x2F;nginx&#x2F;conf&#x2F;nginxconf:&#x2F;etc&#x2F;nginx&#x2F;nginx.conf 将我们自己创建的nginx.conf挂载到容器的&#x2F;etc&#x2F;nginx&#x2F;nginx.conf.</p>
+<p>-v: ~&#x2F;nginx&#x2F;logs:&#x2F;var&#x2F;log&#x2F;nginx 将我们自己创建的logs挂载到容器的&#x2F;var&#x2F;log&#x2F;nginx。</p>
+<p><img src="/../../../../images/clip_image074.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image076.jpg" alt="img"><img src="/../../../../images/clip_image078.jpg" alt="img"><img src="/../../../../images/clip_image080-171729991614831.jpg" alt="img"></p>
+<h1 id="Podman容器的开机自启"><a href="#Podman容器的开机自启" class="headerlink" title="Podman容器的开机自启"></a>Podman容器的开机自启</h1><h2 id="root用户下podman容器服务开机自启"><a href="#root用户下podman容器服务开机自启" class="headerlink" title="root用户下podman容器服务开机自启"></a>root用户下podman容器服务开机自启</h2><p>1、切换&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system目录</p>
+<p>2、    将httpd镜像成为web容器，并运行该容器</p>
+<p><img src="/../../../../images/clip_image082-171729991614832.jpg" alt="img"></p>
+<p>3、生成httpd容器的systemd单元文件</p>
+<p><img src="/../../../../images/clip_image084-171729991614933.jpg" alt="img"></p>
+<p>注意：–name要求要和容器的名称或ID相同，不然找不到。</p>
+<p>4、查看单元文件是否正确</p>
+<p><img src="/../../../../images/clip_image086-171729991614934.jpg" alt="img"></p>
+<p>5、重启服务，并设置自启，然后查看状态</p>
+<p><img src="/../../../../images/clip_image088-171729991614937.jpg" alt="img"></p>
+<h2 id="普通用户下podman容器服务开机自启"><a href="#普通用户下podman容器服务开机自启" class="headerlink" title="普通用户下podman容器服务开机自启"></a>普通用户下podman容器服务开机自启</h2><p>1、    切换普通用户不能su -命令，要用ssh</p>
+<p><img src="/../../../../images/clip_image090-171729991614935.jpg" alt="img"></p>
+<p>2、    启动容器my_nginx</p>
+<p><img src="/../../../../images/clip_image092-171729991614936.jpg" alt="img"></p>
+<p>3、在用户家目录下创建递归目录~&#x2F;.config&#x2F;systemd&#x2F;user目录，只能是该目录名，因为普通用户启动服务的时候一定只能是此目录</p>
+<p><img src="/../../../../images/clip_image094-171729991614938.jpg" alt="img"></p>
+<p>4、切换到该目录下，生成systemd管理的服务单元文件 </p>
+<p><img src="/../../../../images/clip_image096.jpg" alt="img"></p>
+<p>5、编辑单元文件container-my_nginx.service</p>
+<p><img src="/../../../../images/clip_image098.jpg" alt="img"></p>
+<p>6、    将my_nginx容器的服务进程container-my_nginx设置下次启动生效</p>
+<p><img src="/../../../../images/clip_image100.jpg" alt="img"></p>
+<p>7、启动逗留(作用：实现普通用户创建的服务可以被systemd管理)</p>
+<p>给 container_user用户启用逗留功能(systemd 可以管理 user service，普通用户可以为自己的服务创建 unit 文件，并使用 systemctl 命令管理这些服务。</p>
+<p>当用户服务类型为非根用户时，通过文本或者图形控制台或使用 ssh 打开第一个会话时，该服务将自动启动。当关闭最后一次会话时，服务将停止。这种行为与系统服务不同，系统服务在系统启动时启动，在系统关闭时停止。)</p>
+<p><img src="/../../../../images/clip_image102.jpg" alt="img"></p>
+<p>loginctl enable-linger username</p>
+<p>这将启用用户 username 的 linger 特性，使得该用户的服务在用户注销后继续运行。</p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/Blog/Podman-%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Podman%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">Podman安装与配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Podman%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86%E4%B8%8E%E9%95%9C%E5%83%8F%E7%BB%93%E6%9E%84"><span class="toc-text">Podman镜像管理与镜像结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Podman%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="toc-text">Podman镜像管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Podman%E9%95%9C%E5%83%8F%E7%BB%93%E6%9E%84"><span class="toc-text">Podman镜像结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Podman%E5%AE%B9%E5%99%A8%E7%9A%84%E7%AE%A1%E7%90%86"><span class="toc-text">Podman容器的管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Podman%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%92%8C%E6%8C%81%E4%B9%85%E6%80%A7%E5%AD%98%E5%82%A8"><span class="toc-text">Podman端口映射和持久性存储</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Podman%E5%AE%B9%E5%99%A8%E7%9A%84%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-text">Podman容器的开机自启</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#root%E7%94%A8%E6%88%B7%E4%B8%8Bpodman%E5%AE%B9%E5%99%A8%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-text">root用户下podman容器服务开机自启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E4%B8%8Bpodman%E5%AE%B9%E5%99%A8%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-text">普通用户下podman容器服务开机自启</span></a></li></ol></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

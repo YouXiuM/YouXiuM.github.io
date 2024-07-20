@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>局域网和城域网 | MaYouXiu</title>
     <meta name="author" content="John Doe" />
-    <meta name="description" content="" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
     <meta name="keywords" content="" />
     <meta
         name="viewport"
@@ -154,7 +154,7 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
 
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+        <div id="main" :class="loading">
             <div class="article">
     <div>
         <h1>局域网和城域网</h1>
@@ -185,14 +185,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Network/" style="color: #00bcd4">
+                <a href="/tags/Network/" style="color: #00a596">
                     Network
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ff7d73">
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #03a9f4">
                     网工中级
                 </a>
             </span>
@@ -391,6 +391,18 @@
 <p><img src="/../../../../images/image-20240329100407328.png" alt="image-20240329100407328"></p>
 
     </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/01/%E7%AC%94%E8%AE%B0/Network/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/%E5%B1%80%E5%9F%9F%E7%BD%91%E5%92%8C%E5%9F%8E%E5%9F%9F%E7%BD%91/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E5%92%8C%E5%9F%8E%E5%9F%9F%E7%BD%91"><span class="toc-text">局域网和城域网</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E5%9F%BA%E7%A1%80"><span class="toc-text">局域网基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E5%92%8C%E5%9F%8E%E5%9F%9F%E7%BD%91%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84IEEE-%E6%A0%87%E5%87%86"><span class="toc-text">局域网和城域网体系架构IEEE(标准)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84"><span class="toc-text">局域网拓扑结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSMA-CD"><span class="toc-text">CSMA&#x2F;CD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSMA-CD%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">CSMA&#x2F;CD是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSMA%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">CSMA基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSMA-CD%E4%B8%89%E7%A7%8D%E7%9B%91%E5%90%AC%E7%AE%97%E6%B3%95"><span class="toc-text">CSMA&#x2F;CD三种监听算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B2%E7%AA%81%E6%A3%80%E6%B5%8B%E5%8E%9F%E7%90%86"><span class="toc-text">冲突检测原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%8C%87%E6%95%B0%E9%80%80%E9%81%BF%E7%AE%97%E6%B3%95"><span class="toc-text">二进制指数退避算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E5%B8%A7%E9%95%BF%E8%AE%A1%E7%AE%97"><span class="toc-text">最小帧长计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E5%B8%A7%E4%B8%8E%E7%89%A9%E7%90%86%E5%B1%82%E8%A7%84%E8%8C%83"><span class="toc-text">以太网帧帧与物理层规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E7%BB%93%E6%9E%84"><span class="toc-text">以太网帧结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E6%8A%A5%E6%96%87%E5%B0%81%E8%A3%85"><span class="toc-text">以太网报文封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#802-3%E4%BB%A5%E5%A4%AA%E7%BD%91-10M"><span class="toc-text">802.3以太网(10M)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%BB%A5%E5%A4%AA%E7%BD%91802-3u-100M"><span class="toc-text">快速以太网802.3u(100M)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%83%E5%85%86%E4%BB%A5%E5%A4%AA%E7%BD%91-1000M"><span class="toc-text">千兆以太网(1000M)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%87%E5%85%86%E4%BB%A5%E5%A4%AA%E7%BD%91802-3ae-10G"><span class="toc-text">万兆以太网802.3ae(10G)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91VLAN-%E4%B8%8A%E5%8D%88-%E4%B8%8B%E5%8D%88"><span class="toc-text">虚拟局域网VLAN(上午+下午)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#VLAN%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">VLAN是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B2%E7%AA%81%E5%9F%9F"><span class="toc-text">冲突域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E5%9F%9F"><span class="toc-text">广播域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BAVLAN%E5%88%92%E5%88%86"><span class="toc-text">交换机VLAN划分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VLAN%E5%88%92%E5%88%86%E9%85%8D%E7%BD%AE"><span class="toc-text">VLAN划分配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%88%92%E5%88%86VLAN"><span class="toc-text">静态划分VLAN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%92%E5%88%86VLAN"><span class="toc-text">动态划分VLAN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%AD%96%E7%95%A5%E5%88%92%E5%88%86VLAN"><span class="toc-text">基于策略划分VLAN</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VLAN%E4%BD%9C%E7%94%A8"><span class="toc-text">VLAN作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#802-1Q%E6%A0%87%E7%AD%BE"><span class="toc-text">802.1Q标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%AB%AF%E5%8F%A3%E7%B1%BB%E5%9E%8B"><span class="toc-text">交换机端口类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STP%E7%94%9F%E6%88%90%E6%A0%91-%E4%B8%8A%E5%8D%88-%E4%B8%8B%E5%8D%88"><span class="toc-text">STP生成树(上午+下午)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#STP%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF"><span class="toc-text">STP技术背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%B1%82%E7%8E%AF%E8%B7%AF%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">二层环路带来的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STP%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">STP基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E6%A1%A5ID-Bridge-ID"><span class="toc-text">网桥ID(Bridge ID)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E5%BC%80%E9%94%80-Path-Cost"><span class="toc-text">路径开销(Path Cost)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STP%E9%80%89%E4%B8%BE%E6%93%8D%E4%BD%9C"><span class="toc-text">STP选举操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%87%A0%E7%A7%8D%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE"><span class="toc-text">常见几种生成树协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%8E%E5%9F%9F%E7%BD%91"><span class="toc-text">城域网</span></a></li></ol></li></ol></li></ol>
+        </li>
+    </ul>
+    
+
     
     
     

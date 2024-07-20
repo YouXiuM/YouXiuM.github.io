@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>用户-sudo-传输 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>用户-sudo-传输</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #ff7d73">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #03a9f4">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h1><p> 切换用户</p>
+<p>1.1切换用户：su 和 su –</p>
+<p><img src="/../../../../images/clip_image002-17172988853081.jpg" alt="img"></p>
+<p>建议使用登录的方式：su -</p>
+<p><img src="/../../../../images/clip_image004-17172988853092.jpg" alt="img"></p>
+<p>区别：</p>
+<p>su  不改变环境，保持当前用户环境</p>
+<p>su - 启动新的shell，切换到目标用户的环境 </p>
+<p>1.2 sudo赋权</p>
+<p>sudo是linux系统管理指令，是允许系统管理员让普通⽤⼾执⾏⼀些或者全部的root命令 的⼀个⼯具，如halt，reboot，su等等。这样不仅减少了root⽤⼾的登录 和管理时间， 同样也提⾼了安全性。sudo不是对shell的⼀个代替，它是⾯向每个命令的。</p>
+<p>配置文件</p>
+<p>&#x2F;etc&#x2F;sudoers，主配置文件，是配置文件的模板，尽量不要写在这个文件</p>
+<p>&#x2F;etc&#x2F;sudoers.d&#x2F;，其目录下创建sudo文件效果一样，可以实现sudo赋权</p>
+<p>注：sudo配置只能在root⽤⼾下做操作，普通⽤⼾看不到这个配置⽂件⾥⾯的相应内容</p>
+<p><img src="/../../../../images/clip_image006-17172988853093.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image008-17172988853094.jpg" alt="img"></p>
+<p>规则的通用语法：</p>
+<pre><code class="perl">user   host=(runas)  command
+
+user：      指定的用户
+
+host：     指定的主机/IP。可以使用ALL表示任何主机
+
+runas：     指定要切换到的用户身份。通常使用ALL表示任何用户
+
+command： 指定允许执行的命令。可以使用ALL表示任何命令
+
+注意：”NOPASSWD”是选项，它允许用户在执行sudo命令时不需要输入密码。
+</code></pre>
+<p>例如: </p>
+<p>developer 192.168.1.10&#x3D;(ALL) &#x2F;bin&#x2F;ls  </p>
+<p>这表示developer用户只能在IP地址为192.168.1.10 的主机上执行&#x2F;bin&#x2F;ls命令</p>
+<p>developer ALL&#x3D;(root) &#x2F;bin&#x2F;ls </p>
+<p>这表示 developer 用户只能以 root 用户的身份执行 &#x2F;bin&#x2F;ls 命令。</p>
+<p>developer ALL&#x3D;(admin:wheel) &#x2F;bin&#x2F;ls</p>
+<p>这表示 developer 用户只能以admin或wheel用户组的成员身份执行&#x2F;bin&#x2F;ls命令。</p>
+<p>配置sudo文件建议使用visudo工具，具有语法检测功能</p>
+<p><img src="/../../../../images/clip_image010-17172988853095.jpg" alt="img"> <img src="/../../../../images/clip_image012-17172988853098.jpg" alt="img"> </p>
+<p>sudo赋权的⽤⼾别名和命令的别名</p>
+<p><img src="/../../../../images/clip_image014-17172988853097.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image016-17172988853096.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image018-17172988853099.jpg" alt="img"></p>
+<p>如果出现用户别名和用户名相同，不会报错，是执行变量</p>
+<p>例如：</p>
+<p>User_Alias USER&#x3D;USER,TEST</p>
+<p>USER   ALL&#x3D;(ALL)   ALL</p>
+<p>用户USER,TEST都拥有sudo赋权</p>
+<h1 id="文件归档"><a href="#文件归档" class="headerlink" title="文件归档"></a>文件归档</h1><h2 id="tar命令"><a href="#tar命令" class="headerlink" title="tar命令"></a>tar命令</h2><p>创建备份和通过⽹络传输数据时，归档和压缩⽂件⾮常有⽤，最常⽤命令时 tar tar ⽀持⽂件归档和 gzip、bzip2 或 xz 的加解压缩</p>
+<p><img src="/../../../../images/clip_image020-171729888530910.jpg" alt="img"></p>
+<pre><code class="perl">tar命令的选项
+
+使⽤ -c 或 --create 选项来创建存档 
+
+使⽤ -t 或 --list 选项来列出存档的内容 
+
+使⽤ -x 或 --extract 选项来提取存档 
+
+使⽤ -f 或 --file= 选项加上⽂件名，作为要运⾏的存档的参数 
+
+使⽤ -v 或 --verbose 选项⽤于查看添加到存档中或从中提取的⽂件有哪些
+</code></pre>
+<h3 id="归档文件和目录"><a href="#归档文件和目录" class="headerlink" title="归档文件和目录"></a>归档文件和目录</h3><p>在linux系统里面文件的后缀名没有意义，不能通过文件的后缀名来判断文件的属性，需 要借助file命令去根据文件头部的魔法数字判断文件的实际类型</p>
+<p><img src="/../../../../images/clip_image022-171729888530911.jpg" alt="img"></p>
+<p>归档&#x2F;tmp目录下的文件，起名为tmp.bak和tmp.zip</p>
+<p><img src="/../../../../images/clip_image024-171729888530912.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image026-171729888530913.jpg" alt="img"></p>
+<h3 id="列出存档的内容"><a href="#列出存档的内容" class="headerlink" title="列出存档的内容"></a>列出存档的内容</h3><p><img src="/../../../../images/clip_image028-171729888530914.jpg" alt="img"></p>
+<h3 id="从存档中提取文件"><a href="#从存档中提取文件" class="headerlink" title="从存档中提取文件"></a>从存档中提取文件</h3><p>默认情况是解压到执行解包命令的目录下</p>
+<p><img src="/../../../../images/clip_image030-171729888530915.jpg" alt="img"></p>
+<p>指定解包的路径</p>
+<p><img src="/../../../../images/clip_image032-171729888530916.jpg" alt="img"></p>
+<h3 id="创建压缩存档"><a href="#创建压缩存档" class="headerlink" title="创建压缩存档"></a>创建压缩存档</h3><pre><code class="perl">gzip
+
+优点：
+
+压缩速度相对较快。
+
+压缩比较高效，适合压缩文本文件。
+
+常用于网络传输和日志文件的压缩。
+
+区别：
+
+压缩比相对较低，不如 xz 和 bzip2。
+
+适合对大量小文件进行压缩。
+
+xz
+
+提供了更高的压缩比，通常比 gzip 和 bzip2 更好。
+
+压缩比例最高，适合压缩大文件。
+
+区别：
+
+压缩和解压缩速度相对较慢，特别是对于大型文件
+
+占用更多的系统资源。
+
+bzip2
+
+优点：
+
+提供了相对较高的压缩比。
+
+压缩和解压缩速度较快，通常优于 xz。
+
+压缩效果较好，适合压缩文本文件。
+
+区别：
+
+压缩比相对较低于 xz。
+
+对于大型文件，可能不如 xz 那么高效。
+</code></pre>
+<p>使⽤下列选项之⼀来创建压缩的 tar 存档:</p>
+<p>-z 或 –gzip 进⾏ gzip 压缩(filename.tar.gz 或 filename.tgz)</p>
+<p>-j 或 –bzip2 进⾏ bzip2 压缩 (filename.tar.bz2)</p>
+<p>-J 或 -xz 进⾏ xz 压缩 (filename.tar.xz)</p>
+<p><img src="/../../../../images/clip_image034-171729888530917.jpg" alt="img"></p>
+<p>属于不同文件属性</p>
+<p><img src="/../../../../images/clip_image036-171729888530918.jpg" alt="img"></p>
+<h3 id="提取压缩的存档"><a href="#提取压缩的存档" class="headerlink" title="提取压缩的存档"></a>提取压缩的存档</h3><p><img src="/../../../../images/clip_image038-171729888530920.jpg" alt="img"></p>
+<p>如果解压两次，内容会覆盖，第一次解压test1，在第二次解压前，对第一次解压文件进行修改或增加，第二次解压，会覆盖其内容</p>
+<p>要申明压缩的压缩格式，才能正确解压归档包，文件名不代表文件格式</p>
+<h2 id="在系统之间安全的传输文件"><a href="#在系统之间安全的传输文件" class="headerlink" title="在系统之间安全的传输文件"></a>在系统之间安全的传输文件</h2><p>注意：如果传输出现报错，可查看两边的目录的权限，还有用户权限</p>
+<p>如果root不行，就需要去sshd配置文件修改参数，rhel9默认不允许直接登录root</p>
+<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><p>从本地传输⽂件到远程</p>
+<p><img src="/../../../../images/clip_image040-171729888530919.jpg" alt="img"></p>
+<p>从远程把⽂件下载到本地</p>
+<p><img src="/../../../../images/clip_image042-171729888530921.jpg" alt="img"></p>
+<h3 id="sftp"><a href="#sftp" class="headerlink" title="sftp"></a>sftp</h3><p><img src="/../../../../images/clip_image044-171729888530922.jpg" alt="img"></p>
+<h3 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h3><p>rsync 命令是在系统之间安全复制⽂件的另⼀种⽅式,此⼯具采⽤的算法可通过仅同</p>
+<p>步已更改的⽂件部分来将复制的数据量最⼩化</p>
+<p>rsync 将仅复制⽂件系统间的差异部分，⽽ scp 复制所有内容</p>
+<p>rsync 的 -n 选项，为模拟运⾏，显⽰需要同步的⽂件清单，⽽不真正同步</p>
+<p>rsync 另外两个重要选项为：-v （–verbose）和 -a（–archive）</p>
+<p>rsync -a 开启的选项如下</p>
+<p><img src="/../../../../images/clip_image046.jpg" alt="img"></p>
+<p>#同步本地文件到远程 </p>
+<p>rsync -av &#x2F;etc&#x2F; root@serverb:&#x2F;opt </p>
+<p>#同步远程文件到本地 </p>
+<p>rsync -av root@serverb:&#x2F;etc &#x2F;opt</p>
+<p>-a：这是一个组合选项，包含了很多常用的同步选项，包括递归复制子目录、保留文件属性（权限、所有者等）、保留符号链接等。</p>
+<p>-v：显示操作过程</p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/%E5%9F%BA%E7%A1%80/%E7%94%A8%E6%88%B7-sudo-%E4%BC%A0%E8%BE%93/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E6%88%B7"><span class="toc-text">用户</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%BD%92%E6%A1%A3"><span class="toc-text">文件归档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tar%E5%91%BD%E4%BB%A4"><span class="toc-text">tar命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E6%A1%A3%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95"><span class="toc-text">归档文件和目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E5%AD%98%E6%A1%A3%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">列出存档的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%AD%98%E6%A1%A3%E4%B8%AD%E6%8F%90%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-text">从存档中提取文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8E%8B%E7%BC%A9%E5%AD%98%E6%A1%A3"><span class="toc-text">创建压缩存档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E5%8E%8B%E7%BC%A9%E7%9A%84%E5%AD%98%E6%A1%A3"><span class="toc-text">提取压缩的存档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%B3%BB%E7%BB%9F%E4%B9%8B%E9%97%B4%E5%AE%89%E5%85%A8%E7%9A%84%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6"><span class="toc-text">在系统之间安全的传输文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#scp"><span class="toc-text">scp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sftp"><span class="toc-text">sftp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rsync"><span class="toc-text">rsync</span></a></li></ol></li></ol></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

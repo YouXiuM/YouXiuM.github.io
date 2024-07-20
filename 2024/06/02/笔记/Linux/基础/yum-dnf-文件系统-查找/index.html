@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>yum-dnf-文件系统-查找 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>yum-dnf-文件系统-查找</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #ff7d73">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #03a9f4">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="配置yum源"><a href="#配置yum源" class="headerlink" title="配置yum源"></a>配置yum源</h1><h2 id="软件包"><a href="#软件包" class="headerlink" title="软件包"></a>软件包</h2><p>linux：他的可执⾏程序的elf格式的⽂件，程序运⾏时的依赖动态链接库⽂件的动态链接库文件.dll格式的文件</p>
+<p>linux：他的可执⾏程序的elf格式的⽂件，程序运⾏时的依赖动态链接库⽂件的格式 时.so⽂件。</p>
+<h2 id="红帽提供了⼀种安装⽅式rpm"><a href="#红帽提供了⼀种安装⽅式rpm" class="headerlink" title="红帽提供了⼀种安装⽅式rpm"></a>红帽提供了⼀种安装⽅式rpm</h2><p>提供了⼀个⼯具rpm，他可以⽀持安装，升级，卸载，查询已经编译封装好的⼆进制软件 包.rpm，他的功能更多的⽤于查询，其他的功能具备但是不推荐使⽤，因为rpm这个⼯具不能 解决软件安装时的依赖关系</p>
+<p>#使用rpm安装软件</p>
+<p><img src="/../../../../images/clip_image002-17172990452351.jpg" alt="img"></p>
+<p>htop： 软件的名称。</p>
+<p>2.2.0： 软件的版本号。</p>
+<p>3.el8： 软件的发布号，以及支持的 Red Hat 发行版的版本号（在这个例子中是 EL8，代表 Red Hat Enterprise Linux 8）。</p>
+<p>x86_64： 软件支持的体系结构。</p>
+<p>#更新软件</p>
+<p><img src="/../../../../images/clip_image004-17172990452352.jpg" alt="img"></p>
+<p>#卸载软件</p>
+<p><img src="/../../../../images/clip_image005.png" alt="img"></p>
+<p>#查询功能，查看软件包是否安装</p>
+<p><img src="/../../../../images/clip_image006.png" alt="img"></p>
+<p>#查询软件安装后在系统里面生成哪些文件</p>
+<p><img src="/../../../../images/clip_image008-17172990452353.jpg" alt="img"></p>
+<p>#查看软件的配置文件</p>
+<p><img src="/../../../../images/clip_image009.png" alt="img"></p>
+<p>#查看软件的帮助文档保存在哪里</p>
+<p><img src="/../../../../images/clip_image010.png" alt="img"></p>
+<p>#查看软件安装时运行了哪些检测脚本</p>
+<p><img src="/../../../../images/clip_image012-17172990452364.jpg" alt="img"></p>
+<p>#查看软件相关信息</p>
+<p><img src="/../../../../images/clip_image014-17172990452365.jpg" alt="img"></p>
+<h2 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h2><p>因为rpm不能够⾃动解决依赖关系，所以为了解决这个问题，使得安装程序更加的智能，自动化，使得yum工具作为rpm全段，他会记录软件仓库内软件的依赖关系。</p>
+<p>安装的软件的时 候，他会先查询依赖关系，然后再软件仓库内下载对应版本的依赖软件，然后安装软件。</p>
+<p>yum是dnf的链接⽂件，但是yum使⽤的命令和dnf除了命令 的名字不⼀样以外，其他的选项参数都是⼀样的。</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p><img src="/../../../../images/clip_image016-17172990452367.jpg" alt="img"></p>
+<h3 id="配置⽂件的选项"><a href="#配置⽂件的选项" class="headerlink" title="配置⽂件的选项"></a>配置⽂件的选项</h3><p><img src="/../../../../images/clip_image018-17172990452366.jpg" alt="img"></p>
+<p>注意：建议不要源不要超过3个，name不可以重复，名字可以随便取</p>
+<p>baseurl可以是本地的仓库，http，ftp，但是必须可以正常访问</p>
+<h2 id="dnf工具的使用"><a href="#dnf工具的使用" class="headerlink" title="dnf工具的使用"></a>dnf工具的使用</h2><p>#验证仓库的配置文件是否正确</p>
+<p><img src="/../../../../images/clip_image020-17172990452368.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image022-17172990452369.jpg" alt="img"></p>
+<p>#清除本地的依赖关系缓存</p>
+<p><img src="/../../../../images/clip_image024-171729904523610.jpg" alt="img"></p>
+<p>#安装软件、更新软件、卸载软件、搜索软件是否存在与软件仓库内、查看软件的详细信息、通过命令字查询软件包的名字</p>
+<p>dnf install &#x2F; dnf update &#x2F; dnf remove &#x2F; dnf search &#x2F; dnf info &#x2F; dnf provides </p>
+<p>查看一个文件属于哪个软件包</p>
+<p><img src="/../../../../images/clip_image026-171729904523611.jpg" alt="img"></p>
+<h3 id="组安装"><a href="#组安装" class="headerlink" title="组安装"></a>组安装</h3><p>将实现某个功能(虚拟主机、图形化服务器)所需要的所有的软件包困在⼀起安装</p>
+<p>#组安装：dnf groupinstall -y “Virtualization Host”</p>
+<p>注意：如果有特殊符号或空格就要+双引号</p>
+<p>#卸载包组：dnf groupremove -y “Virtualization Host”</p>
+<h3 id="Baseos-和-Appstream"><a href="#Baseos-和-Appstream" class="headerlink" title="Baseos 和 Appstream"></a>Baseos 和 Appstream</h3><p>他们都是软件仓库组件，主要用于分离操作系统和应用程序流</p>
+<p>Baserul：是一个包含操作系统的基本组件的软件仓库。这个仓库包括核心的系统库、命令行工具、核心服务等。</p>
+<p>Appstream：是包含应用程序和附加软件的软件仓库。这个仓库中包含了各种应用程序、库和附加工具，为用户提供更广泛的软件选择。</p>
+<p>AppStream 使用了模块化(module)的方法，允许用户选择不同版本的软件（例如，不同版本的数据库、编程语言等）。</p>
+<p>区别：</p>
+<p>Baseurl不能下载指定的软件，而Appstream可以下载指定版本的软件。</p>
+<p>baseos 关注于提供操作系统的核心部分，而 appstream 则关注于提供用户和应用程序所需的各种软件。</p>
+<p>#在module中查看自己的软件</p>
+<p><img src="/../../../../images/clip_image028-171729904523613.jpg" alt="img"></p>
+<p>nginx module 有4个stream(对应4个版本），默认安装的是1.14，1.14这个stream只有一个profile “common”, 它也是默认安装的profile </p>
+<p>[d]efault, [e]nabled, [x]disabled, [i]nstalled</p>
+<p>#安装module：dnf module install -y module_name:version</p>
+<p>#卸载module：dnf module remove -y module_name:version</p>
+<p>#重置module：dnf module reset module_name</p>
+<p>#启动module：dnf module enable module</p>
+<h1 id="查询文件"><a href="#查询文件" class="headerlink" title="查询文件"></a>查询文件</h1><h2 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h2><p>Ext4 (Fourth Extended Filesystem)：</p>
+<p>特点： 是 Ext 文件系统家族的最新版本。支持大容量、大文件和快速恢复。</p>
+<p>适用场景： 适合大多数普通用途的文件系统，广泛用于桌面和服务器系统。</p>
+<p>XFS (XFS File System)：</p>
+<p>特点： 针对大容量文件系统的性能进行了优化，支持高性能的读写操作，特别适用于大型文件和高性能要求的工作负载。</p>
+<p>适用场景： 适合大型数据集和高性能存储需求的系统，如数据库服务器</p>
+<p>在企业服务器集 群中，共享磁盘使⽤ GFS2⽂件系统来管理并发多节点访问</p>
+<h2 id="文件系统和挂载点"><a href="#文件系统和挂载点" class="headerlink" title="文件系统和挂载点"></a>文件系统和挂载点</h2><p>挂载点</p>
+<p><img src="/../../../../images/clip_image030-171729904523612.jpg" alt="img"></p>
+<p>挂载⽀持⼿动挂载(使⽤mount命令挂载)和⾃动挂载（编辑&#x2F;etc&#x2F;fstab⽂件）</p>
+<p><img src="/../../../../images/clip_image032-171729904523614.jpg" alt="img"></p>
+<p><device>：要挂载的设备或分区的设备文件路径（如 &#x2F;dev&#x2F;sda1）或 UUID。</device></p>
+<p><mount_point>：挂载点，文件系统将被挂载到这个目录。</mount_point></p>
+<p><fs_type>：文件系统类型，例如 ext4、ntfs、xfs 等。</fs_type></p>
+<p><options>：挂载选项，包括读写权限、挂载时的行为等。</options></p>
+<p><dump>：用于备份工具的标志，通常设置为 0 表示不备份。</dump></p>
+<p><pass>：用于 fsck 工具的标志，通常设置为 1 表示在系统引导时检查。</pass></p>
+<h2 id="⽂件系统、存储和块设备"><a href="#⽂件系统、存储和块设备" class="headerlink" title="⽂件系统、存储和块设备"></a>⽂件系统、存储和块设备</h2><p>Linux 中，对存储设备的低级别访问是访问 block device ⽂件</p>
+<p>在挂载这些 block device 前，必须先使⽤⽂件系统对其进⾏格式化 block device 存储在 &#x2F;dev ⽬录中</p>
+<p>块设备是不能格式化，只有分区才能格式化</p>
+<p>在 RHEL 中，第⼀个 SATA&#x2F;PATA、SAS、SCSI 或 USB 设备称为 &#x2F;dev&#x2F;sda， 第⼆个 被称为 &#x2F;dev&#x2F;sdb，以此类推(lsblk命令查看)</p>
+<p>块设备命名：</p>
+<p><img src="/../../../../images/clip_image034-171729904523615.jpg" alt="img"></p>
+<h2 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h2><p>存储设备通常划分为更⼩的区块，称为分区</p>
+<p>不同分区可以通过不同的⽂件系统进⾏格式化或⽤于不同的⽤途</p>
+<p>分区本⾝就是块设备。例如，第⼀磁盘上的第⼀个分区是&#x2F;dev&#x2F;sda1。第⼆磁盘上的 第三个分区是 &#x2F;dev&#x2F;sdb3，vda 分区类似</p>
+<p>NVMe SSD 命名略有不同。第⼀磁盘上的第⼀个分区是&#x2F;dev&#x2F;nvme0p1。 第⼆磁盘上 的第三个分区是 &#x2F;dev&#x2F;nvme1p3，SD 或 MMC 存储卡分区类似</p>
+<p><img src="/../../../../images/clip_image036-171729904523616.jpg" alt="img"></p>
+<h2 id="逻辑卷"><a href="#逻辑卷" class="headerlink" title="逻辑卷"></a>逻辑卷</h2><p>逻辑卷管理（LVM）可⽤于整理磁盘和分区。</p>
+<p>⼀个或多个块设备可以汇集为⼀个存储 池，称为卷组。卷组中的磁盘空间被分配到⼀个或多个逻辑卷，它们的功能等同于物理磁 盘上的分区</p>
+<p>LVM 的⽬录结构类似：&#x2F;dev&#x2F;myvg&#x2F;mylv，其中 myvg 为volume group，mylv 为 logicalvolume（注：&#x2F;dev&#x2F;mapper&#x2F;myvg_mylv 是另⼀种命名⽅式）</p>
+<h2 id="检查文件系统"><a href="#检查文件系统" class="headerlink" title="检查文件系统"></a>检查文件系统</h2><p>df 命令可以查看⽂件系统的空间状况</p>
+<p><img src="/../../../../images/clip_image038-171729904523617.jpg" alt="img"></p>
+<p>du 命令可以查看特定⽬录使⽤空间状况，同样可以使⽤ -h 和 -H选项</p>
+<p>-h：显示的文件大小以更易读的方式呈现</p>
+<p>-H：仅在计算目录大小时，将符号链接视为目录而非文件</p>
+<p><img src="/../../../../images/clip_image039.png" alt="img"></p>
+<p>卸载⽂件系统：umount 命令可以⼿动协助⽂件系统</p>
+<p>查看分区的UUID：blkid &#x2F;dev&#x2F;sda1</p>
+<h2 id="完整的创建分区，格式化，挂载的操作"><a href="#完整的创建分区，格式化，挂载的操作" class="headerlink" title="完整的创建分区，格式化，挂载的操作"></a>完整的创建分区，格式化，挂载的操作</h2><p>#创建分区</p>
+<p>1、    选择你要分区的磁盘(查看 lsblk)</p>
+<p>2、    创建分区(fdisk) 例如：fdisk &#x2F;dev&#x2F;vdb</p>
+<p>3、    选择创建主分区(n)</p>
+<p>4、    选择分区ID(1-4)</p>
+<p>5、    选择分区开始大小(建议选择默认)，选择分区结束大小(+nG)</p>
+<p>6、    可查看自己的划分情况(p)</p>
+<p>7、    保存退出(w)</p>
+<p><img src="/../../../../images/clip_image041-171729904523619.jpg" alt="img"></p>
+<p>#格式化分区</p>
+<p><img src="/../../../../images/clip_image043-171729904523618.jpg" alt="img"></p>
+<p>#编辑自动挂载</p>
+<p><img src="/../../../../images/clip_image045-171729904523621.jpg" alt="img"></p>
+<p>mount -a：尝试挂载&#x2F;etc&#x2F;fstab文件中列出的所有文件系统，如果配置错误会报错，也可以用于检测配置文件。</p>
+<p>#查看分区的UUID</p>
+<p><img src="/../../../../images/clip_image047-171729904523620.jpg" alt="img"></p>
+<h1 id="在系统中搜索文件"><a href="#在系统中搜索文件" class="headerlink" title="在系统中搜索文件"></a>在系统中搜索文件</h1><p>locate 命令搜索预⽣成索引中的⽂件名或⽂件路径，并即时返回结果(维护了⼀个数据库，可能因为数据库更新的不及时⽽导致查询结果不准确，可以使⽤updatedb手动更新数据库，-i 选项执⾏不区分⼤⼩写的搜索，-n 选项限制 locate 命令返回的搜 索结果数量) </p>
+<p>find 命令通过遍历整个⽂件系统来实时搜索⽂件（可能会⽐较慢）</p>
+<p>#文件名称搜索</p>
+<p><img src="/../../../../images/clip_image048.png" alt="img"></p>
+<p>#通过用户名搜索文件</p>
+<p><img src="/../../../../images/clip_image050.jpg" alt="img"></p>
+<p>#通过用户组的名称搜索文件</p>
+<p><img src="/../../../../images/clip_image051.png" alt="img"></p>
+<p>#通过UID搜素文件</p>
+<p><img src="/../../../../images/clip_image053-171729904523622.jpg" alt="img"></p>
+<p>#通过权限搜索文件</p>
+<p><img src="/../../../../images/clip_image055-171729904523623.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image057-171729904523624.jpg" alt="img"></p>
+<p>#指定匹配的文件类型 f文件 d目录 l链接</p>
+<p><img src="/../../../../images/clip_image059-171729904523625.jpg" alt="img"></p>
+<p>#指定文件大小进行查找</p>
+<p><img src="/../../../../images/clip_image061-171729904523626.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image063-171729904523627.jpg" alt="img"></p>
+<p>#表示排除的方法</p>
+<p><img src="/../../../../images/clip_image065-171729904523628.jpg" alt="img"></p>
+<h1 id="web版的系统管理平台"><a href="#web版的系统管理平台" class="headerlink" title="web版的系统管理平台"></a>web版的系统管理平台</h1><p><img src="/../../../../images/clip_image067-171729904523629.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image069.jpg" alt="img"></p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/%E5%9F%BA%E7%A1%80/yum-dnf-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F-%E6%9F%A5%E6%89%BE/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEyum%E6%BA%90"><span class="toc-text">配置yum源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-text">软件包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E5%B8%BD%E6%8F%90%E4%BE%9B%E4%BA%86%E2%BC%80%E7%A7%8D%E5%AE%89%E8%A3%85%E2%BD%85%E5%BC%8Frpm"><span class="toc-text">红帽提供了⼀种安装⽅式rpm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yum"><span class="toc-text">yum</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E2%BD%82%E4%BB%B6%E7%9A%84%E9%80%89%E9%A1%B9"><span class="toc-text">配置⽂件的选项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dnf%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">dnf工具的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%AE%89%E8%A3%85"><span class="toc-text">组安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Baseos-%E5%92%8C-Appstream"><span class="toc-text">Baseos 和 Appstream</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E4%BB%B6"><span class="toc-text">查询文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">存储管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%8C%82%E8%BD%BD%E7%82%B9"><span class="toc-text">文件系统和挂载点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%BD%82%E4%BB%B6%E7%B3%BB%E7%BB%9F%E3%80%81%E5%AD%98%E5%82%A8%E5%92%8C%E5%9D%97%E8%AE%BE%E5%A4%87"><span class="toc-text">⽂件系统、存储和块设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-text">磁盘分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%8D%B7"><span class="toc-text">逻辑卷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">检查文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA%EF%BC%8C%E6%A0%BC%E5%BC%8F%E5%8C%96%EF%BC%8C%E6%8C%82%E8%BD%BD%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">完整的创建分区，格式化，挂载的操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="toc-text">在系统中搜索文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web%E7%89%88%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0"><span class="toc-text">web版的系统管理平台</span></a></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

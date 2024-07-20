@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>物理层和数据链路层_通俗版 | MaYouXiu</title>
     <meta name="author" content="John Doe" />
-    <meta name="description" content="" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
     <meta name="keywords" content="" />
     <meta
         name="viewport"
@@ -154,7 +154,7 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
 
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+        <div id="main" :class="loading">
             <div class="article">
     <div>
         <h1>物理层和数据链路层_通俗版</h1>
@@ -185,21 +185,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/Network/" style="color: #03a9f4">
+                <a href="/tags/Network/" style="color: #ff7d73">
                     Network
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #ff7d73">
+                <a href="/tags/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/" style="color: #00bcd4">
                     网工中级
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%89%A9%E7%90%86%E5%B1%82/" style="color: #00bcd4">
+                <a href="/tags/%E7%89%A9%E7%90%86%E5%B1%82/" style="color: #ff7d73">
                     物理层
                 </a>
             </span>
@@ -233,7 +233,7 @@
 模拟数据常用于声音、视频、传感器信号等连续变化的场合，而数字数据则常用于计算机和数字设备中，用于表示文本、图像、音频等。
 --------------
 </code></pre>
-<h4 id="数据通信系统的模型"><a href="#数据通信系统的模型" class="headerlink" title="数据通信系统的模型"></a>数据通信系统的模型</h4><p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325210246575.png" alt="image-20240325210246575"></p>
+<h4 id="数据通信系统的模型"><a href="#数据通信系统的模型" class="headerlink" title="数据通信系统的模型"></a>数据通信系统的模型</h4><p><img src="/../../../../images/image-20240601174334761.png" alt="image-20240601174334761"></p>
 <h4 id="编码与调制"><a href="#编码与调制" class="headerlink" title="编码与调制"></a><strong>编码与调制</strong></h4><p>为什么需要编码和调制呢？</p>
 <pre><code>一般情况，数字信号是在数字信道传输，模拟信号在模拟信道传输。如果需要在不同信道传输，就需要编码和调制，不然就会受到噪声和失真的影响。
 1、频谱效率和带宽利用
@@ -248,38 +248,38 @@
 4、保护隐私和安全
 编码可以用于加密数据，保护通信中的隐私和安全。通过在传输前对数据进行编码，可以防止未经授权的访问者窃听或篡改数据。
 </code></pre>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325211504778.png" alt="image-20240325211504778"></p>
+<p><img src="/../../../../images/image-20240325211504778.png" alt="image-20240325211504778"></p>
 <p>模拟—–&gt; 数字    &#x3D;&#x3D;&#x3D;&#x3D;编码</p>
 <p>数字—–&gt; 模拟    &#x3D;&#x3D;&#x3D;&#x3D;调制</p>
 <h4 id="数字数据用数字信号表示"><a href="#数字数据用数字信号表示" class="headerlink" title="数字数据用数字信号表示"></a><strong>数字数据用数字信号表示</strong></h4><p>不（非）归零编码</p>
 <p>Ø用负电平表示逻辑“0”；</p>
 <p>Ø用正电平表示逻辑“1”；</p>
 <p>Ø也可以有其他表示方法。</p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325212100565.png" alt="image-20240325212100565"></p>
+<p><img src="/../../../../images/image-20240325212100565.png" alt="image-20240325212100565"></p>
 <p>归零编码</p>
 <p>正脉冲代表1，负脉冲代表0</p>
 <p>曼彻斯特编码</p>
 <p>Ø每个比特的中间有一次电平跳变； </p>
 <p>Ø“1”定义为由高电平到低电平的跳变；</p>
 <p>Ø“0”定义为由低电平到高电平的跳变。</p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325212638505.png" alt="image-20240325212638505"></p>
+<p><img src="/../../../../images/image-20240325212638505.png" alt="image-20240325212638505"></p>
 <p>差（微）分曼彻斯特编码</p>
 <p>Ø差分曼彻斯特编码是对曼彻斯特编码的改变。</p>
 <p>Ø“0”和“1”是根据两比特之间有没有跳变来区分。</p>
 <p>Ø如果下一个数是“0”，则在两比特中间有一次跳变；</p>
 <p>Ø如果下一个数据是“1”，则在两比特中间没有电平跳变。</p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325212508577.png" alt="image-20240325212508577"></p>
+<p><img src="/../../../../images/image-20240325212508577.png" alt="image-20240325212508577"></p>
 <p><strong>数字数据常用编码方式（小结）</strong></p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325212721709.png" alt="image-20240325212721709"></p>
+<p><img src="/../../../../images/image-20240325212721709.png" alt="image-20240325212721709"></p>
 <h4 id="数字数据用模拟信号表示"><a href="#数字数据用模拟信号表示" class="headerlink" title="数字数据用模拟信号表示"></a><strong>数字数据用模拟信号表示</strong></h4><p><strong>基带信号****（基本频带信号）——</strong>矩形脉冲波形的数字信号。含较多的低频成分和直流成分。**</p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325212926587-17172319784612.png" alt="image-20240325212926587"></p>
+<p><img src="/../../../../images/image-20240325212926587-17172319784612.png" alt="image-20240325212926587"></p>
 <p><strong>带通信号</strong>——把基带信号经过载波调制后，<strong>将信号的频率范围搬移到较高的频段以便在模拟信道中传输。</strong></p>
 <pre><code>最基本的调制方法有以下几种：
 调幅（AM）：载波的振幅随基带数字信号而变化。 
 调频（FM）：载波的频率随基带数字信号而变化。
 调相（PM）：载波的初始相位随基带数字信号而变化。  
 </code></pre>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325213107645.png" alt="image-20240325213107645"></p>
+<p><img src="/../../../../images/image-20240325213107645.png" alt="image-20240325213107645"></p>
 <h3 id="传输方式"><a href="#传输方式" class="headerlink" title="传输方式"></a>传输方式</h3><p>1、并行传输 与 串行传输</p>
 <pre><code>并行传输，一次发送n个比特
 串行传输，一个比特一个比特依次发送。
@@ -287,7 +287,7 @@
 并行 速率快，适合短距离，占用成本高
 串行 速率慢，适合长距离，占用成本低
 </code></pre>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325131247261.png" alt="image-20240325131247261"></p>
+<p><img src="/../../../../images/image-20240325131247261.png" alt="image-20240325131247261"></p>
 <p>2、异步传输和同步传输</p>
 <pre><code>同步思想：就是指收发双方在时间基准上保持一致的过程
 可分为：
@@ -310,7 +310,7 @@
 失真严重是什么？
 是指输出信号波形的形态，如图4
 </code></pre>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325133324183.png" alt="image-20240325133324183"></p>
+<p><img src="/../../../../images/image-20240325133324183.png" alt="image-20240325133324183"></p>
 <pre><code>信道输出端的波形的失真影响因素有？
 1、码元信号承载的信息大多，码元传输速率太高。
 2、信号传输的距离太远
@@ -356,11 +356,11 @@ C = 光速(在理想条件下)
 <h3 id="传输媒体"><a href="#传输媒体" class="headerlink" title="传输媒体"></a>传输媒体</h3><pre><code>传输媒体是数据传输系统中在发送器和接收器之间的物理通路。
 分类为：
 </code></pre>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325161703083.png" alt="image-20240325161703083"></p>
+<p><img src="/../../../../images/image-20240325161703083.png" alt="image-20240325161703083"></p>
 <p>非引导型：§短波通信(高频通信)：多径效应，通信质量差。蓝牙也是非引导型。</p>
 <p>多路径效应是指可以直线传播也可以曲线传播。就比如你在教室讲话，为什么隔着墙外面的人也能听见。类似这样比喻。。。</p>
 <h4 id="电磁波"><a href="#电磁波" class="headerlink" title="电磁波"></a>电磁波</h4><p>电磁波在传输媒体上的传输。电信领域使用的电磁波的频谱：</p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325162050101.png" alt="image-20240325162050101"></p>
+<p><img src="/../../../../images/image-20240325162050101.png" alt="image-20240325162050101"></p>
 <pre><code>电磁波的波长（λ）与频率（f）之间的关系可以通过以下公式来表示:
 公式：c=λ×f
 
@@ -394,17 +394,17 @@ f(频率)较长时，λ(波长)就会较低。
 有没有发现，基站到中转站是直线发送的，其实是有原因的
 高频率信号更容易聚焦，在雷达和通信系统中，高频率信号的波束更容易集中在特定方向上，从而提高了信号的定向性和精确度。
 </code></pre>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325201642670.png" alt="image-20240325201642670"></p>
+<p><img src="/../../../../images/image-20240325201642670.png" alt="image-20240325201642670"></p>
 <h4 id="传输媒体-1"><a href="#传输媒体-1" class="headerlink" title="传输媒体"></a>传输媒体</h4><h5 id="双绞线"><a href="#双绞线" class="headerlink" title="双绞线"></a>双绞线</h5><p>分为：</p>
 <p>无屏蔽双绞线 UTP</p>
 <p>屏蔽双绞线 STP</p>
-<p><img src="/.com//Soft\github\YouXiuM-blog\source\images\image-20240325202412942.png" alt="image-20240325202412942"></p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325202557813.png" alt="image-20240325202557813"></p>
+<p><img src="/.com//../../..%5Cimages%5Cimage-20240325202412942.png" alt="image-20240325202412942"></p>
+<p><img src="/../../../../images/image-20240325202557813.png" alt="image-20240325202557813"></p>
 <p>五类双绞线的最大传输距离为100m。加中继器最多加4个到500m</p>
 <h5 id="同轴电缆"><a href="#同轴电缆" class="headerlink" title="同轴电缆"></a>同轴电缆</h5><p>主要用于居民小区的有线电视</p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325202412942.png" alt="image-20240325202730531"></p>
+<p><img src="/../../../../images/image-20240325202412942.png" alt="image-20240325202730531"></p>
 <h5 id="光纤"><a href="#光纤" class="headerlink" title="光纤"></a>光纤</h5><p>分为：单模光纤和多模光纤</p>
-<p><img src="D:/Soft/github/YouXiuM-blog/source/images/image-20240325203055814.png" alt="image-20240325203055814"></p>
+<p><img src="/../../../../images/image-20240325203055814.png" alt="image-20240325203055814"></p>
 <pre><code>光纤特点：
 1)传输损耗小，中继距离长，对远距离传输特别经济.
 2)抗雷电和电磁干扰性能好.
@@ -438,6 +438,18 @@ f(频率)较长时，λ(波长)就会较低。
 </code></pre>
 
     </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/01/%E7%AC%94%E8%AE%B0/Network/%E7%BD%91%E5%B7%A5%E4%B8%AD%E7%BA%A7/%E7%89%A9%E7%90%86%E5%B1%82%E5%92%8C%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82-%E9%80%9A%E4%BF%97%E7%89%88/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E7%9A%84%E6%98%93%E6%87%82%E7%90%86%E8%A7%A3"><span class="toc-text">物理层的易懂理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1"><span class="toc-text">数据通信</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-text">数据通信系统的模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E4%B8%8E%E8%B0%83%E5%88%B6"><span class="toc-text">编码与调制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E7%94%A8%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-text">数字数据用数字信号表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E7%94%A8%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-text">数字数据用模拟信号表示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="toc-text">传输方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E9%81%93%E7%9A%84%E6%9E%81%E9%99%90%E5%AE%B9%E9%87%8F"><span class="toc-text">信道的极限容量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%88%E6%B0%8F%E5%87%86%E5%88%99"><span class="toc-text">奈氏准则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%99%E5%86%9C%E5%AE%9A%E7%90%86"><span class="toc-text">香农定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93"><span class="toc-text">传输媒体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B5%E7%A3%81%E6%B3%A2"><span class="toc-text">电磁波</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93-1"><span class="toc-text">传输媒体</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8C%E7%BB%9E%E7%BA%BF"><span class="toc-text">双绞线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%8C%E8%BD%B4%E7%94%B5%E7%BC%86"><span class="toc-text">同轴电缆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%89%E7%BA%A4"><span class="toc-text">光纤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E7%BA%BF%E5%99%A8%E4%B8%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="toc-text">集线器与交换机</span></a></li></ol></li></ol></li></ol></li></ol>
+        </li>
+    </ul>
+    
+
     
     
     

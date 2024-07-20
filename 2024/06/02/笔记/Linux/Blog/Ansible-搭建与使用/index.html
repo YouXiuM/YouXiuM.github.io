@@ -1,0 +1,761 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Ansible-搭建与使用 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>Ansible-搭建与使用</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-Blog/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - Blog
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #03a9f4">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Blog/" style="color: #ffa2c4">
+                    Blog
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="部署ansible"><a href="#部署ansible" class="headerlink" title="部署ansible"></a>部署ansible</h1><h2 id="2-1构建ansible清单"><a href="#2-1构建ansible清单" class="headerlink" title="2.1构建ansible清单"></a>2.1构建ansible清单</h2><p>主机清单：&#x2F;etc&#x2F;ansible&#x2F;hosts 系统的默认静态清单文件，通常不使用该文件</p>
+<p><img src="/../../../../images/clip_image002-17173099547301.jpg" alt="img"></p>
+<p>注意：</p>
+<p>ungrouped主机组含有清单中明确列出，但不属于任何 其他组的每一个主机</p>
+<p>all主机组含有清单中明确列出的每一个主机</p>
+<p>localhost不在清单文件中，但仍然生效，是自带的</p>
+<p>验证清单：</p>
+<p>ansible 172.16.16.250 –list-hosts 验证172.16.16.250是否在主机清单中</p>
+<h2 id="2-2管理ansible配置文件"><a href="#2-2管理ansible配置文件" class="headerlink" title="2.2管理ansible配置文件"></a>2.2管理ansible配置文件</h2><p>配置文件位置（优先级:从上到下优先级越高）：</p>
+<p>1、&#x2F;etc&#x2F;ansible&#x2F;ansible.cfg</p>
+<p>2、~&#x2F;.ansible.cfg</p>
+<p>3、.&#x2F;ansible.cfg</p>
+<p>~&#x2F;.ansible.cfg和.&#x2F;ansible.cfg，如果该两个文件不存在，默认使用&#x2F;etc&#x2F;ansible&#x2F;ansible.cfg</p>
+<p><img src="/../../../../images/clip_image004-17173099547315.jpg" alt="img"></p>
+<p>典型ansible.cfg文件：</p>
+<p>[defaults]</p>
+<p>inventory &#x3D; .&#x2F;inventory #指定清单</p>
+<p>remote_user &#x3D; user­_01</p>
+<p>ask_pass &#x3D; false</p>
+<p>[privilege_escalation]</p>
+<p>become &#x3D; true</p>
+<p>become_method &#x3D; sudo</p>
+<p>become_user &#x3D; root</p>
+<p>become_askpass &#x3D; false</p>
+<p><img src="/../../../../images/clip_image006-17173099547312.jpg" alt="img"></p>
+<p>remote_user &#x3D; user­_01,通过ansible登录其他主机时，是用user_01登录，受管主机必须要有user_01这个用户</p>
+<p>受管主机条件：</p>
+<p>1、    受管主机必须要有user_01这个用户</p>
+<p>2、    确保该用户sudo免密</p>
+<p>3、    确保ssh免密(生成ssh-keygen,再上传ssh-copy-id等等)</p>
+<h2 id="2-3使用临时命令-完整流程"><a href="#2-3使用临时命令-完整流程" class="headerlink" title="2.3使用临时命令(完整流程)"></a>2.3使用临时命令(完整流程)</h2><p>普通用户(student)</p>
+<p>1、 创建ansible的工作目录</p>
+<p>mkdir -p &#x2F;home&#x2F;student&#x2F;ansible</p>
+<p>2、 生成配置文件</p>
+<p><img src="/../../../../images/clip_image008-17173099547313.jpg" alt="img"></p>
+<p>cd &#x2F;home&#x2F;student&#x2F;ansible</p>
+<p>ansible-config init –disabled &gt; ansible.cfg #可以手动创建</p>
+<p><img src="/../../../../images/clip_image010-17173099547314.jpg" alt="img"></p>
+<p>3、 创建主机清单</p>
+<p><img src="/../../../../images/clip_image012-17173099547316.jpg" alt="img"></p>
+<p>4、 执行临时命令</p>
+<p><img src="/../../../../images/clip_image014-17173099547318.jpg" alt="img"></p>
+<p>5、 排错</p>
+<p>尝试 ssh登录远程主机</p>
+<p><img src="/../../../../images/clip_image016-17173099547317.jpg" alt="img"></p>
+<p>发现要输入密码，则需要做免密操作</p>
+<p>\1.  生成密钥</p>
+<p><img src="/../../../../images/clip_image018-17173099547319.jpg" alt="img"></p>
+<p>\2.  上传公钥</p>
+<p><img src="/../../../../images/clip_image020-171730995473110.jpg" alt="img"></p>
+<p>6、 再次执行临时命令</p>
+<p><img src="/../../../../images/clip_image022-171730995473111.jpg" alt="img"></p>
+<p>发现远程主机的用户，没有提权操作没有做好。</p>
+<p><img src="/../../../../images/clip_image024-171730995473112.jpg" alt="img"></p>
+<p>7、 再次执行临时操作</p>
+<p><img src="/../../../../images/clip_image026-171730995473113.jpg" alt="img"></p>
+<p>注意：如果一直报错，尝试ssh登录，发现一直要密码，上传公钥也没有时，有可能是当时生成密钥带有密码保护。</p>
+<p><img src="/../../../../images/clip_image028-171730995473114.jpg" alt="img"></p>
+<p>1、    首先把密钥文件都删除</p>
+<p>rm -f ~&#x2F;.ssh&#x2F;*</p>
+<p>2、    生成密钥</p>
+<p>ssh-keygen -t rsa</p>
+<p>3、    先把远程的~&#x2F;.ssh&#x2F;authorized_keys删除,再上传公钥</p>
+<p>rm -f ~&#x2F;.ssh&#x2F;authorized_keys #受管主机</p>
+<p>ssh-copy-id student@IP&#x2F;域名 #控制节点</p>
+<p>-————————————————————–</p>
+<p>提权操作</p>
+<p><img src="/../../../../images/clip_image030-171730995473115.jpg" alt="img"></p>
+<p>因为提权（become_user）</p>
+<p><img src="/../../../../images/clip_image032-171730995473116.jpg" alt="img"></p>
+<p>为什么同样的操作，而颜色为什么不同？</p>
+<p><img src="/../../../../images/clip_image034-171730995473117.jpg" alt="img"></p>
+<p>因为幂等性，先会检查文件，servera没有做任何改动(她的该目录已经有123.txt的文件且里面的内容是ansible123456)，其他主机则改动了(CHANGED)</p>
+<p>Playbook的格式转译为临时命令</p>
+<p>查看file模板的详细信息(ansible-doc file)</p>
+<p><img src="/../../../../images/clip_image036-171730995473118.jpg" alt="img"></p>
+<p>- name: Recursively remove directory</p>
+<p> ansible.builtin.file:</p>
+<p> path: &#x2F;etc&#x2F;foo</p>
+<p> state: absent #消失</p>
+<p>转译为临时命令</p>
+<p>ansible servera -m file -a “path&#x3D;&#x2F;home&#x2F;student&#x2F;test.txt state &#x3D; absent”</p>
+<p><img src="/../../../../images/clip_image038-171730995473119.jpg" alt="img"></p>
+<p>append(附加选项):yes表示确保用户添加到指定的用户组中，不会影响原有的组的成员身份</p>
+<p>转译为临时命令</p>
+<p>ansible severa -m user -a “name&#x3D;user_01 shell&#x3D;&#x2F;bin&#x2F;bash groups&#x3D;root append&#x3D;yes</p>
+<p>假设user_01存在，且GID为1001,现在groups&#x3D;root，则会添加附加组</p>
+<p>command模块和shell模块的区别：</p>
+<p>shell模块能够访问受控主机的环境变量,支持管道,通配符,重定向等</p>
+<p>command模块不能够访问受控主机的环境变量</p>
+<p>命令行参数</p>
+<p><img src="/../../../../images/clip_image040-171730995473120.jpg" alt="img"></p>
+<p>这些参数作用：不使用ansible.cfg里的配置，只是临时测试用，本次任务生效</p>
+<p>例如：</p>
+<p><img src="/../../../../images/clip_image042-171730995473121.jpg" alt="img"></p>
+<h1 id="实施playbook"><a href="#实施playbook" class="headerlink" title="实施playbook"></a>实施playbook</h1><h2 id="3-1编写和运行playbook"><a href="#3-1编写和运行playbook" class="headerlink" title="3.1编写和运行playbook"></a>3.1编写和运行playbook</h2><p>playbook格式：</p>
+<p>—开头</p>
+<p>- name: 这个第1个play的名字</p>
+<p>hosts: all 这个play执行的对象是谁</p>
+<p> tasks: 定义任务</p>
+<p>​    - name: 任务1的名字</p>
+<p>​     user: 任务1的模块</p>
+<p>​       name:模块里的参数</p>
+<p>​       uid: 模块里的参数</p>
+<p>​       state:模块里的参数</p>
+<p>​    -name: 任务2的名字</p>
+<p>​     file: 任务1的模块</p>
+<p>​       name: 模块里的参数</p>
+<p>​       uid: 模块里的参数</p>
+<p>​       state: 模块里的参数</p>
+<p>­­­­­­playbook缩进量建议要求</p>
+<p>play是要顶格</p>
+<p>一个play里，可以定义多个任务</p>
+<p>每个级别之间使用相同的空格数。</p>
+<p>比如一级目录，顶格，比如play的名字</p>
+<p>二级目录，2个空格，比如hosts，tasks</p>
+<p>三级目录，人物的名字，再加2个空格</p>
+<p>四级目录，比如 模块的名字，file，2个空格</p>
+<p>五级目录，模块里的参数，比如 state，2个空格</p>
+<p>设置vi文本编辑器, 在$HOME&#x2F;.vimrc文件中添加下面这行后，如果vim&#x2F;vi检测到编辑YAML文件，它将在Tab键按下时执行一个双空格缩进，并自动缩进后续行</p>
+<p>autocmd FileType yaml setlocal ai ts&#x3D;2 sw&#x3D;2 et</p>
+<p>语法检验：–syntax-checl，只会检测语法、关键字是否正确，缩进量是否正确，但对其值对与否并不会检测出来。</p>
+<p>执行空运行：对playbook执行空运行时对远程主机没有做任何改变。</p>
+<p><img src="/../../../../images/clip_image044-171730995473123.jpg" alt="img"></p>
+<p>注意：有些-c选项也检测不出，需要真正执行一次才知道，例如：磁盘空间问题</p>
+<h2 id="3-2实施多个play"><a href="#3-2实施多个play" class="headerlink" title="3.2实施多个play"></a>3.2实施多个play</h2><p><img src="/../../../../images/clip_image046-171730995473124.jpg" alt="img"></p>
+<p>可以指定在某个play单独指定用户执行</p>
+<p>在play中，添加：remote_user: user_01</p>
+<p>提权也是一样操作, become_user: root，提权到root</p>
+<p>前提条件：</p>
+<p>1、受管主机必须要有user_01这个用户</p>
+<p>2、确保该用户sudo免密</p>
+<p>3、确保ssh免密(生成ssh-keygen,再上传ssh-copy-id等等)</p>
+<p>安装多个软件(启动服务也类似)</p>
+<p><img src="/../../../../images/clip_image048-171730995473122.jpg" alt="img"></p>
+<p>关于ansible-doc的描述</p>
+<p>ansible-doc win-environment</p>
+<p><img src="/../../../../images/clip_image050-171730995473125.jpg" alt="img"></p>
+<p>status字段记录模块的开发状态：</p>
+<p><img src="/../../../../images/clip_image052-171730995473126.jpg" alt="img"></p>
+<p>supported_by字段记录上游Ansible社区中维护模块的人.可能的值包括：</p>
+<p><img src="/../../../../images/clip_image054-171730995473127.jpg" alt="img"></p>
+<p>幂等性和非幂等性</p>
+<p><img src="/../../../../images/clip_image056-171730995473128.jpg" alt="img"> <img src="/../../../../images/clip_image058-171730995473129.jpg" alt="img"></p>
+<p>yml文件字符串：</p>
+<p>竖线(|)：保留字符串为多行</p>
+<p><img src="/../../../../images/clip_image060-171730995473130.jpg" alt="img"></p>
+<p>大于号(&gt;)：换行字符转换成空格合成一行，在一行输出</p>
+<p><img src="/../../../../images/clip_image062-171730995473131.jpg" alt="img"></p>
+<p>YAML字典</p>
+<p><img src="/../../../../images/clip_image064-171730995473132.jpg" alt="img"></p>
+<p>YAML列表</p>
+<p><img src="/../../../../images/clip_image066-171730995473133.jpg" alt="img"></p>
+<h1 id="编写playbook使用变量"><a href="#编写playbook使用变量" class="headerlink" title="编写playbook使用变量"></a>编写playbook使用变量</h1><h2 id="管理变量"><a href="#管理变量" class="headerlink" title="管理变量"></a>管理变量</h2><p>变量的命名规则</p>
+<p>变量的名字只能包含_、字⺟、数字，且变量名的⾸位不能是数字。</p>
+<p><img src="/../../../../images/clip_image068-171730995473134.jpg" alt="img"></p>
+<p>定义变量(建议选择全局唯⼀的变量名称)</p>
+<p>Ansible 中，可在多个位置定义变量，但不同位置具有不同的优先级 下表显⽰了定义变量的⽅法，按优先级从低到⾼排列:</p>
+<p>在清单中定义的组变量 </p>
+<p>在清单或 playbook 所在⽬录的 group_vars ⼦⽬录中定义的组变量</p>
+<p>在清单中定义的主机变量 </p>
+<p>在清单或 playbook 所在⽬录的 host_vars ⼦⽬录中定义的主机变量</p>
+<p>在运⾏时中发现的主机事实</p>
+<p>playbook 中的 play 变量（vars 和 vars_files） </p>
+<p>任务变量 </p>
+<p>在命令⾏中定义的额外变量，使⽤ –extra-vars 或 -e 选项定义</p>
+<h3 id="在主机清单中定义变量"><a href="#在主机清单中定义变量" class="headerlink" title="在主机清单中定义变量"></a>在主机清单中定义变量</h3><p>主机变量（它的⽣效范围只是指定的主机），组变量（只会对该组的主机⽣效）。</p>
+<p><img src="/../../../../images/clip_image070-171730995473135.jpg" alt="img"></p>
+<p>#在主机清单里面定义主机变量</p>
+<p><img src="/../../../../images/clip_image072-171730995473238.jpg" alt="img"></p>
+<p>#在主机清单里面定义主机组变量</p>
+<p><img src="/../../../../images/clip_image074-171730995473237.jpg" alt="img"></p>
+<h3 id="在playbook⾥⾯定义变量"><a href="#在playbook⾥⾯定义变量" class="headerlink" title="在playbook⾥⾯定义变量"></a>在playbook⾥⾯定义变量</h3><p>#在playbook里面通过关键字vars定义play的变量</p>
+<p><img src="/../../../../images/clip_image076-171730995473136.jpg" alt="img"></p>
+<p>#在playbook里面引入外部的变量文件内定义的变量(必须是YAML文件)</p>
+<p><img src="/../../../../images/clip_image078-171730995473239.jpg" alt="img"></p>
+<h3 id="创建host-vars-主机变量-和group-vars（主机组变量）"><a href="#创建host-vars-主机变量-和group-vars（主机组变量）" class="headerlink" title="创建host_vars(主机变量)和group_vars（主机组变量）"></a>创建host_vars(主机变量)和group_vars（主机组变量）</h3><p>在 host_vars 目录中为每个主机创建一个 YAML 文件，文件名与主机名匹配。</p>
+<p><img src="/../../../../images/clip_image080-171730995473240.jpg" alt="img"></p>
+<p>在 group_vars 目录中为每个主机组创建一个 YAML 文件，文件名与主机组名匹配。</p>
+<p><img src="/../../../../images/clip_image082-171730995473241.jpg" alt="img"></p>
+<h3 id="在命令⾏传⼊变量"><a href="#在命令⾏传⼊变量" class="headerlink" title="在命令⾏传⼊变量"></a>在命令⾏传⼊变量</h3><p><img src="/../../../../images/clip_image084-171730995473242.jpg" alt="img"></p>
+<h3 id="注册变量"><a href="#注册变量" class="headerlink" title="注册变量"></a>注册变量</h3><p>它的作⽤是将上⼀个模块执⾏的结果，收集到⼀个⾃定变量⾥，可以使⽤这个变量做下⼀个任务的条件判断</p>
+<p>测试剧本</p>
+<p><img src="/../../../../images/clip_image086-171730995473243.jpg" alt="img"></p>
+<p>通过register关键字，定义了一个注册变量users收 集user模块执行的结果，这个关键字要与模块名的缩进相同。</p>
+<p>输出结果</p>
+<p><img src="/../../../../images/clip_image088-171730995473244.jpg" alt="img"></p>
+<h3 id="字典用作变量"><a href="#字典用作变量" class="headerlink" title="字典用作变量"></a>字典用作变量</h3><p>#变量的文件</p>
+<p><img src="/../../../../images/clip_image090-171730995473246.jpg" alt="img"></p>
+<p>#测试剧本，写法一</p>
+<p><img src="/../../../../images/clip_image092-171730995473245.jpg" alt="img"></p>
+<p>#写法二</p>
+<p><img src="/../../../../images/clip_image094-171730995473247.jpg" alt="img"></p>
+<p>debug模块的msg参数和var参数的区别</p>
+<p>msg参数: </p>
+<p>msg 参数用于输出一条静态的文本消息。</p>
+<p>通常用于输出一些简单的信息或者调试消息，不涉及变量的使用</p>
+<p><img src="/../../../../images/clip_image096-171730995473248.jpg" alt="img"></p>
+<p>var参数:</p>
+<p>vars 参数用于输出变量的值。</p>
+<p>通常用于输出某个变量的值，以便在调试时检查变量的内容。</p>
+<p><img src="/../../../../images/clip_image098-171730995473249.jpg" alt="img"></p>
+<p>msg也可以输出变量的值，但是需要和var结合使用</p>
+<p><img src="/../../../../images/clip_image100-171730995473250.jpg" alt="img"></p>
+<h3 id="读取变量的值"><a href="#读取变量的值" class="headerlink" title="读取变量的值"></a>读取变量的值</h3><p>#使用”“格式读取变量的值</p>
+<p><img src="/../../../../images/clip_image102-171730995473251.jpg" alt="img"></p>
+<h2 id="管理事实（facts）"><a href="#管理事实（facts）" class="headerlink" title="管理事实（facts）"></a>管理事实（facts）</h2><h3 id="ansible-的-facts"><a href="#ansible-的-facts" class="headerlink" title="ansible 的 facts"></a>ansible 的 facts</h3><p>Ansible 事实是 Ansible 从受管主机⾃动探查到的变量 </p>
+<p>事实由 ansible.builtin.setup 模块调取，其中包含的信息存储到可重复使⽤的变量中</p>
+<p>甚⾄可以创建⾃定义事实，这些事实存储在受管主机上并且对于该系统来说是唯⼀的</p>
+<p>Ansible 事实可以成为 playbook 的⼀部分。例如： </p>
+<p>可以根据当前内核版本来重新启动服务器 </p>
+<p>可以根据可⽤的内存来⾃定义 MySQL 配置⽂件 </p>
+<p>可以根据主机名称来创建⽤⼾ </p>
+<p>对Ansible 事实的利⽤⼏乎不存在任何限制借助 </p>
+<p>Ansible 事实,可以⽅便地检索受管节点的状态,并根据其状态决定要执⾏的操作 </p>
+<p>事实提供如下相关的信息：主机名称、内核版本、⽹络接⼝、IP 地址、操作系统版本、 各种环境变量、CPU 数量、提供的或可⽤的内存、可⽤磁盘空间</p>
+<p>输出以 JSON 格式返回，每个值存储在⼀个 Python 字典中。管理员⽽后可以浏览字典来检索特定的值 </p>
+<p>通常每个 play 的第⼀个 task 运⾏前都会⾃动运⾏ setup 模块，以收集事实（在 play 中 不需要特地写 setup task）</p>
+<p>下表显⽰了从受管节点收集的、可以在 playbook 中使⽤的⼀些事实：</p>
+<p><img src="/../../../../images/clip_image104.jpg" alt="img"></p>
+<p>收集受管主机相关事实(只需要记住关键字，就能模糊搜索事实)</p>
+<p><img src="/../../../../images/clip_image106.png" alt="img"></p>
+<p>方法一</p>
+<p><img src="/../../../../images/clip_image108.jpg" alt="img"></p>
+<p>方法二</p>
+<p><img src="/../../../../images/clip_image110-171730995473252.jpg" alt="img"></p>
+<p>#fqdn相关的事实</p>
+<p><img src="/../../../../images/clip_image112.png" alt="img"></p>
+<p>#磁盘相关的事实</p>
+<p>[student@workstation ansible]$ ansible group1 -m setup -a ‘filter&#x3D;<em>device</em>‘ servera | SUCCESS &#x3D;&gt; { </p>
+<p>“ansible_facts”: { </p>
+<p>[student@workstation ansible]$ cat fact.yml </p>
+<p>-– </p>
+<p>- name: test fact variables </p>
+<p>hosts: group1 </p>
+<p>tasks: </p>
+<p>- name: test fact variables </p>
+<p>ansible.builtin.debug: </p>
+<p>msg: ““</p>
+<p><img src="/../../../../images/clip_image114.png" alt="img"></p>
+<p>#bios版本相关的事实变量名</p>
+<p><img src="/../../../../images/clip_image116-171730995473253.jpg" alt="img"></p>
+<h3 id="关闭事实收集"><a href="#关闭事实收集" class="headerlink" title="关闭事实收集"></a>关闭事实收集</h3><p>为了加快 playbook 的运⾏速度，或受控节点不⽀持 setup 模块，可将事实收集功能关闭</p>
+<p><img src="/../../../../images/clip_image118-171730995473254.jpg" alt="img"></p>
+<h3 id="创建自定义事实"><a href="#创建自定义事实" class="headerlink" title="创建自定义事实"></a>创建自定义事实</h3><p>管理员可以⾃⾏创建事实，将它们推送到受管节点</p>
+<p>创建后，⾃定义事实将由 ansible.builtin.setup 模块集成和读取 </p>
+<p>⾃定义事实可⽤于 </p>
+<p>基于⾃定义脚本定义系统的特定值 </p>
+<p>基于程序执⾏定义值 </p>
+<p>如果⾃定义事实⽂件保存在 &#x2F;etc&#x2F;ansible&#x2F;facts.d ⽬录中，Ansible 可以找到该事实 </p>
+<p>⽂件的扩展名必须为 .fact，采⽤ INI 或 JSON 格式的纯⽂本⽂件 </p>
+<p>在 INI 事实⽂件中，⾸先是定义事实的顶级分类例如：[packages]，后跟欲定义事实的键 值对：</p>
+<p><img src="/../../../../images/clip_image120-171730995473255.jpg" alt="img"></p>
+<p>如果以 JSON 格式提供，则需要使⽤下列语法:</p>
+<p><img src="/../../../../images/clip_image122-171730995473256.jpg" alt="img"></p>
+<p>#自定义事实变量</p>
+<p><img src="/../../../../images/clip_image124.jpg" alt="img"></p>
+<p>#读取本机自定义事实变量（变量：ansible_local）</p>
+<p><img src="/../../../../images/clip_image126.jpg" alt="img"></p>
+<p>#读取远程主机自定义事实变量</p>
+<p>ansible_local是特殊的ansible变量，用于存储主机上的自定义事实信息</p>
+<p>hostvars变量允许你访问远程主机的变量信息，包括 自定义信息</p>
+<h3 id="Magic-Variables-魔法变量"><a href="#Magic-Variables-魔法变量" class="headerlink" title="Magic Variables 魔法变量"></a>Magic Variables 魔法变量</h3><p>⼀些变量并⾮是 ansible.buildin.setup 模块采集的事实或配置信息，但是很有⽤，仍可 以被ansible 使⽤，成为 magic variables</p>
+<p>有 4 种常⽤类型</p>
+<p>hostvars：列出受管主机的⾮事实变量</p>
+<p>group_names：列出受管主机所属的所有组</p>
+<p>groups：列出所有 inventory 中的 groups 和 hosts</p>
+<p>inventory_hostname：列出当前受管主机在 inventory 中定义的主机名，可能和 事实变量不同</p>
+<p>hostvars</p>
+<p><img src="/../../../../images/clip_image128.jpg" alt="img"></p>
+<p>group_names</p>
+<p><img src="/../../../../images/clip_image130.jpg" alt="img"></p>
+<p>groups</p>
+<p><img src="/../../../../images/clip_image132.jpg" alt="img"></p>
+<p>inventory_hostname</p>
+<p><img src="/../../../../images/clip_image134-171730995473257.jpg" alt="img"></p>
+<h2 id="管理秘密"><a href="#管理秘密" class="headerlink" title="管理秘密"></a>管理秘密</h2><h3 id="管理秘密-1"><a href="#管理秘密-1" class="headerlink" title="管理秘密"></a>管理秘密</h3><p>Ansible Vault</p>
+<p><img src="/../../../../images/clip_image136.jpg" alt="img"></p>
+<h3 id="创建加密的文件"><a href="#创建加密的文件" class="headerlink" title="创建加密的文件"></a>创建加密的文件</h3><p><img src="/../../../../images/clip_image138.jpg" alt="img"></p>
+<p>#交互式的创建加密文件</p>
+<p><img src="/../../../../images/clip_image140.jpg" alt="img"></p>
+<p>#非交互式的方式：</p>
+<p><img src="/../../../../images/clip_image142.jpg" alt="img"></p>
+<p>查看加密的⽂件</p>
+<p>Ansible Vault 使⽤ ansible-vault view filename 命令查看加密的⽂件，⽽不必打开它进⾏编辑</p>
+<p><img src="/../../../../images/clip_image144.jpg" alt="img"></p>
+<p>编辑现有的加密⽂件</p>
+<p>要编辑现有的加密⽂件，Ansible Vault 提供了 ansible-vault edit filename 命令</p>
+<p>此命令将⽂件解密为⼀个临时⽂件，并允许⽤⼾编辑该⽂件。保存时，它将复制其内容并 删除临时⽂件</p>
+<p>注意：edit ⼦命令会改写⽂件，因此仅可在进⾏更改时使⽤它。若要查看⽂件的内容⽽不进⾏更改，始终应使⽤ view ⼦命令</p>
+<p><img src="/../../../../images/clip_image146.jpg" alt="img"></p>
+<h3 id="加密现有的⽂件"><a href="#加密现有的⽂件" class="headerlink" title="加密现有的⽂件"></a>加密现有的⽂件</h3><p>要加密已存在的⽂件，使⽤ ansible-vault encrypt filename 命令。此命令可取多个欲加 密⽂件的名称作为参数</p>
+<p>使⽤ –output&#x3D;OUTPUT_FILE 选项，可将加密⽂件保存为新的名称。最多只能将⼀个输⼊⽂件⽤于 –output 选项</p>
+<p><img src="/../../../../images/clip_image148.jpg" alt="img"></p>
+<h3 id="解密现有的⽂件"><a href="#解密现有的⽂件" class="headerlink" title="解密现有的⽂件"></a>解密现有的⽂件</h3><p>已存在的加密⽂件可以通过 ansible-vault decrypt filename 命令永久解密</p>
+<p>在解密单个⽂件时，可使⽤ –output 选项以其他名称保存解密的⽂件</p>
+<p><img src="/../../../../images/clip_image150.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image152.jpg" alt="img"></p>
+<h3 id="更改加密⽂件的密码"><a href="#更改加密⽂件的密码" class="headerlink" title="更改加密⽂件的密码"></a>更改加密⽂件的密码</h3><p>可以使⽤命令 ansible-vault rekey filename 更改 vault 密码</p>
+<p>此命令可⼀次性更新多个数据⽂件的密钥。它将要求提供原始密码和新密码</p>
+<p>在使⽤ vault 密码⽂件时，使⽤ –new-vault-password-file 选项</p>
+<p><img src="/../../../../images/clip_image154.jpg" alt="img"></p>
+<h3 id="Playbook-和-Ansible-Vault"><a href="#Playbook-和-Ansible-Vault" class="headerlink" title="Playbook 和 Ansible Vault"></a>Playbook 和 Ansible Vault</h3><p>为了运⾏可访问通过 Ansible Vault 加密的⽂件的 playbook，需要向 ansible-playbook 命令提供其加密密码。如果运⾏命令时没有这么做，它将返回错误</p>
+<p><img src="/../../../../images/clip_image156.jpg" alt="img"></p>
+<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><h2 id="使⽤-loop-构建循环"><a href="#使⽤-loop-构建循环" class="headerlink" title="使⽤ loop 构建循环"></a>使⽤ loop 构建循环</h2><p>循环使管理员不必编写相同的多个任务</p>
+<p>Ansible ⽀持使⽤ loop 关键字在⼀组项上迭代任务</p>
+<p>#打印数字1 2 3 4</p>
+<p><img src="/../../../../images/clip_image158.jpg" alt="img"></p>
+<h3 id="循环字典列表"><a href="#循环字典列表" class="headerlink" title="循环字典列表"></a>循环字典列表</h3><p>循环列表不⼀定是简单值列表</p>
+<p>loop 遍历数字列表，而 item 则代表每次迭代中的当前值</p>
+<p><img src="/../../../../images/clip_image160.jpg" alt="img"> </p>
+<p>结果</p>
+<p><img src="/../../../../images/clip_image162.jpg" alt="img"></p>
+<h3 id="在循环中使⽤-register-变量"><a href="#在循环中使⽤-register-变量" class="headerlink" title="在循环中使⽤ register 变量"></a>在循环中使⽤ register 变量</h3><p>可将 register 关键字⽤于输出循环的结果</p>
+<p><img src="/../../../../images/clip_image164.jpg" alt="img"></p>
+<h2 id="有条件地运⾏任务"><a href="#有条件地运⾏任务" class="headerlink" title="有条件地运⾏任务"></a>有条件地运⾏任务</h2><p><img src="/../../../../images/clip_image166.jpg" alt="img"></p>
+<p>条件任务语法</p>
+<p><img src="/../../../../images/clip_image168.jpg" alt="img"></p>
+<p>下表显⽰⼀些条件判断运算符</p>
+<p><img src="/../../../../images/clip_image170.jpg" alt="img"></p>
+<p>注意：⽤于测试条件中相等的 &#x3D;&#x3D; 运算符不可与变量赋值的 &#x3D; 运算符混淆</p>
+<p>注意：when 表达式不属于模块，必须放在模块外部</p>
+<p><img src="/../../../../images/clip_image172.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image174.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image176.jpg" alt="img"></p>
+<h2 id="实施-Handler-任务"><a href="#实施-Handler-任务" class="headerlink" title="实施 Handler 任务"></a>实施 Handler 任务</h2><p>Ansible 的 handlers 程序</p>
+<p><img src="/../../../../images/clip_image178.jpg" alt="img"></p>
+<p>使⽤ handler 程序的注意事项</p>
+<p><img src="/../../../../images/clip_image180.jpg" alt="img"></p>
+<p>注意：handler 程序设计为仅在任务执⾏时处理操作，它们不应当⽤于取代任务</p>
+<p>#两次notify只会执行一次handler</p>
+<p><img src="/../../../../images/clip_image182.jpg" alt="img"></p>
+<p>一个任务在其notify部分中调用多个处理程序</p>
+<p><img src="/../../../../images/clip_image184.png" alt="img"></p>
+<h2 id="处理任务错误"><a href="#处理任务错误" class="headerlink" title="处理任务错误"></a>处理任务错误</h2><p>管理 play 中的任务错误</p>
+<p><img src="/../../../../images/clip_image186.jpg" alt="img"></p>
+<p>忽略失败的任务 Ignore the failed task</p>
+<p><img src="/../../../../images/clip_image188.jpg" alt="img"></p>
+<p>Playbook</p>
+<p><img src="/../../../../images/clip_image190.jpg" alt="img"></p>
+<p>执行结果</p>
+<p><img src="/../../../../images/clip_image192.jpg" alt="img"></p>
+<h2 id="强制执⾏处理程序-Force-execution-of-handlers"><a href="#强制执⾏处理程序-Force-execution-of-handlers" class="headerlink" title="强制执⾏处理程序 Force execution of handlers"></a>强制执⾏处理程序 Force execution of handlers</h2><p><img src="/../../../../images/clip_image194.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image196.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image198.jpg" alt="img"></p>
+<h2 id="覆盖-failed-状态"><a href="#覆盖-failed-状态" class="headerlink" title="覆盖 failed 状态"></a>覆盖 failed 状态</h2><p><img src="/../../../../images/clip_image200.jpg" alt="img"></p>
+<p>标准输出 (stdout): 这是命令正常执行时产生的输出。比如，你运行 ls 命令列出文件，输出的文件列表就是标准输出。</p>
+<p>标准错误 (stderr): 如果命令执行出现了问题，错误消息通常会被发送到标准错误。例如，如果你运行 ls xxx，其中的 “xxx” 文件夹不存在，错误消息会被发送到标准错误流中</p>
+<p>faild_when，能够指定错误，强制任务失败</p>
+<p>原始</p>
+<p><img src="/../../../../images/clip_image202.jpg" alt="img"></p>
+<p>加上faild_when语句</p>
+<p><img src="/../../../../images/clip_image204.jpg" alt="img"></p>
+<p>fail语句</p>
+<p><img src="/../../../../images/clip_image206.jpg" alt="img"></p>
+<h2 id="覆盖-changed-状态"><a href="#覆盖-changed-状态" class="headerlink" title="覆盖 changed 状态"></a>覆盖 changed 状态</h2><p><img src="/../../../../images/clip_image208.jpg" alt="img"></p>
+<p>原始结果</p>
+<p><img src="/../../../../images/clip_image210.jpg" alt="img"></p>
+<p>添加changed_when关键字</p>
+<p><img src="/../../../../images/clip_image212.jpg" alt="img"></p>
+<h2 id="Ansible-blocks-和错误处理"><a href="#Ansible-blocks-和错误处理" class="headerlink" title="Ansible blocks 和错误处理"></a>Ansible blocks 和错误处理</h2><p><img src="/../../../../images/clip_image214.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image216.jpg" alt="img"></p>
+<h1 id="管理主机上的⽂件"><a href="#管理主机上的⽂件" class="headerlink" title="管理主机上的⽂件"></a>管理主机上的⽂件</h1><h2 id="描述-files-模块"><a href="#描述-files-模块" class="headerlink" title="描述 files 模块"></a>描述 files 模块</h2><p><img src="/../../../../images/clip_image218.jpg" alt="img"></p>
+<h3 id="file模块："><a href="#file模块：" class="headerlink" title="file模块："></a>file模块：</h3><p>创建⽂件，⽬录，链接，它还可以设置⽂件的selinux,权限属性</p>
+<p>#创建一个文件</p>
+<p><img src="/../../../../images/clip_image220.jpg" alt="img"></p>
+<p>#创建一个目录</p>
+<p><img src="/../../../../images/clip_image222.jpg" alt="img"></p>
+<h3 id="copy模块："><a href="#copy模块：" class="headerlink" title="copy模块："></a>copy模块：</h3><p>⽤来将本地的⽂件拷⻉到远程主机上，和往⽬标⽂件⾥⾯写⼊指定内容，他会在写⼊内容的时候，⽬标⽂件不存在，会创建⽂件覆盖写⼊内容</p>
+<p>#拷贝本地文件到远程主机</p>
+<p><img src="/../../../../images/clip_image224.jpg" alt="img"></p>
+<p>#拷贝内容到文件内部</p>
+<p><img src="/../../../../images/clip_image226.jpg" alt="img"></p>
+<h3 id="fetch模块："><a href="#fetch模块：" class="headerlink" title="fetch模块："></a>fetch模块：</h3><p>拷⻉远程主机上的⽂件到控制节点</p>
+<p><img src="/../../../../images/clip_image228.jpg" alt="img"></p>
+<h3 id="lineinfile模块："><a href="#lineinfile模块：" class="headerlink" title="lineinfile模块："></a>lineinfile模块：</h3><p>向⽂件⾥⾯追加写⼊指定的内容，⽬标⽂件必须存在，如果不存在，它不会⾃动创建，会报错</p>
+<p><img src="/../../../../images/clip_image230.jpg" alt="img"></p>
+<h3 id="blockinfile模块："><a href="#blockinfile模块：" class="headerlink" title="blockinfile模块："></a>blockinfile模块：</h3><p>将⽂本内容以⽂本块的⽅式写⼊到⽬标⽂件⾥⾯，与lineinfile⼀样，⽬标⽂件不存在，会报错</p>
+<p><img src="/../../../../images/clip_image232.jpg" alt="img"></p>
+<h3 id="jinja2模板"><a href="#jinja2模板" class="headerlink" title="jinja2模板"></a>jinja2模板</h3><p>使⽤ Jinja2 模板部署⾃定义⽂件</p>
+<p><img src="/../../../../images/clip_image234.jpg" alt="img"></p>
+<p>jinja2的分隔符：</p>
+<p><img src="/../../../../images/clip_image236.jpg" alt="img"></p>
+<p>部署模板使⽤ansible.builtin.template模块调⽤模板。</p>
+<p>#创建模板文件</p>
+<p><img src="/../../../../images/clip_image238.jpg" alt="img"></p>
+<p>#在playbook里面调用模板</p>
+<p><img src="/../../../../images/clip_image240.jpg" alt="img"></p>
+<p>#执行剧本，验证执行结果</p>
+<p><img src="/../../../../images/clip_image242.jpg" alt="img"></p>
+<h2 id="控制结构"><a href="#控制结构" class="headerlink" title="控制结构"></a>控制结构</h2><p>可以在模板⽂件中使⽤ Jinja2 控制结构，以减少重复键⼊，为play 中的每个主机动态输⼊条⽬， 或者有条件地将⽂本插⼊到⽂件中</p>
+<h2 id="使⽤循环"><a href="#使⽤循环" class="headerlink" title="使⽤循环"></a>使⽤循环</h2><p>Jinja2 使⽤ for 语句来提供循环功能。下例中，users 变量具有值列表。user 变量替换为 users 变量中的所有值，⼀⾏⼀个值</p>
+<p><img src="/../../../../images/clip_image244.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image246.jpg" alt="img"></p>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>它可以对模板的内容做⼀个格式化输出的操作</p>
+<p><img src="/../../../../images/clip_image248.jpg" alt="img"></p>
+<p>#默认变量过滤器default：默认情况下，当模板⾥⾯使⽤的变量不存在，会导致任务执⾏ 失败，后续的任务也会被影响，可以使⽤默认的变量过滤器指定⼀个默认值，当模板内的 变量不存在的时候，他会输出默认的内容替代变量的值，避免他会导致的语法错误。</p>
+<p><img src="/../../../../images/clip_image250.jpg" alt="img"></p>
+<h1 id="编写⼤型项⽬的playbook"><a href="#编写⼤型项⽬的playbook" class="headerlink" title="编写⼤型项⽬的playbook"></a>编写⼤型项⽬的playbook</h1><h2 id="主机清单"><a href="#主机清单" class="headerlink" title="主机清单"></a>主机清单</h2><p>静态的主机清单</p>
+<p>动态的主机清单（清单⽂件本⾝具有可执⾏性，可以结合其他的资产管理或者监控系统⾃动的获取受管主机）</p>
+<h2 id="配置主机清单"><a href="#配置主机清单" class="headerlink" title="配置主机清单"></a>配置主机清单</h2><p>注定准确的⽂件（在这个⽂件内的主机才会被管理）</p>
+<p><img src="/../../../../images/clip_image252.jpg" alt="img"></p>
+<p>#指定⼀个⽬录（只要在这个⽬录下存在的⽂件都会被认为是主机清单⽂件）</p>
+<p>主机清单还可以在执⾏剧本或者临时命令的时候通过命令⾏指定主机清单</p>
+<h2 id="主机清单内容的组成"><a href="#主机清单内容的组成" class="headerlink" title="主机清单内容的组成"></a>主机清单内容的组成</h2><p><img src="/../../../../images/clip_image254.jpg" alt="img"></p>
+<h2 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h2><p>* &#x2F;&#x2F;表示所有的清单内的主机</p>
+<p><img src="/../../../../images/clip_image256.jpg" alt="img"></p>
+<p>#列表使用，（逗号）分割组名</p>
+<p><img src="/../../../../images/clip_image258.jpg" alt="img"></p>
+<p>#&amp;逻辑与的关系</p>
+<p><img src="/../../../../images/clip_image260.jpg" alt="img"></p>
+<p>#！逻辑非，排除的意思</p>
+<p><img src="/../../../../images/clip_image262.jpg" alt="img"></p>
+<h2 id="配置并⾏"><a href="#配置并⾏" class="headerlink" title="配置并⾏"></a>配置并⾏</h2><p>使⽤分叉（fork）在 Ansible 中配置并⾏(fork:同时执行任务的数量)</p>
+<p><img src="/../../../../images/clip_image264.jpg" alt="img"><img src="/../../../../images/clip_image266.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image268.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image270.jpg" alt="img"></p>
+<h2 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h2><p><img src="/../../../../images/clip_image272.jpg" alt="img"></p>
+<p>#百分比的书写方式，他会按照主机清单的主机数量*serial指定的百分比，往小取整</p>
+<p><img src="/../../../../images/clip_image274.jpg" alt="img"></p>
+<p>#可以直接指定整数</p>
+<p><img src="/../../../../images/clip_image276.jpg" alt="img"></p>
+<h2 id="包含或导⼊⽂件"><a href="#包含或导⼊⽂件" class="headerlink" title="包含或导⼊⽂件"></a>包含或导⼊⽂件</h2><p>导⼊playbook,使⽤关键字import_palybook:</p>
+<p><img src="/../../../../images/clip_image278.jpg" alt="img"></p>
+<p>导⼊任务，使⽤关键字import_tasks或者include_tasks</p>
+<p>#创建任务列表</p>
+<p><img src="/../../../../images/clip_image280.jpg" alt="img"></p>
+<p># include_tasks</p>
+<p><img src="/../../../../images/clip_image282.jpg" alt="img"></p>
+<p>#import_tasks</p>
+<p><img src="/../../../../images/clip_image284.jpg" alt="img"></p>
+<h1 id="对playbook和受管主机进⾏故障排除"><a href="#对playbook和受管主机进⾏故障排除" class="headerlink" title="对playbook和受管主机进⾏故障排除"></a>对playbook和受管主机进⾏故障排除</h1><h2 id="对-playbook-进⾏故障排除"><a href="#对-playbook-进⾏故障排除" class="headerlink" title="对 playbook 进⾏故障排除"></a>对 playbook 进⾏故障排除</h2><p>显⽰任务执⾏的详细反馈</p>
+<pre><code class="perl">ansible all -m ping -v 
+
+ansible all -m ping -vv 
+
+ansible all -m ping -vvv 
+
+ansible all -m ping -vvvv
+</code></pre>
+<p>使⽤debug模块对变量进⾏检测</p>
+<p><img src="/../../../../images/clip_image286.jpg" alt="img"></p>
+<p>检查playbook中的⼀些错误</p>
+<p><img src="/../../../../images/clip_image288.jpg" alt="img"></p>
+<h2 id="对Ansible受管主机进⾏故障排除"><a href="#对Ansible受管主机进⾏故障排除" class="headerlink" title="对Ansible受管主机进⾏故障排除"></a>对Ansible受管主机进⾏故障排除</h2><h3 id="受管主机⾝份验证问题"><a href="#受管主机⾝份验证问题" class="headerlink" title="受管主机⾝份验证问题"></a>受管主机⾝份验证问题</h3><p><img src="/../../../../images/clip_image290.jpg" alt="img"></p>
+<h3 id="名称或地址解析问题"><a href="#名称或地址解析问题" class="headerlink" title="名称或地址解析问题"></a>名称或地址解析问题</h3><p>在主机清单⾥⾯写的是IP地址，那么调⽤的时候就⽤IP地址，如果是主机名，就⽤主机名 （需要可以DNS解析）</p>
+<p><img src="/../../../../images/clip_image292.jpg" alt="img"></p>
+<h3 id="特权升级问题"><a href="#特权升级问题" class="headerlink" title="特权升级问题"></a>特权升级问题</h3><p><img src="/../../../../images/clip_image294.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image296.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image298.jpg" alt="img"></p>
+<h3 id="将检查模式⽤作测试⼯具"><a href="#将检查模式⽤作测试⼯具" class="headerlink" title="将检查模式⽤作测试⼯具"></a>将检查模式⽤作测试⼯具</h3><p><img src="/../../../../images/clip_image300.jpg" alt="img"> <img src="/../../../../images/clip_image302.jpg" alt="img"></p>
+<h2 id="shell-、command临时命令"><a href="#shell-、command临时命令" class="headerlink" title="shell 、command临时命令"></a>shell 、command临时命令</h2><h3 id="使⽤模块进⾏测试"><a href="#使⽤模块进⾏测试" class="headerlink" title="使⽤模块进⾏测试"></a>使⽤模块进⾏测试</h3><p><img src="/../../../../images/clip_image304.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image306.jpg" alt="img"></p>
+<h1 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h1><h2 id="利⽤⻆⾊构建-Ansible-playbook"><a href="#利⽤⻆⾊构建-Ansible-playbook" class="headerlink" title="利⽤⻆⾊构建 Ansible playbook"></a>利⽤⻆⾊构建 Ansible playbook</h2><p>角色就是模板</p>
+<p>数据中⼼具有许多不同类型的主机。⼀些充当 Web 服务器，另⼀些充当数据库服务器 </p>
+<p>⼀个 Ansible playbook 中如果包含所有任务，随着时间推移将变得硕⼤⽽复杂 Ansible ⻆⾊让管理员可以将 playbook 组织为独⽴、较⼩的 playbook 和⽂件</p>
+<p><img src="/../../../../images/clip_image308.jpg" alt="img"> <img src="/../../../../images/clip_image310.jpg" alt="img"> <img src="/../../../../images/clip_image312.jpg" alt="img"></p>
+<p>#配置角色的路径</p>
+<p>1、    找到原始的ansible.cfg搜索collections_path和roles_path</p>
+<p><img src="/../../../../images/clip_image314.jpg" alt="img"></p>
+<p>2、    添加自定义collections_path和roles_path到自己的ansible.cfg</p>
+<p><img src="/../../../../images/clip_image316.jpg" alt="img"></p>
+<p>3、    在该目录下创建roles和mycollections目录</p>
+<p>#查看角色的目录结构</p>
+<p><img src="/../../../../images/clip_image318.jpg" alt="img"></p>
+<h2 id="在playbook⾥⾯调⽤⻆⾊完成任务"><a href="#在playbook⾥⾯调⽤⻆⾊完成任务" class="headerlink" title="在playbook⾥⾯调⽤⻆⾊完成任务"></a>在playbook⾥⾯调⽤⻆⾊完成任务</h2><p>调用已有的角色完成任务</p>
+<p><img src="/../../../../images/clip_image320.jpg" alt="img"></p>
+<p>#验证角色执行的结果</p>
+<p>ansible all -m shell -a ‘chronyc sources’</p>
+<h2 id="特殊任务部分"><a href="#特殊任务部分" class="headerlink" title="特殊任务部分"></a>特殊任务部分</h2><p><img src="/../../../../images/clip_image322.jpg" alt="img"></p>
+<p>剧本任务</p>
+<p><img src="/../../../../images/clip_image324.jpg" alt="img"></p>
+<p>执行结果</p>
+<p><img src="/../../../../images/clip_image326.jpg" alt="img"></p>
+<h2 id="创建⻆⾊"><a href="#创建⻆⾊" class="headerlink" title="创建⻆⾊"></a>创建⻆⾊</h2><p>创建和使⽤⻆⾊三个步骤</p>
+<pre><code class="perl">1. 创建⻆⾊⽬录结构 
+
+2. 定义⻆⾊内容 
+
+3. 在 playbook 中使⽤⻆⾊
+</code></pre>
+<p>#创建角色的目录</p>
+<p><img src="/../../../../images/clip_image328.jpg" alt="img"></p>
+<p>#定义角色的内容</p>
+<p><img src="/../../../../images/clip_image330.jpg" alt="img"></p>
+<p>#调用自定义的角色</p>
+<p><img src="/../../../../images/clip_image332.jpg" alt="img"></p>
+<h1 id="ansible-navigator安装"><a href="#ansible-navigator安装" class="headerlink" title="ansible-navigator安装"></a>ansible-navigator安装</h1><pre><code class="perl">1、    sudo dnf install python3-pip
+
+2、    python3 -m pip install ansible-navigator –user
+
+3、    echo &#39;export PATH=$HOME/.local/bin:$PATH&#39; &gt;&gt; ~/.profile
+
+4、    source ~/.profile
+
+5、    ansible-navigator
+</code></pre>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/Blog/Ansible-%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2ansible"><span class="toc-text">部署ansible</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E6%9E%84%E5%BB%BAansible%E6%B8%85%E5%8D%95"><span class="toc-text">2.1构建ansible清单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E7%AE%A1%E7%90%86ansible%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">2.2管理ansible配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3%E4%BD%BF%E7%94%A8%E4%B8%B4%E6%97%B6%E5%91%BD%E4%BB%A4-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="toc-text">2.3使用临时命令(完整流程)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%96%BDplaybook"><span class="toc-text">实施playbook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1%E7%BC%96%E5%86%99%E5%92%8C%E8%BF%90%E8%A1%8Cplaybook"><span class="toc-text">3.1编写和运行playbook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2%E5%AE%9E%E6%96%BD%E5%A4%9A%E4%B8%AAplay"><span class="toc-text">3.2实施多个play</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E5%86%99playbook%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F"><span class="toc-text">编写playbook使用变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%8F%98%E9%87%8F"><span class="toc-text">管理变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-text">在主机清单中定义变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8playbook%E2%BE%A5%E2%BE%AF%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-text">在playbook⾥⾯定义变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAhost-vars-%E4%B8%BB%E6%9C%BA%E5%8F%98%E9%87%8F-%E5%92%8Cgroup-vars%EF%BC%88%E4%B8%BB%E6%9C%BA%E7%BB%84%E5%8F%98%E9%87%8F%EF%BC%89"><span class="toc-text">创建host_vars(主机变量)和group_vars（主机组变量）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%91%BD%E4%BB%A4%E2%BE%8F%E4%BC%A0%E2%BC%8A%E5%8F%98%E9%87%8F"><span class="toc-text">在命令⾏传⼊变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%8F%98%E9%87%8F"><span class="toc-text">注册变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8%E7%94%A8%E4%BD%9C%E5%8F%98%E9%87%8F"><span class="toc-text">字典用作变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC"><span class="toc-text">读取变量的值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E4%BA%8B%E5%AE%9E%EF%BC%88facts%EF%BC%89"><span class="toc-text">管理事实（facts）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ansible-%E7%9A%84-facts"><span class="toc-text">ansible 的 facts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E4%BA%8B%E5%AE%9E%E6%94%B6%E9%9B%86"><span class="toc-text">关闭事实收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E5%AE%9E"><span class="toc-text">创建自定义事实</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Magic-Variables-%E9%AD%94%E6%B3%95%E5%8F%98%E9%87%8F"><span class="toc-text">Magic Variables 魔法变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E7%A7%98%E5%AF%86"><span class="toc-text">管理秘密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E7%A7%98%E5%AF%86-1"><span class="toc-text">管理秘密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8A%A0%E5%AF%86%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-text">创建加密的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E7%8E%B0%E6%9C%89%E7%9A%84%E2%BD%82%E4%BB%B6"><span class="toc-text">加密现有的⽂件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%AF%86%E7%8E%B0%E6%9C%89%E7%9A%84%E2%BD%82%E4%BB%B6"><span class="toc-text">解密现有的⽂件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E5%8A%A0%E5%AF%86%E2%BD%82%E4%BB%B6%E7%9A%84%E5%AF%86%E7%A0%81"><span class="toc-text">更改加密⽂件的密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Playbook-%E5%92%8C-Ansible-Vault"><span class="toc-text">Playbook 和 Ansible Vault</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E2%BD%A4-loop-%E6%9E%84%E5%BB%BA%E5%BE%AA%E7%8E%AF"><span class="toc-text">使⽤ loop 构建循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E5%AD%97%E5%85%B8%E5%88%97%E8%A1%A8"><span class="toc-text">循环字典列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%BE%AA%E7%8E%AF%E4%B8%AD%E4%BD%BF%E2%BD%A4-register-%E5%8F%98%E9%87%8F"><span class="toc-text">在循环中使⽤ register 变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E6%9D%A1%E4%BB%B6%E5%9C%B0%E8%BF%90%E2%BE%8F%E4%BB%BB%E5%8A%A1"><span class="toc-text">有条件地运⾏任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%96%BD-Handler-%E4%BB%BB%E5%8A%A1"><span class="toc-text">实施 Handler 任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E4%BB%BB%E5%8A%A1%E9%94%99%E8%AF%AF"><span class="toc-text">处理任务错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E6%89%A7%E2%BE%8F%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F-Force-execution-of-handlers"><span class="toc-text">强制执⾏处理程序 Force execution of handlers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%86%E7%9B%96-failed-%E7%8A%B6%E6%80%81"><span class="toc-text">覆盖 failed 状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%86%E7%9B%96-changed-%E7%8A%B6%E6%80%81"><span class="toc-text">覆盖 changed 状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ansible-blocks-%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">Ansible blocks 和错误处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84%E2%BD%82%E4%BB%B6"><span class="toc-text">管理主机上的⽂件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0-files-%E6%A8%A1%E5%9D%97"><span class="toc-text">描述 files 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#file%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-text">file模块：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#copy%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-text">copy模块：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fetch%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-text">fetch模块：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lineinfile%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-text">lineinfile模块：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#blockinfile%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-text">blockinfile模块：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jinja2%E6%A8%A1%E6%9D%BF"><span class="toc-text">jinja2模板</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84"><span class="toc-text">控制结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E2%BD%A4%E5%BE%AA%E7%8E%AF"><span class="toc-text">使⽤循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">过滤器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E2%BC%A4%E5%9E%8B%E9%A1%B9%E2%BD%AC%E7%9A%84playbook"><span class="toc-text">编写⼤型项⽬的playbook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95"><span class="toc-text">主机清单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95"><span class="toc-text">配置主机清单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95%E5%86%85%E5%AE%B9%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-text">主机清单内容的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-text">通配符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%B9%B6%E2%BE%8F"><span class="toc-text">配置并⾏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="toc-text">滚动更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E5%90%AB%E6%88%96%E5%AF%BC%E2%BC%8A%E2%BD%82%E4%BB%B6"><span class="toc-text">包含或导⼊⽂件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9playbook%E5%92%8C%E5%8F%97%E7%AE%A1%E4%B8%BB%E6%9C%BA%E8%BF%9B%E2%BE%8F%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">对playbook和受管主机进⾏故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9-playbook-%E8%BF%9B%E2%BE%8F%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">对 playbook 进⾏故障排除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9Ansible%E5%8F%97%E7%AE%A1%E4%B8%BB%E6%9C%BA%E8%BF%9B%E2%BE%8F%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-text">对Ansible受管主机进⾏故障排除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%97%E7%AE%A1%E4%B8%BB%E6%9C%BA%E2%BE%9D%E4%BB%BD%E9%AA%8C%E8%AF%81%E9%97%AE%E9%A2%98"><span class="toc-text">受管主机⾝份验证问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8D%E7%A7%B0%E6%88%96%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E9%97%AE%E9%A2%98"><span class="toc-text">名称或地址解析问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%9D%83%E5%8D%87%E7%BA%A7%E9%97%AE%E9%A2%98"><span class="toc-text">特权升级问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E6%A3%80%E6%9F%A5%E6%A8%A1%E5%BC%8F%E2%BD%A4%E4%BD%9C%E6%B5%8B%E8%AF%95%E2%BC%AF%E5%85%B7"><span class="toc-text">将检查模式⽤作测试⼯具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shell-%E3%80%81command%E4%B8%B4%E6%97%B6%E5%91%BD%E4%BB%A4"><span class="toc-text">shell 、command临时命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E2%BD%A4%E6%A8%A1%E5%9D%97%E8%BF%9B%E2%BE%8F%E6%B5%8B%E8%AF%95"><span class="toc-text">使⽤模块进⾏测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%92%E8%89%B2"><span class="toc-text">角色</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E2%BD%A4%E2%BB%86%E2%BE%8A%E6%9E%84%E5%BB%BA-Ansible-playbook"><span class="toc-text">利⽤⻆⾊构建 Ansible playbook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8playbook%E2%BE%A5%E2%BE%AF%E8%B0%83%E2%BD%A4%E2%BB%86%E2%BE%8A%E5%AE%8C%E6%88%90%E4%BB%BB%E5%8A%A1"><span class="toc-text">在playbook⾥⾯调⽤⻆⾊完成任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E4%BB%BB%E5%8A%A1%E9%83%A8%E5%88%86"><span class="toc-text">特殊任务部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E2%BB%86%E2%BE%8A"><span class="toc-text">创建⻆⾊</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ansible-navigator%E5%AE%89%E8%A3%85"><span class="toc-text">ansible-navigator安装</span></a></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

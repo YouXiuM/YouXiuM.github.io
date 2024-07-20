@@ -470,6 +470,7 @@
 }
 .article {
     font-size: 15px;
+    /* display: flex; */
     margin: auto;
     margin-top: 100px;
     padding: 20px;
@@ -972,4 +973,63 @@ ol li {
     ol {
         padding-left: 20px;
     }
+}
+
+/* .post-set{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+} */
+.fixed-toc {
+    border-left: 1px solid #e2e2e3;
+    height: 100vh;
+    position: fixed;
+    top: 100px;
+    right: 0;
+    /* margin-top: 100px; */
+    overflow-y: auto;
+    z-index: 10000;
+    padding: 20px;
+    list-style: none;
+}
+/* 目录标题样式 */
+#toc-header {
+    font-size: 1.2em; /* 字体大小 */
+    font-weight: bold; /* 字体粗细 */
+    color: #333; /* 字体颜色 */
+    text-decoration: none; /* 去除下划线 */
+}
+
+#toc-header{
+    text-align: center;
+}
+/* 目录项样式 */
+.mdui-menu-item {
+    list-style: none;
+    /* text-align: center; */
+    margin: 5px 0; /* 上下外边距 */
+}
+
+.mdui-menu-item a {
+    color: #007bff; /* 链接颜色 */
+    text-decoration: none; /* 去除下划线 */
+}
+
+.mdui-menu-item a:hover {
+    text-decoration: underline; /* 鼠标悬停效果 */
+}
+.mdui-menu-item ol{
+    list-style: none;
+}
+@media (min-width:900px) {
+    .mdui-menu-item ol,ul{
+        padding-left: 20px;
+    }
+    
+}
+@media (max-width:1500px) {
+    .fixed-toc{
+        display: none;
+    }
+    
 }

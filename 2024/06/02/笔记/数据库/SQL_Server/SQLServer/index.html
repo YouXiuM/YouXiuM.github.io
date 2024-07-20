@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title> | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1></h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="SQL-Server"><a href="#SQL-Server" class="headerlink" title="SQL Server"></a>SQL Server</h1><p>什么是数据库？</p>
+<p>是存放数据的一个仓库；这个仓库不是传统意义上的”存放干粮这种仓库”；数据库就是多张二维表的集合，二维表就是行(值)和列(属性)组成</p>
+<p>当我们注册QQ号时，叫你输入密码，手机号，名字等等，当你填完这些，然后把这些数据存到一个数据库里面，这样下次输入账号密码，你就能够登录QQ。再比如你注销你的QQ号，在数据库的视角中，只是删除它其中一个表的一行数据。</p>
+<p>数据模型是什么？</p>
+<p><strong>是对现实世界中的数据结构和数据关系的一种抽象和表示，用于指导数据库的设计和实现。</strong>通俗地说，数据模型就像是地图，它告诉你如何组织和存储数据，以及这些数据之间的关系</p>
+<p>组成要素：数据结构、数据操作、数据完整性约束</p>
+<p>常见的数据模型：</p>
+<ol>
+<li><p>层次模型</p>
+<p>这种模型将数据组织成树形结构，其中每个节点表示一个记录，而每个记录包含一个或多个字段。父子关系用于表示数据之间的层次关系。</p>
+<p>例如：</p>
+<p>一个学校的组织结构</p>
+<p>校长-副校长-各个院系的院长-各个院系的主任</p>
+</li>
+<li><p>网状模型</p>
+</li>
+</ol>
+<p>   网状模型类似于层次模型，但节点可以有多个父节点，这使得它可以表示更复杂的多对多关系。</p>
+<p>   例如：课程和学生之间</p>
+<p>   数据库课程：A同学、B同学</p>
+<p>   网络课程：B同学、C同学</p>
+<p>   B同学同时注册了数据库课程和网络课程，表示为多个父节点</p>
+<ol start="3">
+<li><strong>关系模型</strong></li>
+</ol>
+<p>​		关系模型使用表来表示数据，其中每个表包含行和		列。表之间通过外键建立联系</p>
+<h2 id="关系数据库"><a href="#关系数据库" class="headerlink" title="关系数据库"></a>关系数据库</h2><p>学生关系数据模型</p>
+<p><img src="/../../../../images/image-20240602154144639.png" alt="image-20240602154144639"></p>
+<pre><code>1. 关系数据模型简称关系模型;
+2. 关系数据模型中的核心元素是关系，实体及其联系都用关系来表示
+3. 关系也就是二维表，一个关系数据库由若干个表组成
+4. 关系数据模型 由关系数据结构、关系操作集合和关系完整性约束三部分组成。
+</code></pre>
+<h3 id="关系数据结构"><a href="#关系数据结构" class="headerlink" title="关系数据结构"></a>关系数据结构</h3><ol>
+<li><p>数据模型中的数据结构描述数据的静态特性。关系模型的数据结构非常单一，在关系模型中，现实世界中的所有事物（实体）及其联系均用关系来表示。</p>
+</li>
+<li><p>关系，就是我们常用的<strong>二维表</strong>，<strong>关系数据结构就是二维表结构。</strong></p>
+</li>
+</ol>
+<p>就是定义二维表的属性，例如教室表，属性可以有：教工号，姓名，性别等。</p>
+<p><img src="/../../../../images/image-20240602155035431.png" alt="image-20240602155035431"></p>
+<h3 id="关系操作集合"><a href="#关系操作集合" class="headerlink" title="关系操作集合"></a>关系操作集合</h3><p>关系操作：查询和编辑</p>
+<p>查询操作：<strong>选择、投影、连接、并、交、差</strong>等</p>
+<p>编辑类操作：<strong>插入、删除和修改</strong></p>
+<p><strong>操作的对象和结果都是元组（行）的集合</strong></p>
+<p><strong>选择（Selection）</strong></p>
+<p>选择操作用于从表中提取满足特定条件的行。它相当于SQL中的<code>SELECT</code>语句加上<code>WHERE</code>子句。</p>
+<p>从“员工”表中选择所有年龄大于30岁的员工。</p>
+<pre><code class="perl">SELECT * FROM Employees WHERE Age &gt; 30;
+</code></pre>
+<p><strong>投影（Projection）</strong></p>
+<p>投影操作用于从表中提取特定的列。它相当于SQL中的<code>SELECT</code>语句指定具体的列。</p>
+<p>从“员工”表中选择所有员工的名字和年龄。</p>
+<pre><code>SELECT Name, Age FROM Employees;
+</code></pre>
+<p><strong>连接（Join）</strong></p>
+<p>连接操作用于将两个表中的行按照某个相关列组合在一起。它相当于SQL中的<code>JOIN</code>操作。</p>
+<p>从“订单”表和“客户”表中获取所有订单及其对应的客户信息</p>
+<pre><code>SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+</code></pre>
+<p><strong>并（Union）</strong></p>
+<p>并操作用于将两个表的结果集合并在一起，包含所有不重复的行。它相当于SQL中的<code>UNION</code>操作。</p>
+<p>从“员工_旧”表和“员工_新”表中获取所有员工的名字。</p>
+<pre><code>SELECT Name FROM Employees_Old
+UNION
+SELECT Name FROM Employees_New;
+</code></pre>
+<p><strong>交（Intersection）</strong></p>
+<p>交操作用于获取两个表中共有的行。它相当于SQL中的<code>INTERSECT</code>操作（一些数据库管理系统如MySQL不直接支持<code>INTERSECT</code>，可以通过<code>JOIN</code>或子查询实现）。</p>
+<p>从“项目A”表和“项目B”表中获取在两个项目中都参与的员工ID。</p>
+<pre><code>SELECT EmployeeID FROM ProjectA
+INTERSECT
+SELECT EmployeeID FROM ProjectB;
+</code></pre>
+<p><strong>差（Difference）</strong></p>
+<p>差操作用于获取在一个表中有但在另一个表中没有的行。它相当于SQL中的<code>EXCEPT</code>操作（一些数据库管理系统如MySQL不直接支持<code>EXCEPT</code>，可以通过<code>LEFT JOIN</code>和<code>WHERE</code>子句实现）。</p>
+<p>从“项目A”表中获取在“项目B”表中没有参与的员工ID。</p>
+<pre><code>SELECT EmployeeID FROM ProjectA
+WHERE EmployeeID NOT IN (SELECT EmployeeID FROM ProjectB);
+</code></pre>
+<h3 id="关系完整性约束"><a href="#关系完整性约束" class="headerlink" title="关系完整性约束"></a>关系完整性约束</h3><p><strong>关系的完整性约束</strong>包括<strong>实体完整性</strong>、<strong>参照完整性</strong>和<strong>用户定义的完整性</strong></p>
+<p>​	1. <strong>实体完整性</strong>是保证关系中<strong>每个实体的唯一性</strong>必须要满足的约束，在具体的DBMS实现中表	现为<strong>表中主键</strong>的设置</p>
+<p>​	2. <strong>参照完整性</strong>是保证关系之间的联系正常有效而同样必须要满足的约束，在具体的DBMS中	表现为<strong>外键</strong>的设置</p>
+<p>​	3.  <strong>用户定义的完整性</strong>是实际的应用领域需要遵循的约束条件，体现了<strong>具体应用的实际约	束</strong>，如给定条件的<strong>检查约束</strong>。</p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL_Server/SQLServer/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL-Server"><span class="toc-text">SQL Server</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">关系数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">关系数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88"><span class="toc-text">关系操作集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F"><span class="toc-text">关系完整性约束</span></a></li></ol></li></ol></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

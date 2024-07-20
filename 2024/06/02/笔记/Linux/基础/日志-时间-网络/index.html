@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>日志-时间-网络 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>日志-时间-网络</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #03a9f4">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #ffa2c4">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><p>日志用途：就是当系统出现故障的时候，有⼀个能够提供故障排除的参考依据的功能，⽇志 会记录系统内发⽣的时间，以及故障的产⽣原因等，还有如果发⽣了⼀些安全时间，⽇志能够 提供事件朔源的依据。</p>
+<p>rhel9系统中有两个日志相关的服务：rsyslog和systemd-journal</p>
+<p>systemd-journe：会记录系统内核启动过程的⽇志，记录的⽇志更加详细，不过他默认不会持久保存，当 系统重启后，重启前的⽇志会被删除，所以如果需要持久保存，需要做相应的配置实现</p>
+<p>rsyslog服务：可以⾃定义⽇志的⽬的地，并且形成可以使⽤vim 、cat等⼯具查看的⽂本类型的 ⽇志。系统⼿机⽇志基于syslog协议。</p>
+<p>1.1     rsyslog服务</p>
+<p><img src="/../../../../images/clip_image002-17172988468811.jpg" alt="img"></p>
+<p>服务的配置文件：</p>
+<p><img src="/../../../../images/clip_image004-17172988468822.jpg" alt="img"></p>
+<p>解析rsyslog服务的配置文件(&#x2F;etc&#x2F;rsyslog.conf)</p>
+<p><img src="/../../../../images/clip_image006-17172988468824.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image008-17172988468823.jpg" alt="img"><img src="/../../../../images/clip_image010-17172988468825.jpg" alt="img"><img src="/../../../../images/clip_image012-17172988468826.jpg" alt="img"><img src="/../../../../images/clip_image014-17172988468827.jpg" alt="img"><img src="/../../../../images/clip_image016-17172988468828.jpg" alt="img"><img src="/../../../../images/clip_image018-17172988468829.jpg" alt="img"><img src="/../../../../images/clip_image020-171729884688210.jpg" alt="img"></p>
+<p>日志的设备类型：</p>
+<p><img src="/../../../../images/clip_image022-171729884688211.jpg" alt="img"><img src="/../../../../images/clip_image024-171729884688212.jpg" alt="img"></p>
+<p>日志的级别：</p>
+<p><img src="/../../../../images/clip_image026-171729884688214.jpg" alt="img"></p>
+<p>注意：none，表示除外</p>
+<p>常用的日志文件：</p>
+<p><img src="/../../../../images/clip_image028-171729884688213.jpg" alt="img"></p>
+<p>rsyslog日志服务的日志格式：</p>
+<p><img src="/../../../../images/clip_image030-171729884688215.jpg" alt="img"></p>
+<p>第一列：⽇志发⽣时间戳</p>
+<p>第二列：发送信息的主机</p>
+<p>第三列：发送信息的程序名和PID编号</p>
+<p>第四列：具体的⽇志事件</p>
+<p>日志的监控：</p>
+<p>tail -f 可以动态的监控⽂件内容的变化，他同样可以⽤来调试系统的时候监控⽇志⽂件</p>
+<p>⼿动发送 Syslog 消息（调试⽇志服务的配置）</p>
+<p>logger 命令可将消息发送到 rsyslog 服务。默认情况下，它将优先级为 notice 的消息发 送给 user 类型的设备 (user.notice)，除⾮通过 -p 选项另有指定</p>
+<p>若要向 rsyslog 服务发送消息并记录在 &#x2F;var&#x2F;log&#x2F;boot.log ⽇志⽂件中</p>
+<p><img src="/../../../../images/clip_image031.png" alt="img"><img src="/../../../../images/clip_image033.jpg" alt="img"></p>
+<p>rsyslog服务配置⽂件修改后要重启服务，⽇志的⽂件不要⼿⼯修改，否则可能会导致rsyslog 服务不会往⽇志⽂件⾥⾯再保存消息。</p>
+<p>日志文件轮转</p>
+<p>为什么需要日志轮转？</p>
+<p>因为rsyslog服务会将系统⽇志记录在指定的⽂件⾥⾯，使⽤的时间⽐较久的话，会导致⽇志的 体积越来越⼤，会占⽤系统的磁盘空间，所以有⼀套机制，通过指定⽇志⽂件的⼤⼩，或者写 ⼊⽇志的时间，将⽇志的保存⽂件尽⼼分割，将分割保存的⽇志，按照默认的时间会删除时间 ⽐较久远的旧⽇志，这样就能够控制⽇志的磁盘占⽤。</p>
+<p>logrotate ⼯具轮转⽇志⽂件，防⽌ &#x2F;var&#x2F;log 空间被占满</p>
+<p>轮转时，重命名⽇志⽂件（添加时间戳），并创建新的⽇志⽂件</p>
+<p>轮转若⼲次（默认4次（周）），丢弃最旧的⽇志⽂件，释放磁盘空间</p>
+<p>每天都会计划运⾏ logrotate 程序，轮转频率依据配置⽂件定义</p>
+<p><img src="/../../../../images/clip_image035.jpg" alt="img"></p>
+<p>systemd-journal</p>
+<p>配置文件</p>
+<p><img src="/../../../../images/clip_image037.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image039.jpg" alt="img"></p>
+<p>存储模式有三种：</p>
+<p>\1.  persistent：永久保存在&#x2F;var&#x2F;log&#x2F;journal ⽬录中</p>
+<p>\2.  voltile：临时保存在 &#x2F;run&#x2F;log&#x2F;journal ⽬录中</p>
+<p>\3.  auto（默认）：如果有 &#x2F;var&#x2F;log&#x2F;journal ⽬录存在，则永久保存，如果没有则临时保存</p>
+<p>在rhel9系统⾥⾯，systemd-jounal服务创建持久保存⽬录&#x2F;var&#x2F;log&#x2F;journal，需要重启系统使其配置⽣效</p>
+<p>systemd-journal服务的⽇志，他是二进制的文件</p>
+<p>systemd-journal提供了⼀个专⽤⼯具，⽤来查看systemd-journal的⽇志，journalctl</p>
+<p>在系统⽇志中查找事件</p>
+<p>systemd-journald 将⽇志存放在带索引的结构化⼆进制 journal⽂件中，默认存放在 &#x2F;run&#x2F;log ⽬录中</p>
+<p>journalctl 命令可⽤于检索⽇志信息，建议以 root ⽤⼾执⾏</p>
+<p>journalctl -p debug、info、notice、warning、err、crit、alert 和 emerg显⽰该级别及其之上的⽇志</p>
+<p><img src="/../../../../images/clip_image041.jpg" alt="img"></p>
+<p>journalctl -n 指定显⽰最后10条⽇志，也可以指定条⽬数量</p>
+<p><img src="/../../../../images/clip_image043.jpg" alt="img"></p>
+<p>journalctl -f 刷新⽇志(动态)，Ctrl+C 退出 </p>
+<p><img src="/../../../../images/clip_image045.jpg" alt="img"></p>
+<p>journalctl -u 显⽰ systemd unit 的信息</p>
+<p><img src="/../../../../images/clip_image047.jpg" alt="img"></p>
+<p>journalctl –since –until “YYYY-MM-DDhhmm:ss” yesterday、today和tomorrow可以指定⽇志时间段</p>
+<p><img src="/../../../../images/clip_image049.jpg" alt="img"><img src="/../../../../images/clip_image051.jpg" alt="img"></p>
+<p>journalctl -o verbose 显⽰更加详细的⽇志信息</p>
+<p><img src="/../../../../images/clip_image053.jpg" alt="img"></p>
+<p>journalctl 配合以下字段，可以搜索特定内容的⽇志 </p>
+<p>可参考: man 7 systemd.journal-filelds</p>
+<p>_COMM 是命令的名称</p>
+<p>_EXE 是进程的可执⾏⽂件的路径</p>
+<p>_PID 是进程的 PID </p>
+<p>_UID 是运⾏该进程的⽤戶的 UID</p>
+<p>_SYSTEMD_UNIT 是启动该进程的 systemd 单元</p>
+<p><img src="/../../../../images/clip_image055.jpg" alt="img"><img src="/../../../../images/clip_image057.jpg" alt="img"></p>
+<h1 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h1><p>时间对服务的运行起着至关重要，服务的时间与系统时间误差较大，可能会导致服务起不来。</p>
+<p>rhel9系统提供了⼀个专⽤的⼯具timedatectl命令⽤来管理系统的时间、始终服务等操作</p>
+<p>timedatectl</p>
+<p><img src="/../../../../images/clip_image059.jpg" alt="img"></p>
+<p>查看系统当前的时间设置</p>
+<p><img src="/../../../../images/clip_image061.jpg" alt="img"></p>
+<p>列出时区：timedatectl list-timezones</p>
+<p><img src="/../../../../images/clip_image063.jpg" alt="img"></p>
+<p>tzselect：⽤来辅助查看系统的时区</p>
+<p><img src="/../../../../images/clip_image065.jpg" alt="img"></p>
+<p>通过选择你所在需要的时区，然后会给出一个具体市区位置</p>
+<p><img src="/../../../../images/clip_image067.jpg" alt="img"></p>
+<p>修改时区</p>
+<p><img src="/../../../../images/clip_image068.png" alt="img"></p>
+<p>修改时间</p>
+<p><img src="/../../../../images/clip_image070.jpg" alt="img"></p>
+<p>重置&#x2F;同步时间</p>
+<p>1、chronyd -q</p>
+<p><img src="/../../../../images/clip_image072.jpg" alt="img"></p>
+<p>2、ntpdate time.nist.gov</p>
+<p>注意：以上需要连接网络</p>
+<p>chronyd</p>
+<p>rhel9的系统⾥⾯，使⽤chrony服务作为ntp服务</p>
+<p><img src="/../../../../images/clip_image073.png" alt="img"></p>
+<p>配置文件目录:</p>
+<p><img src="/../../../../images/clip_image075.jpg" alt="img"><img src="/../../../../images/clip_image077.jpg" alt="img"></p>
+<p>重启chronyd服务，使得时间⽣效</p>
+<p><img src="/../../../../images/clip_image078.png" alt="img"></p>
+<p>验证ntp服务是否⽣效</p>
+<p><img src="/../../../../images/clip_image080.jpg" alt="img"></p>
+<p>如果配置的时间服务器是不存在的，则不会显示 * IP&#x2F;域名</p>
+<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><p>旧版红帽企业 Linux 将 eth0、eth1 和 eth2 等名称⽤于各个⽹络接⼝</p>
+<p>当设备添加和移除，命名的机制可能会导致命名变化。⽽且 PCIe标准⽆法保证在启动 时检测 PCIe 设备的顺序</p>
+<p>RHEL 7 起开始采⽤新的命名体系，基于固件信息、PCI 总线拓扑和⽹络设备类型，⽽且不会更改</p>
+<p>开头为接⼝类型：以太⽹接⼝ en，WLAN 接⼝ wl</p>
+<p>紧接为固件信息或 PCI 设备位置信息</p>
+<p>oN 为板载设备，例如 eno1为板载以太⽹设备 1</p>
+<p>sN 为 PCI 热插拔设备，例如 ens3 表⽰ PCI 热插拔插槽 3 中的以太⽹卡</p>
+<p>注意：板载设备是指板载网卡、板载声卡等直接嵌入主板上，不需要用户单独购买或插入</p>
+<p>pMsN 为位于插槽 N 中总线 M 上的 PCI 设备，例如 enp0s1f0接⼝是插槽 1 中总 线 0 上的以太⽹卡的功能 0。可能还有⼀个名为enp0s1f1 的接⼝，它代表了同⼀设备的 功能 1，wlp4s0 表⽰插槽 0中 PCI 总线 4 上的 WLAN 卡</p>
+<p>主机名和IP地址</p>
+<p>Linux 有多种机制可以将主机名映射到 IP 地址，统称为名称解析 </p>
+<p>静态设置：&#x2F;etc&#x2F;hosts 中⼿动更新 </p>
+<p>DNS 动态获取：由 dhcp 或 &#x2F;etc&#x2F;resolve.conf 中配置的 dns 服务器来获取</p>
+<p>查看主机名信息：</p>
+<p><img src="/../../../../images/clip_image082.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image083.png" alt="img"></p>
+<p>查看网络接口信息</p>
+<p>ifconfig、ip、ip link</p>
+<p>ifconfig少用，因为越来越少人维护了</p>
+<p><img src="/../../../../images/clip_image085.jpg" alt="img"><img src="/../../../../images/clip_image087.jpg" alt="img"></p>
+<p>ip link 命令列出系统上所有可⽤⽹络接⼝的名称和 MAC 地址</p>
+<p><img src="/../../../../images/clip_image089.jpg" alt="img"></p>
+<p>p -s link show 命令可以查看⽹络性能统计信息，包括收到 (RX)和传出 (TX) 的数据包 数、数据包错误数，以及丢 弃的数据包数</p>
+<p><img src="/../../../../images/clip_image091.jpg" alt="img"></p>
+<p>ip route 命令显⽰路由信息</p>
+<p><img src="/../../../../images/clip_image093.jpg" alt="img"></p>
+<p>traceroute 或 tracepath 追踪⽹络流量通过多个路由器到达远程主机⽽采⽤的路径</p>
+<p><img src="/../../../../images/clip_image095.jpg" alt="img"></p>
+<p>使⽤ ss 或 netstat 显⽰⽹络连接信息，ss ⽤以替换 netstat（不⼀定安装 net-tools 软件包）</p>
+<p><img src="/../../../../images/clip_image097.jpg" alt="img"></p>
+<p>使⽤命令⾏配置⽹络</p>
+<p>网络管理的服务:  NetworkManager.service</p>
+<p><img src="/../../../../images/clip_image099.jpg" alt="img"></p>
+<p>RHEL9 中使⽤ NetworkManager 监控和管理⽹络，nmcli 命令配置⽹络，配置默认 以 INI 格式保存 在&#x2F;etc&#x2F;NetworkManager&#x2F;system-connections&#x2F; ⽬录中</p>
+<p>8版本的网络配置文件&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;</p>
+<p><img src="/../../../../images/clip_image101.png" alt="img"></p>
+<p>9版本的网络配置文件&#x2F;etc&#x2F;NetworkManager&#x2F;system-connections&#x2F;</p>
+<p><img src="/../../../../images/clip_image103.jpg" alt="img"></p>
+<p>9版本还存在8版本的网络配置文件用于兼容早期版本，&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F; ⽬录和 ifcfg 格式配置⽂件已被弃⽤，但为 了与较早版本兼 容，&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F; ⽬录中的 ifcfg 格式连接仍可识别 和加载</p>
+<p>root ⽤⼾才能修改⽹络配置</p>
+<p>device 指⽹络接⼝；connection 是针对 device 的配置集合</p>
+<p>针对任⼀device，同⼀时间只有⼀个 connection 处于活动状态</p>
+<p>每个 connection 具有⼀个名称或 ID</p>
+<p><img src="/../../../../images/clip_image105.jpg" alt="img"><img src="/../../../../images/clip_image107.jpg" alt="img"></p>
+<p>NetworkManage服务提供2个操作⽹络的命令：nmcli(命令⾏⼯具) nmtui（图形化的⼯具）</p>
+<p>nmcli</p>
+<p>查看联网信息</p>
+<p><img src="/../../../../images/clip_image109.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image111.jpg" alt="img"></p>
+<p>添加网络连接</p>
+<p>查看nmcli帮助文档</p>
+<p><img src="/../../../../images/clip_image113.jpg" alt="img"></p>
+<p>为⽹络接⼝设置⼀个DHCP⽅式获取地址的⽹络链接</p>
+<p><img src="/../../../../images/clip_image115.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image117.jpg" alt="img"></p>
+<p>使⽤静态的⽅式配置⼀个⽹络链接</p>
+<p><img src="/../../../../images/clip_image119.jpg" alt="img"><img src="/../../../../images/clip_image121.jpg" alt="img"></p>
+<p>删除网络连接</p>
+<p>nmcli con del name 命令删除连接，同时删除 connection 配置⽂件</p>
+<p><img src="/../../../../images/clip_image123.jpg" alt="img"></p>
+<p>编辑⽹络配置⽂件</p>
+<p>默认情况下，通过 nmcli con mod name 进⾏的更改会⾃动保存到 &#x2F;etc&#x2F;NetworkManager&#x2F;system-connections&#x2F; 中</p>
+<p>⽀持⼿动编辑此⽂件（但不推荐，怕写错配置内容），然后运⾏ nmcli con reload 以便NetworkManager 读取配置更改</p>
+<p>以前存储在 &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F; 的 ifcfg 格式配置将继续有效</p>
+<p>下图为 NetworkManager 设置和 INI ⽂件格式⽂件的⽐较</p>
+<p><img src="/../../../../images/clip_image125.jpg" alt="img"><img src="/../../../../images/clip_image127.jpg" alt="img"></p>
+<p>修改网络配置</p>
+<p>&#x2F;etc&#x2F;NetworkManager&#x2F;system-connections&#x2F;持久</p>
+<p>&#x2F;run&#x2F;NetworkManager&#x2F;system-connections临时</p>
+<p>&#x2F;usr&#x2F;lib&#x2F;NetworkManager&#x2F;system-connections&#x2F;待定  </p>
+<p>&#x2F;usr&#x2F;lib&#x2F;NetworkManager&#x2F;system-connections&#x2F; 系统安装时就生效，用于确保系统在初始启动时能够自动连接到网络，无需用户干涉</p>
+<p>修改完配置后，使⽤ nmcli con reload 读取配置更改，同时还需要将接⼝重启启动</p>
+<p><img src="/../../../../images/clip_image129.jpg" alt="img"></p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/%E5%9F%BA%E7%A1%80/%E6%97%A5%E5%BF%97-%E6%97%B6%E9%97%B4-%E7%BD%91%E7%BB%9C/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A5%E5%BF%97"><span class="toc-text">日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%B6%E9%97%B4"><span class="toc-text">时间</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C"><span class="toc-text">网络</span></a></li></ol>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

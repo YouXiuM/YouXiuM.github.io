@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>系统目录-语法 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>系统目录-语法</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #ffa2c4">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #ff7d73">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Linux–&gt;原名：GNU&#x2F;Linux</p>
+<p>Fedora—社区版的Linux系统，每六个月更新一次，不适合企业，稳定性不够</p>
+<p>EPEL是Fedora的一个软件仓库源</p>
+<p>Linux系统是基于Core(内核)，而使用者不能直接操作内核，必须要通过一个”中间层”而间接操作内核，这个中间层叫做”Shell(命令解释器)”</p>
+<p>Linux命令行由Shell程序提供的</p>
+<p>redhat9默认Shell类型：Bash</p>
+<p>总而言之，我们所学的命令，其实是学习Shell的语法</p>
+<p>-—————————————————–</p>
+<p>[用户名@主机名 所在路径]  </p>
+<p>$-普通用户，#-超级用户(root)</p>
+<p>ctrl+alt+F1-F6进行console切换(tty1-tty6)，切换虚拟终端</p>
+<p>在redhat9，在有图形环境，将在tty1中运行</p>
+<p>远程访问方式：</p>
+<p>①ssh <a href="mailto:root@192.168.66.66">root@192.168.66.66</a>  &#x2F;&#x2F;用户+IP地址</p>
+<p>②ssh <a href="mailto:root@www.test.com">root@www.test.com</a>  &#x2F;&#x2F;用户+域名</p>
+<p>关机&#x2F;重启</p>
+<p>poweroff&#x2F;reboot  init 0&#x2F;init 6</p>
+<p>一行执行多条命令用”;(分号)”隔开</p>
+<p>例如：touch file1; vim file1</p>
+<p>&amp;&amp;  第一个命令执行成功，后面的命令才能执行</p>
+<p><img src="/../../../../images/clip_image002.gif" alt="img"></p>
+<p>|| 第一个命令执行失败，后面的命令才能执行</p>
+<p><img src="/../../../../images/clip_image004.gif" alt="img"></p>
+<p>date显示时间类型</p>
+<p><img src="/../../../../images/clip_image006.gif" alt="img"></p>
+<p>file 显示文件类型</p>
+<p><img src="/../../../../images/clip_image008.gif" alt="img"></p>
+<p>注意：Linux中，文件的后缀名无法表述文件类型的归属，例如exe,py.excel等等</p>
+<p>常用查看文件内容</p>
+<p>cat、head、tail、less</p>
+<p>cat：查看一个或多个文件内容，还可以将内容重定向到新文件</p>
+<p>less：一次只显示一页内容，可滚动</p>
+<p>head 和 tail：显示文件首或尾10行，-n 选项可以指定显示的行数</p>
+<p><img src="/../../../../images/clip_image010.gif" alt="img"></p>
+<p>注意：tail -f 实现实时监控文件</p>
+<p>wc </p>
+<p>计算文件中行,字数,字符数,具有-l,-w,-c选项,分别显示行数,字数,字符数</p>
+<p><img src="/../../../../images/clip_image012.gif" alt="img"></p>
+<p>如果系统中，Tab补全失败，则该安装bash-completion</p>
+<p><img src="/../../../../images/clip_image014.gif" alt="img"></p>
+<p>在多行上编写长命令：</p>
+<p>命令太长，为提高可读性，可用‘\’命令多行显示</p>
+<p><img src="/../../../../images/clip_image016.gif" alt="img"></p>
+<p>history 显示之前执行命令的列表，带有编号</p>
+<p>!number 执行指定编号的命令</p>
+<p><img src="/../../../../images/clip_image018.gif" alt="img"></p>
+<p>如果shell终端关闭，系统会记录一些文件(.bash_history)</p>
+<p><img src="/../../../../images/clip_image020.gif" alt="img"></p>
+<p>命令行的快捷键</p>
+<p>Ctrl+A   跳到命令行的开头</p>
+<p>Ctrl+E   跳到命令行的末尾</p>
+<p>Ctrl+U   将光标到命令行开头的内容清除</p>
+<p>Ctrl+K   将光标到命令行末尾的内容清除</p>
+<p>Linux重要目录</p>
+<pre><code class="perl">/boot   开始启动过程所需要的文件
+
+/dev    供系统用于访问硬件的特殊设备文件
+
+/etc    特定于系统的配置文件
+
+/home   普通用户的家目录
+
+/root   root的主目录
+
+/lib64   保存系统的64位动态库文件
+
+/lib    系统的32位库
+
+/mnt    临时挂载点
+
+/proc   系统开机后运行的服务进程会映射到这个目录里面(目录名是数字，代表进程)
+
+/run    内存的一些映射关系
+
+/tmp    临时文件的存储
+
+/var    日志、计划任务等相关文件
+
+/sbin   只有root能够执行的命令
+
+/bin    命令的二进制文件
+
+/dev    设备文件的保存位置
+
+/media   媒体设备/挂载点
+
+/opt    第三方应用安装的目录
+
+/sys    驱动文件的保存
+
+/usr    安装的软件、共享的库等文件
+
+pwd  查看当前目录
+</code></pre>
+<p>cd 切换目录</p>
+<p>cd - 回到之前一个目录</p>
+<p>cd .. 进入父目录(上一级目录)</p>
+<p>cd ~  进入家目录</p>
+<p>ls -l（⻓列出格式）、-a（显示隐藏文件）、-R（递归方式，包含所 有子目录的内容）</p>
+<p><img src="/../../../../images/clip_image022.gif" alt="img"></p>
+<p>注意：文件名的第一个带”.” 代表隐藏文件 ，ls -a才能显示出来</p>
+<p>文件格式：</p>
+<p>文件类型-文件权限-链接数-文件的所有者-文件的所属组-文件的大小–文件的创建&#x2F;修改时间-文件名</p>
+<p>文件类型：</p>
+<p>-  文件  d  目录  s  套接字文件进程间通信  p  管道文件</p>
+<p>c  字符设备io   c  字符设备    b  块设备文件磁盘</p>
+<p><img src="/../../../../images/clip_image024.gif" alt="img"></p>
+<p>文件的权限：</p>
+<p>r  读   4</p>
+<p>w  写   2</p>
+<p>x  执行  1</p>
+<p><img src="/../../../../images/clip_image026.gif" alt="img"></p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/%E5%9F%BA%E7%A1%80/%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95-%E8%AF%AD%E6%B3%95/" id="toc-header" class="mdui-ripple">文章目录</a>
+            
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

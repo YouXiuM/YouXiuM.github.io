@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Docker-02 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>Docker-02</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/7
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E5%AE%B9%E5%99%A8-Docker/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                容器 - Docker
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%AE%B9%E5%99%A8/" style="color: #00bcd4">
+                    容器
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Docker/" style="color: #ffa2c4">
+                    Docker
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <ol>
+<li>部署docker</li>
+</ol>
+<h3 id="1-1手动开启宿主机内核数据包转发功能"><a href="#1-1手动开启宿主机内核数据包转发功能" class="headerlink" title="1.1手动开启宿主机内核数据包转发功能"></a>1.1手动开启宿主机内核数据包转发功能</h3><pre><code class="perl">cat &lt;&lt;EOF&gt;/etc/sysctl.d/docker.conf
+net.ipv4.ip forward=l
+net.bridge.bridge-nf-call-ip6tables =1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sysctl -p /etc/sysctl.d/docker.conf
+
+1.net.bridge.bridge-nf-call-ip6tables =1
+#这个设置允许IPV6的网络包通过iptables规则进行处理。Docke外部世界的网络通信，因此需要确保IPv6的网络包也能够通过
+2.net.bridge.bridge-nf-call-iptables = 1
+#这个设置允许IPv4的网络包通过iptables规则进行处理。与前面包能够通过iptables进行适当的处理，包括端口转发、防火墙规
+3.net.ipv4.ip forward=l
+#这个设置允许Linux系统上的IP数据包进行转发，在Docker中，通常会使用网络式为&quot;bridge&quot;的容器，这要求主机上启用IP数据包转发，以便容器之间可以相互通信以及与外部网络通信。启用此选项允许Linux主机上的IP数据包在网络接口之间进行正确的路由和转发。
+</code></pre>
+<h3 id="1-2安装流程"><a href="#1-2安装流程" class="headerlink" title="1.2安装流程"></a>1.2安装流程</h3><p>我使用的Centos7,官方建议 3.10 以上，3.8以上好像也可以。</p>
+<p><strong>1.查看当前的内核版本</strong></p>
+<p>uname -r</p>
+<p><strong>2.使用 root 权限更新 yum 包（生产环境中此步操作需慎重，看自己情况，学习的话随便搞）</strong></p>
+<p>**注意 **</p>
+<p>yum -y update：升级所有包同时也升级软件和系统内核；  </p>
+<p>yum -y upgrade：只升级所有包，不升级软件和系统内核</p>
+<p><strong>3.卸载旧版本（如果之前安装过的话）</strong></p>
+<p>yum remove docker  docker-common docker-selinux docker-engine</p>
+<p><strong>4.安装需要的软件包， yum-util 提供yum-config-manager功能，另两个是devicemapper驱动依赖</strong></p>
+<p>yum install -y yum-utils device-mapper-persistent-data lvm2</p>
+<p><strong>5.配置yum源</strong></p>
+<p>yum-config-manager –add-repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
+<p><strong>6.选择docker版本并安装</strong></p>
+<p>yum list docker-ce –showduplicates | sort -r</p>
+<p>这里我选择默认</p>
+<p>yum install docker-ce -y</p>
+<p><strong>7.启动 Docker 并设置开机自启</strong></p>
+<p>systemctl start docker </p>
+<p>systemctl enable docker</p>
+<p>这里就能够正常使用了！！！</p>
+<hr>
+<p>如果出现以下情况：</p>
+<p><img src="/.com//../..%5Cimages%5Cimage-20240601001827044.png" alt="image-20240601001827044"></p>
+<ol>
+<li>首先使用yum 安装docker，yum install docker -y。使用docker -v检查docker是否安装成功</li>
+</ol>
+<p><img src="/.com//../..%5Cimages%5Cimage-20240601001953821.png" alt="image-20240601001953821"></p>
+<ol start="2">
+<li>因为docker使用了iptables的映射规则，而centos7的防火墙是firewall，需要停用 firewall，安装并设置iptables.</li>
+</ol>
+<pre><code class="perl">systemctl stop firewalld;systemctl disable firewalld;
+
+yum -y install iptables-services;systemctl enable iptables ;systemctl start iptables;
+</code></pre>
+<ol start="3">
+<li>如果centos7版本的内核比较旧，如我的安装完内核是3.10。需要升级linux内核或者修改配置文件。</li>
+</ol>
+<p><strong>这里我选择”升级linux内核”</strong></p>
+<p>可以使用如下命令  </p>
+<pre><code class="perl">yum update nss \
+&amp;&amp; rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org \
+&amp;&amp; rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm \
+&amp;&amp; yum clean all \
+&amp;&amp; yum --enablerepo=elrepo-kernel install kernel-ml -y \
+&amp;&amp; grub2-set-default 0
+</code></pre>
+<p>升级完重启一下系统。</p>
+<p>最后，systemctl start docker</p>
+<p><strong>8.配置docker镜像下载加速器</strong></p>
+<p><strong>方案1</strong>(建议)，用你自己的 阿里云镜像加速器(需要登录)</p>
+<pre><code class="perl">sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-&#39;EOF&#39;
+&#123;
+  &quot;registry-mirrors&quot;: [&quot;https://ms9glx6x.mirror.aliyuncs.com&quot;]
+&#125;
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre>
+<p><strong>方案1</strong>，执行如下脚本即可<br>curl -sSL <a target="_blank" rel="noopener" href="https://get.daocloud.io/daotools/set_mirror.sh">https://get.daocloud.io/daotools/set_mirror.sh</a> | sh -s <a target="_blank" rel="noopener" href="http://f1361db2.m.daocloud.io/">http://f1361db2.m.daocloud.io</a></p>
+<p>注意！！！</p>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a>  #注册，然后，就会有账号密码，里面管理你自己的私有镜像。</p>
+<p>去获取你自己的阿里云镜像站，别用别人的，因为用别人的出现问题也无法处理。</p>
+<h2 id="2-镜像管理"><a href="#2-镜像管理" class="headerlink" title="2. 镜像管理"></a>2. 镜像管理</h2><h3 id="2-1-搜索镜像"><a href="#2-1-搜索镜像" class="headerlink" title="2.1 搜索镜像"></a>2.1 搜索镜像</h3><pre><code class="perl">docker search 镜像名:镜像版本
+
+docker search nginx # 默认最新版本 nginx:latest
+# 要找官方镜像，防止其他镜像有后门
+</code></pre>
+<h3 id="2-2-下载镜像"><a href="#2-2-下载镜像" class="headerlink" title="2.2 下载镜像"></a>2.2 下载镜像</h3><pre><code class="perl">docker pull 镜像名
+
+**注意！**下载官方认证的镜像是最安全的，防止留后门。
+
+查询具体的版本号
+yum install jq -y
+#这是查询centos容器，如果想查询mysql容器，把centos改成mysql即可
+curl -s https://registry.hub.docker.com/v1/repositories/centos/tags  |   jq
+##jq的作用是：让你查看的结果以json格式输出
+[root@docker-200 ~]#curl -s https://registry.hub.docker.com/v1/repositories/centos/tags  | jq |grep 7.9
+    &quot;name&quot;: &quot;7.9.2009&quot;
+    &quot;name&quot;: &quot;centos7.9.2009&quot;
+    
+#查询镜像
+docker images
+#可以利用关键字查询
+docker images centos*
+</code></pre>
+<h3 id="2-3-查看镜像信息"><a href="#2-3-查看镜像信息" class="headerlink" title="2.3 查看镜像信息"></a>2.3 查看镜像信息</h3><pre><code>docker inspect 镜像名:tag
+</code></pre>
+<p><img src="/../../../images/image-20240605145604545.png" alt="image-20240605145604545"></p>
+<h3 id="2-4-修改镜像名"><a href="#2-4-修改镜像名" class="headerlink" title="2.4 修改镜像名"></a>2.4 修改镜像名</h3><pre><code>docker tag 旧镜像名:旧tag  新镜像名:新tag
+</code></pre>
+<p><img src="/../../../images/image-20240605142223818.png" alt="image-20240605142223818"></p>
+<h3 id="2-5-删除镜像"><a href="#2-5-删除镜像" class="headerlink" title="2.5 删除镜像"></a>2.5 删除镜像</h3><pre><code class="Perl">docker rmi 镜像名/id
+#如果有容器使用该镜像，删除失败，除非&quot;docker rmi -f&quot;强制性删除，但谨慎！！！ 
+</code></pre>
+<h3 id="2-6-导出镜像"><a href="#2-6-导出镜像" class="headerlink" title="2.6 导出镜像"></a>2.6 导出镜像</h3><pre><code class="perl">docker save 镜像名/镜像ID &gt;  文件名
+#默认导出的镜像类型是tar包
+</code></pre>
+<p><img src="/../../../images/image-20240605141141460.png" alt="image-20240605141141460"></p>
+<h3 id="2-7-导入镜像"><a href="#2-7-导入镜像" class="headerlink" title="2.7 导入镜像"></a>2.7 导入镜像</h3><pre><code class="perl">docker load &lt; 镜像文件
+# 例如 docker load &lt; ubuntu.tar
+docker load -i 完整路径文件
+</code></pre>
+<p><img src="/../../../images/image-20240605141215134.png" alt="image-20240605141215134"></p>
+<h3 id="2-8-容器打包为镜像"><a href="#2-8-容器打包为镜像" class="headerlink" title="2.8 容器打包为镜像"></a>2.8 容器打包为镜像</h3><pre><code>docker commit 容器名/ID 镜像名
+</code></pre>
+<h3 id="2-9-上传镜像"><a href="#2-9-上传镜像" class="headerlink" title="2.9 上传镜像"></a>2.9 上传镜像</h3><pre><code class="perl">#上传前需要修改tag
+docker push  注册docker用户名/REPOSITORY:TAG 
+</code></pre>
+<h3 id="2-10-自制docker镜像"><a href="#2-10-自制docker镜像" class="headerlink" title="2.10 自制docker镜像"></a>2.10 自制docker镜像</h3><pre><code class="perl">#当我们自制镜像的时候，尽量减少无用操作，使得镜像精简化，让镜像体积最小化。
+例如更新yum源(yum makecache)，因为最后还是得清空缓存(yum clean all),所以直接下载软件，不用生成缓存等操作，降低容器内资源的占用，最终这个容器会被提交为镜像文件，镜像文件是有体积的
+</code></pre>
+<p><strong>方式一</strong></p>
+<pre><code>1、运行容器
+2、进入容器，进行安装、配置你所要求
+3、容器打包称镜像
+</code></pre>
+<p><img src="/../../../images/image-20240604003421916.png" alt="image-20240604003421916"></p>
+<p><strong>方式二</strong>(推荐)</p>
+<pre><code>1、创建Dockerfile文件
+2、在dockerfile文件中填写你的需求
+3、然后利用Dockerfile构建镜像
+</code></pre>
+<pre><code class="perl"># 使用的基础镜像
+FROM ubuntu:20.04
+
+# 维护者信息
+LABEL maintainer=&quot;your_email@example.com&quot;
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制当前目录下的文件到工作目录
+COPY . /app
+
+# 安装依赖
+RUN apt-get update &amp;&amp; apt-get install -y python3 python3-pip
+
+# 安装 Python 包依赖
+RUN pip3 install -r requirements.txt
+
+# 暴露应用程序的端口
+EXPOSE 5000
+
+# 指定容器启动时运行的命令
+CMD [&quot;python3&quot;, &quot;app.py&quot;]
+</code></pre>
+<p><img src="/../../../images/image-20240604003639139.png" alt="image-20240604003639139"></p>
+<pre><code class="perl">docker build -t centos_2 .
+#解释：-t 可以自定义镜像名  .(点)，表示Dockerfile在当前目录
+</code></pre>
+<h2 id="3-容器管理"><a href="#3-容器管理" class="headerlink" title="3. 容器管理"></a>3. 容器管理</h2><h3 id="3-1-开启-停止容器"><a href="#3-1-开启-停止容器" class="headerlink" title="3.1 开启&#x2F;停止容器"></a>3.1 开启&#x2F;停止容器</h3><pre><code class="perl">docker run -it ubuntu bash
+# docker run 的参数
+# -t 开启一个终端
+-t, --tty                            Allocate a pseudo-TTY
+# 标准输入，给容器输入些东西
+-i, --interactive                    Keep STDIN open even if not attached
+命令解释：
+-i，就相当于能够让你在容器内，用键盘输入
+-t，给你开一个终端进入容器内，就比如ssh开多一个窗口。
+-p，指定映射端口
+-P，宿主机随机端口映射容器的指定端口
+bash，就是让你能够宿主机和容器的bash进行交互，不然就类似于你讲中文，它讲英语，就交互不了。
+docker run ubuntu 命令 #在运行容器后自动执行命令；
+例如：docker run ubuntu yum install -y vim
+
+docker stop 容器名/id  #停止容器
+</code></pre>
+<h3 id="3-2-批量处理容器"><a href="#3-2-批量处理容器" class="headerlink" title="3.2 批量处理容器"></a>3.2 批量处理容器</h3><pre><code class="perl">#写法一
+docker stop $(docker ps -q) #关掉运行中的所有容器
+
+docker rm $(docker ps -qa) #删除已经停止的容器,因为rm 不能删除运行中的容器，rm -f 才可以强制删除。
+
+#写法二
+docker start `docker ps -qa` #开启所有容器
+docker rm -f `docker ps -qa` #删除所有容器
+</code></pre>
+<h3 id="3-3-查看容器进程列表"><a href="#3-3-查看容器进程列表" class="headerlink" title="3.3 查看容器进程列表"></a>3.3 查看容器进程列表</h3><pre><code class="perl">docker ps #查看运行中的容器记录
+
+docker ps -a #查看所有的容器记录
+
+docker ps -qa #查看所有的容器记录，只显示container ID
+</code></pre>
+<h3 id="3-4-进入容器"><a href="#3-4-进入容器" class="headerlink" title="3.4 进入容器"></a>3.4 进入容器</h3><pre><code class="perl">#进入容器运行bash解释器
+docker exec -it 容器名/容器ID bash
+
+#不进入容器，不开终端，之间在容器内执行xx命令
+docker exec -it 容器名/容器ID systemctl start nginx
+</code></pre>
+<p><img src="/../../../images/image-20240605144412395.png" alt="image-20240605144412395"></p>
+<h3 id="3-5-查看容器信息"><a href="#3-5-查看容器信息" class="headerlink" title="3.5 查看容器信息"></a>3.5 查看容器信息</h3><pre><code>docker inspect 容器名/id
+</code></pre>
+<p><img src="/../../../images/image-20240605145431494.png" alt="image-20240605145431494"></p>
+<h3 id="3-6-拷贝容器数据"><a href="#3-6-拷贝容器数据" class="headerlink" title="3.6 拷贝容器数据"></a>3.6 拷贝容器数据</h3><pre><code>#容器文件拷贝到宿主机
+docker cp 容器名/ID:完整路径文件名  存放拷贝文件路径
+#宿主机文件拷贝到容器内
+docker cp 文件  容器名/ID:存放位置
+</code></pre>
+<p><img src="/../../../images/image-20240605145244116.png" alt="image-20240605145244116"></p>
+<h3 id="3-7-限制容器资源使用"><a href="#3-7-限制容器资源使用" class="headerlink" title="3.7 限制容器资源使用"></a>3.7 限制容器资源使用</h3><pre><code>docker run  -d  --memory=500M nginx
+</code></pre>
+<p><img src="/../../../images/image-20240605143058079.png" alt="image-20240605143058079"></p>
+<p><img src="/../../../images/image-20240605143234626.png" alt="image-20240605143234626"></p>
+<h3 id="3-8-容器数据持久化"><a href="#3-8-容器数据持久化" class="headerlink" title="3.8 容器数据持久化"></a>3.8 容器数据持久化</h3><pre><code class="perl">docker run --name nginx -d -v /opt:/opt nginx 
+#容器内的/opt目录下写数据，相当于在宿主机的/opt目录下写数据
+</code></pre>
+<p><img src="/../../../images/image-20240605143651270.png" alt="image-20240605143651270"></p>
+<h2 id="4-部署私有registry"><a href="#4-部署私有registry" class="headerlink" title="4. 部署私有registry"></a>4. 部署私有registry</h2><pre><code class="perl"># 创建 Docker Registry认证文件目录
+mkdir /var/lib/registry_auth
+
+# 使用htpasswd 来创建加密文件
+yum install -y httpd-tools
+
+# 创建账密
+htpasswd -Bbn admin admin &gt; /var/lib/registry_auth/htpasswd
+
+
+# 运行registry容器
+docker run -p 5000:5000 --restart=always --name my-docker-registry \
+-v /var/lib/registry:/var/lib/registry \
+-v /var/lib/registry_auth/:/auth/ \
+-e &quot;REGISTRY_AUTH=htpasswd&quot; \
+-e &quot;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&quot; \
+-e &quot;REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd&quot; \
+-d registry
+
+#修改镜像tag，指定上传镜像到哪里
+docker tag nginx  172.25.250.131:5000/my_nginx:v1
+
+# 上传镜像
+docker push 172.25.250.131:5000/my_nginx:v1
+
+#注意docker不允许http仓库，必须走https
+如果不修改配置文件，会报错
+Get &quot;https://172.25.250.131:5000/v2/&quot;: http: server gave HTTP response to HTTPS client
+
+#添加证书
+cat /etc/docker/daemon.json 
+&#123;
+  &quot;registry-mirrors&quot;: [&quot;https://hub.docker.com&quot;,&quot;https://ms9glx6x.mirror.aliyuncs.com&quot;],
+  &quot;insecure-registries&quot;: [&quot;172.25.250.131:5000&quot;]
+&#125;
+
+#登录账号
+docker login 172.25.250.131:5000
+#如果不登录账号是上传不了，会报错&quot;no basic auth credentials&quot;
+
+# 上传镜像
+docker push 172.25.250.131:5000/my_nginx:v1
+
+# 下载镜像
+docker pull 172.25.250.131:5000/my_nginx:v1
+#查看registry仓库所有镜像
+访问：http://172.25.250.131:5000/v2/_catalog
+
+#查看registry仓库nginx所有版本
+访问：http://172.25.250.131:5000/v2/my_nginx/tags/list
+
+</code></pre>
+<h2 id="5-上传docker-hub公有仓库"><a href="#5-上传docker-hub公有仓库" class="headerlink" title="5. 上传docker hub公有仓库"></a>5. 上传docker hub公有仓库</h2><p>1、Docker hub注册用户：到官网注册账号：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<p><img src="/../../../images/image-20240603131036550.png" alt="image-20240603131036550"></p>
+<p>2、在本地宿主机登录docker</p>
+<p><img src="/../../../images/image-20240603131214943.png" alt="image-20240603131214943"></p>
+<p>3、查看镜像</p>
+<p><img src="/../../../images/image-20240603131902110.png" alt="image-20240603131902110"></p>
+<p>4、tag修改镜像名称，使得推送到仓库</p>
+<pre><code class="perl">推送镜像的规范是：
+docker push  注册docker用户名/REPOSITORY:TAG 
+#注意repository如果没有，会自动创建
+</code></pre>
+<p><img src="/../../../images/image-20240603133112999.png" alt="image-20240603133112999"></p>
+<p>5、将镜像push到Docker Hub</p>
+<p><img src="/../../../images/image-20240603132952621.png" alt="image-20240603132952621"></p>
+<p><img src="/../../../images/image-20240603133043259.png" alt="image-20240603133043259"></p>
+<p>6、删除本地hello-world镜像</p>
+<p><img src="/../../../images/image-20240603133349737.png" alt="image-20240603133349737"></p>
+<p>7、复制pull命令，从docker Hub仓库下载hello-world镜像到本地</p>
+<p><img src="/../../../images/image-20240603133453919.png" alt="image-20240603133453919"></p>
+<p><img src="/../../../images/image-20240603133624093.png" alt="image-20240603133624093"></p>
+<h2 id="6-portainer可视化管理容器"><a href="#6-portainer可视化管理容器" class="headerlink" title="6. portainer可视化管理容器"></a>6. portainer可视化管理容器</h2><ol>
+<li>下载portainer镜像</li>
+</ol>
+<pre><code>docker pull portainer/portainer
+</code></pre>
+<ol start="2">
+<li>运行该portainer容器</li>
+</ol>
+<pre><code class="Perl"> docker run --name portainer -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock  portainer/portainer
+ #-v映射的原因是：portainer是一个容器，因为我们要要portainer可视化管理容器，就是相当于容器内调用宿主机的docker管理，所以必须映射要映射宿主机的docker.sock
+</code></pre>
+<ol start="3">
+<li>访问宿主机IP:9000,并注册用户</li>
+</ol>
+<p><img src="/.com//../..%5Cimages%5Cimage-20240605140910016.png" alt="image-20240605140910016"></p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/07/%E7%AC%94%E8%AE%B0/%E5%AE%B9%E5%99%A8/Docker-02/" id="toc-header" class="mdui-ripple">文章目录</a>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1%E6%89%8B%E5%8A%A8%E5%BC%80%E5%90%AF%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%86%85%E6%A0%B8%E6%95%B0%E6%8D%AE%E5%8C%85%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD"><span class="toc-text">1.1手动开启宿主机内核数据包转发功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2%E5%AE%89%E8%A3%85%E6%B5%81%E7%A8%8B"><span class="toc-text">1.2安装流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="toc-text">2. 镜像管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F"><span class="toc-text">2.1 搜索镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="toc-text">2.2 下载镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F%E4%BF%A1%E6%81%AF"><span class="toc-text">2.3 查看镜像信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E5%90%8D"><span class="toc-text">2.4 修改镜像名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F"><span class="toc-text">2.5 删除镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E5%AF%BC%E5%87%BA%E9%95%9C%E5%83%8F"><span class="toc-text">2.6 导出镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E5%AF%BC%E5%85%A5%E9%95%9C%E5%83%8F"><span class="toc-text">2.7 导入镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-%E5%AE%B9%E5%99%A8%E6%89%93%E5%8C%85%E4%B8%BA%E9%95%9C%E5%83%8F"><span class="toc-text">2.8 容器打包为镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-%E4%B8%8A%E4%BC%A0%E9%95%9C%E5%83%8F"><span class="toc-text">2.9 上传镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-%E8%87%AA%E5%88%B6docker%E9%95%9C%E5%83%8F"><span class="toc-text">2.10 自制docker镜像</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-text">3. 容器管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%BC%80%E5%90%AF-%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8"><span class="toc-text">3.1 开启&#x2F;停止容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E5%AE%B9%E5%99%A8"><span class="toc-text">3.2 批量处理容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E8%BF%9B%E7%A8%8B%E5%88%97%E8%A1%A8"><span class="toc-text">3.3 查看容器进程列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="toc-text">3.4 进入容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E4%BF%A1%E6%81%AF"><span class="toc-text">3.5 查看容器信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E6%8B%B7%E8%B4%9D%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE"><span class="toc-text">3.6 拷贝容器数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-%E9%99%90%E5%88%B6%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E4%BD%BF%E7%94%A8"><span class="toc-text">3.7 限制容器资源使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">3.8 容器数据持久化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%83%A8%E7%BD%B2%E7%A7%81%E6%9C%89registry"><span class="toc-text">4. 部署私有registry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%B8%8A%E4%BC%A0docker-hub%E5%85%AC%E6%9C%89%E4%BB%93%E5%BA%93"><span class="toc-text">5. 上传docker hub公有仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-portainer%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%AE%B9%E5%99%A8"><span class="toc-text">6. portainer可视化管理容器</span></a>
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

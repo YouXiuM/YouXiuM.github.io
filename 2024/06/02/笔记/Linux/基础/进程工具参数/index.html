@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>进程工具参数 | MaYouXiu</title>
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="别问，问就是我，马优秀！！！" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="MaYouXiu" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>MAYOUXIU</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;MAYOUXIU</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading">
+            <div class="article">
+    <div>
+        <h1>进程工具参数</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux-%E5%9F%BA%E7%A1%80/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux - 基础
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #00bcd4">
+                    Linux
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9F%BA%E7%A1%80/" style="color: #ff7d73">
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><strong>PS</strong>：列出当前进程</p>
+<p><strong>特点：只是查看某一个时刻的状态，不具有实时性</strong></p>
+<p><strong>三种风格：UNIX、BSD、GNU</strong></p>
+<p><img src="/../../../../images/clip_image002-17172994745881.jpg" alt="img"></p>
+<p>UNIX风格参数：</p>
+<pre><code class="perl">-A 显示所有进程
+
+-e 显示所有进程
+
+-l 显示长列表
+
+-f 显示完整格式的输出
+
+-o 自定义输出 例如: ps -o uid.pid.time.time
+</code></pre>
+<p><img src="/../../../../images/clip_image004-17172994745892.jpg" alt="img"></p>
+<p>名词解释：</p>
+<pre><code class="perl">F:   指内核分配给进程的系统标记。
+
+S: 指进程状态(O是正在运行。S是休眠。R是可运行，正等待运行。Z是僵化，进程已结束但父进程已不存在,T是停止)。
+
+UID: 指启动这些进程的用户。
+
+PID: 是指进程ID。 
+
+PPID: 是指：父进程ID（该进程是由另一个进程启动的）。
+
+C:  是指进程生命周期中的CUP利用率。 
+
+STIME:是指进程启动时的系统时间。
+
+TTY: 是指进程启动时的终端设备。
+
+TIME: 是指运行进程需要的累计CPU时间。
+
+CMD: 是指启动的程序名称。
+
+PRT: 是指进程的优先级（越大数字表越低的优先级）。 
+
+NT:  是指谦让度值，用来参与决定优先级。 
+
+ADDR: 是指进程的内存地址。 
+
+SZ:  是指假如进程被换出，所需的交换空间在大致大小。 
+
+WCHAN:是指进程休眠的内核函数的地址。
+</code></pre>
+<p>BSD风格</p>
+<p>r  只显示运行中的进程</p>
+<p>a  显示与任意终点关联的所有进程</p>
+<p>l  采用长模式</p>
+<p><img src="/../../../../images/clip_image006-17172994745894.jpg" alt="img"></p>
+<p>VSZ: 指进程再内存中的大小，单位kb</p>
+<p>RSS: 指进程在未换出时占用的物理内存</p>
+<p>STAT:代表当前进程状态的双字符状态码</p>
+<p>pstree：以树形的结构列出系统内的进程</p>
+<p>top 动态、实时查看系统内的进程状态</p>
+<p><img src="/../../../../images/clip_image008-17172994745893.jpg" alt="img"></p>
+<p><img src="/../../../../images/clip_image010-17172994745895.jpg" alt="img"></p>
+<p>系统的启动时间 系统的状态up 登录系统的⽤⼾数，负载状态（1分钟 5分钟 15分钟）</p>
+<p><img src="/../../../../images/clip_image012-17172994745898.jpg" alt="img"></p>
+<p>任务的总数，运⾏中的任务，休眠中的任务，停⽌状态的任务 僵停状态的任务数</p>
+<p><img src="/../../../../images/clip_image014-17172994745896.jpg" alt="img"></p>
+<p>cpu的使⽤率 ⽤⼾空间的cpu使⽤率 内核空间的cpu使⽤率 nice值 id系统的繁忙状态 IO相关属性</p>
+<p>ni：表示允许低优先级进程的CPU时间比例,负值表示高优先级，正值则相反</p>
+<p><img src="/../../../../images/clip_image016-17172994745897.jpg" alt="img"></p>
+<p>物理内存空间相关的信息 总数 空闲 使⽤数 缓存</p>
+<p><img src="/../../../../images/clip_image018-17172994745899.jpg" alt="img"></p>
+<p>虚拟内存相关的统计数 总数 空闲 使⽤ 可⽤的</p>
+<p><img src="/../../../../images/clip_image020-171729947458910.jpg" alt="img"></p>
+<p>进程的ID ⽤⼾ 优先级 nice 虚拟内存 物理内存 进程的状态 cpu的占⽤率 内存的占⽤率 使⽤的 CPU的时间 进程启动命令名称</p>
+<p>进程状态包括： D &#x3D; 不可中断睡眠 R &#x3D; 运行中或可运行  S &#x3D; 睡眠中</p>
+<p>​             T &#x3D; 已停止或已跟踪   Z &#x3D; 僵停</p>
+<p>P：根据CPU的使用率，降序排列</p>
+<p>M：根据内存的使用率，降序排列</p>
+<p>-d 每n秒查看一次</p>
+<p>-n 最大执行次数</p>
+<p>-p 进程号</p>
+<p><img src="/../../../../images/clip_image022-171729947458912.jpg" alt="img"></p>
+<p>uptime</p>
+<p>查看系统的负载情况，以及系统时间</p>
+<p><img src="/../../../../images/clip_image024-171729947458911.jpg" alt="img"></p>
+<p>vmstat</p>
+<p>查看系统性能的即时系统信息</p>
+<p><img src="/../../../../images/clip_image026-171729947458913.jpg" alt="img"></p>
+<p>free</p>
+<p>查看系统内存使用情况</p>
+<p><img src="/../../../../images/clip_image028-171729947458914.jpg" alt="img"></p>
+<p>默认显示单位:Kb, -m 是Mib，-h是Gid</p>
+<p>作业和会话(job and session)</p>
+<pre><code class="perl">1、job control 是 shell 的⼀种功能，允许单个 shell 实例运⾏和管理多个命令
+
+2、⼀个终端同⼀时间只能对⼀个作业发送信号和读取信息，这个作业进程成为前台进程
+
+3、可以将作业进程放⼊后台，可以运⾏也可以暂停
+
+4、每个 terminal 就是⼀个会话，⾥⾯可能含有⼀个前台进程和任意数量的后台进程。⼀个 作业只能属于⼀个会话
+
+5、ps 输出中有些进程由系统启动，不是由 shell 提⽰符启动。这种进程没有 terminal，⽆ 法切换到前台，在 ps 中显⽰为 ？
+</code></pre>
+<p>后台运行作业</p>
+<p>后台工作：命令 + &amp;</p>
+<p>查看后台作业的ID：jobs</p>
+<p><img src="/../../../../images/clip_image030-171729947458916.jpg" alt="img"></p>
+<p>fg %job id 可将后台作业转⾄前台</p>
+<p><img src="/../../../../images/clip_image031-171729947458915.png" alt="img"></p>
+<p>ctrl+z 可将前台进程放到后台，并暂停运⾏</p>
+<p><img src="/../../../../images/clip_image032-171729947458917.png" alt="img"></p>
+<p>bg %jobid 可以在后台继续运⾏作业</p>
+<p><img src="/../../../../images/clip_image033-171729947458918.png" alt="img"></p>
+<p>nohup</p>
+<p>作用：在后台运行，不受终端挂断的影响</p>
+<p>例如：主机的虚拟主机serverA执行：nohup ping baidu.com &gt; &#x2F;dev&#x2F;null &amp; 如果退出终端，换另一个serverB，serverA的那个任务也不会被影响</p>
+<p>控制进程调度</p>
+<p>1、 通过使⽤称为 time-slicing 或 multitasking 的技术，Linux 和其他操作系统可运⾏超出</p>
+<p>其处理单元数的进程</p>
+<p>2、 操作系统进程调度程序在单个核⼼上的进程之间快速切换，从⽽给⼈⼀种有多个进程 在同时运⾏的印象</p>
+<p>进度优先级：</p>
+<p>可以设置针对不同的进程，采⽤不同的调度策略</p>
+<p>系统上运⾏的⼤多数进程所使⽤的调度策略称为SCHED_OTHER</p>
+<p>(也称为 SCHED_NORMAL), 是Linux默认的调度策略， 其目标是安装进程的优先级和运行</p>
+<p>时间的比例来分配CPU时间，以确保公平性</p>
+<p>可为采⽤ SCHED_NORMAL 策略运⾏的进程指定相对优先级，优先级称为 nice 值</p>
+<p><img src="/../../../../images/clip_image035-171729947458919.jpg" alt="img"></p>
+<p>nice值范围：-20(max)~19(min)</p>
+<p>默认情况下：进程将继承其父进程的nice值，通常为0</p>
+<p>nice 值越⾼，表⽰优先级越低（该进程容易将其 CPU 使⽤量让给其他进程）；nice 值越低，</p>
+<p>表⽰优先级越⾼ （该进程更加不倾向于让出 CPU）</p>
+<p>如果不存在资源争⽤（例如，当活动进程数少于可⽤ CPU 核⼼数时），即使 nice 值 ⾼的</p>
+<p>进程也将仍使⽤尽可能 多 CPU 资源</p>
+<p>设置nice值和权限</p>
+<p>只有root用户可以降低进程的nice值，普通用户的权限仅限于提高自己进程</p>
+<p>的nice值，不能降低自己进程的nice值</p>
+<p><img src="/../../../../images/clip_image037-171729947459022.jpg" alt="img"></p>
+<p>更改现有进程的NICE级别</p>
+<p>1、    renice命令</p>
+<p>2、    top命令，在交互式界面中，按r键访问renice命令,输入pid，nice值</p>
+<p>中断进程(kill)</p>
+<p>使用signals来控制进程</p>
+<p>signals 指的是发给进程的软件中断</p>
+<p>signals 向执⾏中的程序报告事件</p>
+<p>⽣成 signals 的事件可以是错误或者外部事件</p>
+<pre><code class="perl">一些常见的signals：
+
+1 HUP 挂起：常⽤来重新加载配置，不是终⽌，与19有区别 
+
+2 INT 键盘中断：导致程序终⽌，通过键⼊ ctrl-c发送 
+
+3 QUIT 键盘退出：与2类似，在终⽌是发⽣进程转储。输⼊ quit或者 ctrl-\ 发送 
+
+9 KILL 中断：⽆法拦截 导致⽴即终⽌进程，最致命 
+
+15 TERM 终⽌：（默认） 正常关闭 
+
+18 CONT 继续：恢复进程 
+
+19 STOP 暂时停⽌：⽆法拦截 
+
+20 TSTP 键盘停⽌：通过 ctrl-z 发送，可以被拦截、忽略或处理
+</code></pre>
+<p>kill(杀死进程)</p>
+<p>kill -l   查看可以发生的signals</p>
+<p>格式：kill -signal PID</p>
+<pre><code class="perl">killall(运行通过进程名字结束进程, 而不是通过PID)
+
+格式： killall [选项] 进程名  注意：选项是可选的
+
+-i：交互式确认
+
+-u：仅终止属于指定用户的进程
+
+-e：要求进程名与指定的名称完全匹配，而不是部分匹配
+
+例如：killall -u jack httpd  终止所有名为httpd，且用户”jack”的进程
+</code></pre>
+<p>pkill -SIGKILL -u username 强制中断某⼀⽤⼾的所有进程（注：pkill -9 -u username 也可）</p>
+<p><img src="/../../../../images/clip_image039-171729947458920.jpg" alt="img"></p>
+<p>以管理员⾝份注销⽤⼾</p>
+<p>w命令：显⽰当前登录系统的⽤⼾</p>
+<p><img src="/../../../../images/clip_image041-171729947459021.jpg" alt="img"></p>
+<pre><code class="perl">TTY列：显示用户的位置，pts/N表示图形化终端, ttyN表示文字界面终端
+
+FROM列：显示用户来自，:0表示本机
+
+JCPU：表示后台程序使用CPU时间
+
+PCPU：表示前台程序使用CPU时间
+
+所有用户登录会话都与某个终端设备(TTY)相关联。如果设备名称为 pts/N，说明这是一个与图形终端窗口或远程登录会话相关联的伪终端。如果为 ttyN，则说明用户位于一个系统控制台、替代控制台或其他直接连接的终端设备上
+</code></pre>
+<p>查看终端的名称：tty</p>
+
+    </div>
+
+ 
+    
+    
+    <ul class="mdui-menu fixed-toc" id="toc">
+        <li class="mdui-menu-item">
+            <a href="/2024/06/02/%E7%AC%94%E8%AE%B0/Linux/%E5%9F%BA%E7%A1%80/%E8%BF%9B%E7%A8%8B%E5%B7%A5%E5%85%B7%E5%8F%82%E6%95%B0/" id="toc-header" class="mdui-ripple">文章目录</a>
+            
+        </li>
+    </ul>
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 MaYouXiu
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;John Doe
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
